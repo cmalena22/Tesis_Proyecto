@@ -43,7 +43,7 @@ public class ConsultaMedica implements Serializable {
 	private Set<RecetaMedica> listaRecetaMedica;
 	private static final long serialVersionUID = 1L;
 
-	public ConsultaMedica() {
+	public ConsultaMedica() { 
 		super();
 	}
    
