@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 public abstract class AbstractFacade<T> {
 
 	   private Class<T> entityClass;
-	   //metodos
+	   //metodos mmejkdfh
 	    public AbstractFacade(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	    }
