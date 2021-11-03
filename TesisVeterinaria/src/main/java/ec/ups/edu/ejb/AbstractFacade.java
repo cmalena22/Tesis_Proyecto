@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 public abstract class AbstractFacade<T> {
 
 	   private Class<T> entityClass;
-
+	   //metodos
 	    public AbstractFacade(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	    }
@@ -18,6 +18,7 @@ public abstract class AbstractFacade<T> {
 		getEntityManager().persist(entity);
 	    }
 
+	   
 	    public void edit(T entity) {
 		getEntityManager().merge(entity);
 	    }
