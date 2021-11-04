@@ -3,6 +3,7 @@ package ec.ups.edu.modelo;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
 
@@ -38,7 +39,105 @@ public class HistoriaClinica implements Serializable {
 	
 	
 	public HistoriaClinica() {
-		super();
 	}
+
+
+	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota mascota,
+			MedicoVeterinario medicoVeterinario) {
+		super();
+		this.idHistorial = idHistorial;
+		this.diaDeAdminision = diaDeAdminision;
+		this.hora = hora;
+		this.mascota = mascota;
+		this.medicoVeterinario = medicoVeterinario;
+	}
+
+
+	public int getIdHistorial() {
+		return idHistorial;
+	}
+
+
+	public void setIdHistorial(int idHistorial) {
+		this.idHistorial = idHistorial;
+	}
+
+
+	public Date getDiaDeAdminision() {
+		return diaDeAdminision;
+	}
+
+
+	public void setDiaDeAdminision(Date diaDeAdminision) {
+		this.diaDeAdminision = diaDeAdminision;
+	}
+
+
+	public LocalDateTime getHora() {
+		return hora;
+	}
+
+
+	public void setHora(LocalDateTime hora) {
+		this.hora = hora;
+	}
+
+
+	public Mascota getMascota() {
+		return mascota;
+	}
+
+
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
+	}
+
+
+	public MedicoVeterinario getMedicoVeterinario() {
+		return medicoVeterinario;
+	}
+
+
+	public void setMedicoVeterinario(MedicoVeterinario medicoVeterinario) {
+		this.medicoVeterinario = medicoVeterinario;
+	}
+
+
+	public Set<ConsultaMedica> getListaConsultaMedica() {
+		return listaConsultaMedica;
+	}
+
+
+	public void setListaConsultaMedica(Set<ConsultaMedica> listaConsultaMedica) {
+		this.listaConsultaMedica = listaConsultaMedica;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idHistorial);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HistoriaClinica other = (HistoriaClinica) obj;
+		return idHistorial == other.idHistorial;
+	}
+
+
+	@Override
+	public String toString() {
+		return "HistoriaClinica [idHistorial=" + idHistorial + ", diaDeAdminision=" + diaDeAdminision + ", hora=" + hora
+				+ ", mascota=" + mascota + ", medicoVeterinario=" + medicoVeterinario + ", listaConsultaMedica="
+				+ listaConsultaMedica + "]";
+	}
+	
    
 }
