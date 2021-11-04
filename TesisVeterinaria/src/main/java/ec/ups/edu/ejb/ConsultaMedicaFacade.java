@@ -19,4 +19,5 @@ public class ConsultaMedicaFacade extends AbstractFacade<ConsultaMedica>{
 		// TODO Auto-generated method stub
 		return em;
 	}
+
 }

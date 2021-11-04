@@ -1,5 +1,6 @@
 package ec.ups.edu.ejb;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import ec.ups.edu.modelo.Propietario;
@@ -18,4 +19,5 @@ public class PropietarioFacade extends AbstractFacade<Propietario>{
 		// TODO Auto-generated method stub
 		return em;
 	}
+
 }

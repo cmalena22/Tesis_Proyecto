@@ -2,6 +2,7 @@ package ec.ups.edu.ejb;
 
 import java.util.List;
 
+
 import javax.persistence.EntityManager;
 
 public abstract class AbstractFacade<T> {
@@ -54,4 +55,6 @@ public abstract class AbstractFacade<T> {
 		return ((Long) q.getSingleResult()).intValue();
 	    }
 	   
+    
+   
 }
