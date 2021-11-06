@@ -2,7 +2,9 @@ package ec.ups.edu.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -29,17 +31,18 @@ public class MedicoVeterinario implements Serializable {
 	private String especialidad;
 	//foreing keys
 	//relacion historia clinica medico
-	@OneToOne
-	@JoinColumn
-	private HistoriaClinica id_historia_medico;
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "id_historia_medico")
+	private Set<HistoriaClinica> historia= new HashSet<HistoriaClinica>();
+	
 	public MedicoVeterinario() {
 		super();
 	}
 	
 	
-	
-	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String correo,String contraseña, String direccion,
-			Date fechaNac, String celular, String titulo, String especialidad, HistoriaClinica id_historia_medico) {
+
+	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String correo, String contraseña,
+			String direccion, Date fechaNac, String celular, String titulo, String especialidad) {
+		super();
 		this.cedulaId = cedulaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
@@ -50,7 +53,6 @@ public class MedicoVeterinario implements Serializable {
 		this.celular = celular;
 		this.titulo = titulo;
 		this.especialidad = especialidad;
-		this.id_historia_medico = id_historia_medico;
 	}
 
 
@@ -109,11 +111,19 @@ public class MedicoVeterinario implements Serializable {
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
-	public HistoriaClinica getId_historia_medico() {
-		return id_historia_medico;
+	
+	
+
+
+
+	public Set<HistoriaClinica> getHistoria() {
+		return historia;
 	}
-	public void setId_historia_medico(HistoriaClinica id_historia_medico) {
-		this.id_historia_medico = id_historia_medico;
+
+
+
+	public void setHistoria(Set<HistoriaClinica> historia) {
+		this.historia = historia;
 	}
 
 
@@ -156,8 +166,12 @@ public class MedicoVeterinario implements Serializable {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
 				+ ", correo=" + correo + ", contraseña=" + contraseña + ", direccion=" + direccion + ", fechaNac="
 				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo + ", especialidad=" + especialidad
-				+ ", id_historia_medico=" + id_historia_medico + "]";
+				+ ", historia=" + historia + "]";
 	}
+
+
+
+	
 	
 	
    
