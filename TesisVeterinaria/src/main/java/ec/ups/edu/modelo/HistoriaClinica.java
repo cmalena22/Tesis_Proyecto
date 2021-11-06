@@ -26,13 +26,16 @@ public class HistoriaClinica implements Serializable {
 	private LocalDateTime  hora;
 	//Foreing Keys
 	//relacion historial_mascota
-	@OneToOne(mappedBy = "id_historia_mascota")
-	private Mascota mascota;
+	
+	
+	@OneToOne
+	@JoinColumn
+	private Mascota id_historia_mascota;
 	
 	//relacion historia medico
 	@ManyToOne
 	@JoinColumn
-	private HistoriaClinica id_historia_medico;
+	private Mascota id_historia_medico;
 	
 	
 	//relacion historia consulta
@@ -45,31 +48,19 @@ public class HistoriaClinica implements Serializable {
 
 
 	
+	
 
-	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota mascota,
-			HistoriaClinica id_historia_medico, Set<ConsultaMedica> listaConsultaMedica) {
+	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota id_historia_mascota,
+			Mascota id_historia_medico, Set<ConsultaMedica> listaConsultaMedica) {
 		super();
 		this.idHistorial = idHistorial;
 		this.diaDeAdminision = diaDeAdminision;
 		this.hora = hora;
-		this.mascota = mascota;
+		this.id_historia_mascota = id_historia_mascota;
 		this.id_historia_medico = id_historia_medico;
 		this.listaConsultaMedica = listaConsultaMedica;
 	}
 
-
-
-
-	public HistoriaClinica getId_historia_medico() {
-		return id_historia_medico;
-	}
-
-
-
-
-	public void setId_historia_medico(HistoriaClinica id_historia_medico) {
-		this.id_historia_medico = id_historia_medico;
-	}
 
 
 
@@ -104,17 +95,29 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
-	public Mascota getMascota() {
-		return mascota;
+
+
+	public Mascota getId_historia_medico() {
+		return id_historia_medico;
 	}
 
 
-	public void setMascota(Mascota mascota) {
-		this.mascota = mascota;
+
+
+
+
+
+
+	public void setId_historia_medico(Mascota id_historia_medico) {
+		this.id_historia_medico = id_historia_medico;
 	}
 
 
-	
+
+
+
+
+
 
 	public Set<ConsultaMedica> getListaConsultaMedica() {
 		return listaConsultaMedica;
@@ -147,12 +150,23 @@ public class HistoriaClinica implements Serializable {
 
 
 
+
 	@Override
 	public String toString() {
 		return "HistoriaClinica [idHistorial=" + idHistorial + ", diaDeAdminision=" + diaDeAdminision + ", hora=" + hora
-				+ ", mascota=" + mascota + ", id_historia_medico=" + id_historia_medico + ", listaConsultaMedica="
-				+ listaConsultaMedica + "]";
+				+ ", id_historia_mascota=" + id_historia_mascota + ", id_historia_medico=" + id_historia_medico
+				+ ", listaConsultaMedica=" + listaConsultaMedica + "]";
 	}
+
+
+
+
+
+
+
+
+	
+
 
 
 	
