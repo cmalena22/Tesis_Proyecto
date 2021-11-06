@@ -39,8 +39,10 @@ public class HistoriaClinica implements Serializable {
 	
 	
 	//relacion historia consulta
-	@OneToMany(mappedBy = "id_historia_consulta")
-	private Set<ConsultaMedica> listaConsultaMedica;
+	@ManyToOne
+	@JoinColumn
+	private ConsultaMedica id_historia_consulta;
+	
 	
 	
 	public HistoriaClinica() {
@@ -50,16 +52,26 @@ public class HistoriaClinica implements Serializable {
 	
 	
 
+	
+
+
+
+
 	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota id_historia_mascota,
-			Mascota id_historia_medico, Set<ConsultaMedica> listaConsultaMedica) {
+			Mascota id_historia_medico, ConsultaMedica id_historia_consulta) {
 		super();
 		this.idHistorial = idHistorial;
 		this.diaDeAdminision = diaDeAdminision;
 		this.hora = hora;
 		this.id_historia_mascota = id_historia_mascota;
 		this.id_historia_medico = id_historia_medico;
-		this.listaConsultaMedica = listaConsultaMedica;
+		this.id_historia_consulta = id_historia_consulta;
 	}
+
+
+
+
+
 
 
 
@@ -116,17 +128,27 @@ public class HistoriaClinica implements Serializable {
 
 
 
-
-
-
-	public Set<ConsultaMedica> getListaConsultaMedica() {
-		return listaConsultaMedica;
+	public Mascota getId_historia_mascota() {
+		return id_historia_mascota;
 	}
 
 
-	public void setListaConsultaMedica(Set<ConsultaMedica> listaConsultaMedica) {
-		this.listaConsultaMedica = listaConsultaMedica;
+
+	public void setId_historia_mascota(Mascota id_historia_mascota) {
+		this.id_historia_mascota = id_historia_mascota;
 	}
+
+
+
+	public ConsultaMedica getId_historia_consulta() {
+		return id_historia_consulta;
+	}
+
+	
+	public void setId_historia_consulta(ConsultaMedica id_historia_consulta) {
+		this.id_historia_consulta = id_historia_consulta;
+	}
+
 
 
 	@Override
@@ -149,25 +171,14 @@ public class HistoriaClinica implements Serializable {
 
 
 
-
-
 	@Override
 	public String toString() {
 		return "HistoriaClinica [idHistorial=" + idHistorial + ", diaDeAdminision=" + diaDeAdminision + ", hora=" + hora
 				+ ", id_historia_mascota=" + id_historia_mascota + ", id_historia_medico=" + id_historia_medico
-				+ ", listaConsultaMedica=" + listaConsultaMedica + "]";
+				+ ", id_historia_consulta=" + id_historia_consulta + "]";
 	}
 
 
 
 
-
-
-
-
-	
-
-
-
-	
 }

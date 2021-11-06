@@ -32,9 +32,9 @@ public class ConsultaMedica implements Serializable {
 	private String observaciones;
 	//foreing Keys
 	//relacion historia-consulta
-	@ManyToOne
-	@JoinColumn
-	private HistoriaClinica id_historia_consulta;
+	
+	@OneToMany(mappedBy = "id_historia_consulta")
+	private Set<HistoriaClinica> listaConsultaMedica;
 	
 	//relacion consulta-constante fisiologicas
 	@OneToOne(mappedBy = "id_consulta_constantes")
@@ -47,10 +47,12 @@ public class ConsultaMedica implements Serializable {
 	public ConsultaMedica() { 
 	}
 
+	
+
 	public ConsultaMedica(int idConsultaMedica, String motivoConsulta, char vacunacion, String producto,
 			char desparacitacion, Date fechas, String estadoReproductivo, String procedencia, String anamnesis,
-			String diagnostico, String pronostico, String observaciones, HistoriaClinica id_historia_consulta,
-			ConstantesFisiologicas constantesFisiologicas) {
+			String diagnostico, String pronostico, String observaciones, Set<HistoriaClinica> listaConsultaMedica,
+			ConstantesFisiologicas constantesFisiologicas, Set<RecetaMedica> listaRecetaMedica) {
 		super();
 		this.idConsultaMedica = idConsultaMedica;
 		this.motivoConsulta = motivoConsulta;
@@ -64,9 +66,12 @@ public class ConsultaMedica implements Serializable {
 		this.diagnostico = diagnostico;
 		this.pronostico = pronostico;
 		this.observaciones = observaciones;
-		this.id_historia_consulta = id_historia_consulta;
+		this.listaConsultaMedica = listaConsultaMedica;
 		this.constantesFisiologicas = constantesFisiologicas;
+		this.listaRecetaMedica = listaRecetaMedica;
 	}
+
+
 
 	public int getIdConsultaMedica() {
 		return idConsultaMedica;
@@ -164,13 +169,19 @@ public class ConsultaMedica implements Serializable {
 		this.observaciones = observaciones;
 	}
 
-	public HistoriaClinica getId_historia_consulta() {
-		return id_historia_consulta;
+	
+
+	public Set<HistoriaClinica> getListaConsultaMedica() {
+		return listaConsultaMedica;
 	}
 
-	public void setId_historia_consulta(HistoriaClinica id_historia_consulta) {
-		this.id_historia_consulta = id_historia_consulta;
+
+
+	public void setListaConsultaMedica(Set<HistoriaClinica> listaConsultaMedica) {
+		this.listaConsultaMedica = listaConsultaMedica;
 	}
+
+
 
 	public ConstantesFisiologicas getConstantesFisiologicas() {
 		return constantesFisiologicas;
@@ -205,15 +216,19 @@ public class ConsultaMedica implements Serializable {
 		return idConsultaMedica == other.idConsultaMedica;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ConsultaMedica [idConsultaMedica=" + idConsultaMedica + ", motivoConsulta=" + motivoConsulta
 				+ ", vacunacion=" + vacunacion + ", producto=" + producto + ", desparacitacion=" + desparacitacion
 				+ ", fechas=" + fechas + ", estadoReproductivo=" + estadoReproductivo + ", procedencia=" + procedencia
 				+ ", anamnesis=" + anamnesis + ", diagnostico=" + diagnostico + ", pronostico=" + pronostico
-				+ ", observaciones=" + observaciones + ", id_historia_consulta=" + id_historia_consulta
+				+ ", observaciones=" + observaciones + ", listaConsultaMedica=" + listaConsultaMedica
 				+ ", constantesFisiologicas=" + constantesFisiologicas + ", listaRecetaMedica=" + listaRecetaMedica
 				+ "]";
 	}
+
+	
    
 }
