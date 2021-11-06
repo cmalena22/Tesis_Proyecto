@@ -21,6 +21,7 @@ public class MedicoVeterinario implements Serializable {
 	private String nombres;
 	private String apellidos;
 	private String correo;
+	private String contraseña;
 	private String direccion;
 	private Date fechaNac;
 	private String celular;
@@ -37,12 +38,13 @@ public class MedicoVeterinario implements Serializable {
 	
 	
 	
-	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String correo, String direccion,
+	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String correo,String contraseña, String direccion,
 			Date fechaNac, String celular, String titulo, String especialidad, HistoriaClinica id_historia_medico) {
 		this.cedulaId = cedulaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
+		this.contraseña = contraseña;
 		this.direccion = direccion;
 		this.fechaNac = fechaNac;
 		this.celular = celular;
@@ -116,12 +118,24 @@ public class MedicoVeterinario implements Serializable {
 
 
 
+	public String getContraseña() {
+		return contraseña;
+	}
+
+
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(cedulaId);
 	}
 
-
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -140,9 +154,9 @@ public class MedicoVeterinario implements Serializable {
 	@Override
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
-				+ ", correo=" + correo + ", direccion=" + direccion + ", fechaNac=" + fechaNac + ", celular=" + celular
-				+ ", titulo=" + titulo + ", especialidad=" + especialidad + ", id_historia_medico=" + id_historia_medico
-				+ "]";
+				+ ", correo=" + correo + ", contraseña=" + contraseña + ", direccion=" + direccion + ", fechaNac="
+				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo + ", especialidad=" + especialidad
+				+ ", id_historia_medico=" + id_historia_medico + "]";
 	}
 	
 	
