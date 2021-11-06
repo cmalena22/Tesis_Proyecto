@@ -27,9 +27,13 @@
          can find it in the source at src/main/webapp/WEB-INF/TesisVeterinaria-ds.xml -->
       <jta-data-source>java:jboss/datasources/TesisVeterinariaDS/MySqlDSSS</jta-data-source>
       <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+         <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+         <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+         <property name="org.hibernate.dialect.MySQL5Dialect" value="update"/>
          <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="false" />
+         <property name="hibernate.hbm2ddl.auto" value="update" />
+         <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>
 </persistence>
