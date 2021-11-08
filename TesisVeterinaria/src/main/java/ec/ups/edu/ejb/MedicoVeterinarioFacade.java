@@ -1,9 +1,13 @@
 package ec.ups.edu.ejb;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+
 import ec.ups.edu.modelo.MedicoVeterinario;
 
+@Stateless
 public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 
 	@PersistenceContext(unitName = "primary")

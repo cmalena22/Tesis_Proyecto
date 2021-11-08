@@ -1,10 +1,12 @@
 package ec.ups.edu.ejb;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.ups.edu.modelo.ConsultaMedica;
 
+@Stateless
 public class ConsultaMedicaFacade extends AbstractFacade<ConsultaMedica>{
 
 	@PersistenceContext(unitName = "primary")
