@@ -21,6 +21,7 @@ public class Propietario implements Serializable {
 	private String propietario;
 	private String telefono;
 	private String cuidad;
+	
 //foreing keys
 	//relacion propietario mascota
 	@OneToMany(mappedBy = "id_mascota_propietario")
