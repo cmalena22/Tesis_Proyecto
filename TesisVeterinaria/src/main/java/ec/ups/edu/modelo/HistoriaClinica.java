@@ -36,7 +36,7 @@ public class HistoriaClinica implements Serializable {
 	//relacion historia medico
 	@ManyToOne
 	@JoinColumn
-	private Mascota id_historia_medico;
+	private MedicoVeterinario id_historia_medico;
 	
 	
 	//relacion historia consulta
@@ -53,13 +53,10 @@ public class HistoriaClinica implements Serializable {
 	
 	
 
-	
-
-
 
 
 	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota id_historia_mascota,
-			Mascota id_historia_medico, ConsultaMedica id_historia_consulta) {
+			MedicoVeterinario id_historia_medico, ConsultaMedica id_historia_consulta) {
 		super();
 		this.idHistorial = idHistorial;
 		this.diaDeAdminision = diaDeAdminision;
@@ -68,9 +65,6 @@ public class HistoriaClinica implements Serializable {
 		this.id_historia_medico = id_historia_medico;
 		this.id_historia_consulta = id_historia_consulta;
 	}
-
-
-
 
 
 
@@ -110,7 +104,12 @@ public class HistoriaClinica implements Serializable {
 
 
 
-	public Mascota getId_historia_medico() {
+	
+
+
+
+
+	public MedicoVeterinario getId_historia_medico() {
 		return id_historia_medico;
 	}
 
@@ -120,10 +119,11 @@ public class HistoriaClinica implements Serializable {
 
 
 
-
-	public void setId_historia_medico(Mascota id_historia_medico) {
+	public void setId_historia_medico(MedicoVeterinario id_historia_medico) {
 		this.id_historia_medico = id_historia_medico;
 	}
+
+
 
 
 
