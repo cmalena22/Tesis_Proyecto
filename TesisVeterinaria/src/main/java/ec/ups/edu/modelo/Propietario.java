@@ -22,7 +22,7 @@ public class Propietario implements Serializable {
 	private String telefono;
 	private String cuidad;
 	
-//foreing keys
+	//foreing keys
 	//relacion propietario mascota
 	@OneToMany(mappedBy = "id_mascota_propietario")
 	private Set<Mascota>listMascotas;

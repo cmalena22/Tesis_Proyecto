@@ -22,13 +22,15 @@ public class RecetaMedica implements Serializable {
 	private String prescripcion;
 	private static final long serialVersionUID = 1L;
 //foreing keys
+	
 	//relacon consulta medica receta
 	@ManyToOne
 	@JoinColumn
-	private RecetaMedica id_consultas_recetas;
+	private ConsultaMedica id_consultas_recetas;
+	
 	public RecetaMedica() {
 	}
-	public RecetaMedica(int idReceta, Date fecha, String rp, String prescripcion, RecetaMedica id_consultas_recetas) {
+	public RecetaMedica(int idReceta, Date fecha, String rp, String prescripcion, ConsultaMedica id_consultas_recetas) {
 		this.idReceta = idReceta;
 		this.fecha = fecha;
 		this.rp = rp;
@@ -59,10 +61,10 @@ public class RecetaMedica implements Serializable {
 	public void setPrescripcion(String prescripcion) {
 		this.prescripcion = prescripcion;
 	}
-	public RecetaMedica getId_consultas_recetas() {
+	public ConsultaMedica getId_consultas_recetas() {
 		return id_consultas_recetas;
 	}
-	public void setId_consultas_recetas(RecetaMedica id_consultas_recetas) {
+	public void setId_consultas_recetas(ConsultaMedica id_consultas_recetas) {
 		this.id_consultas_recetas = id_consultas_recetas;
 	}
 	@Override

@@ -23,15 +23,16 @@ public class MedicoVeterinario implements Serializable {
 	private String nombres;
 	private String apellidos;
 	private String correo;
-	private String contraseña;
+	private String contrasena;
 	private String direccion;
 	private Date fechaNac;
 	private String celular;
 	private String titulo;
 	private String especialidad;
 	//foreing keys
+	
 	//relacion historia clinica medico
-	@OneToMany(cascade=CascadeType.ALL,mappedBy = "id_historia_medico")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "id_medico")
 	private Set<HistoriaClinica> historia= new HashSet<HistoriaClinica>();
 	
 	public MedicoVeterinario() {
@@ -47,7 +48,7 @@ public class MedicoVeterinario implements Serializable {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
-		this.contraseña = contraseña;
+		this.contrasena = contraseña;
 		this.direccion = direccion;
 		this.fechaNac = fechaNac;
 		this.celular = celular;
@@ -129,13 +130,13 @@ public class MedicoVeterinario implements Serializable {
 
 
 	public String getContraseña() {
-		return contraseña;
+		return contrasena;
 	}
 
 
 
 	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+		this.contrasena = contraseña;
 	}
 
 
@@ -164,7 +165,7 @@ public class MedicoVeterinario implements Serializable {
 	@Override
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
-				+ ", correo=" + correo + ", contraseña=" + contraseña + ", direccion=" + direccion + ", fechaNac="
+				+ ", correo=" + correo + ", contraseña=" + contrasena + ", direccion=" + direccion + ", fechaNac="
 				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo + ", especialidad=" + especialidad
 				+ ", historia=" + historia + "]";
 	}

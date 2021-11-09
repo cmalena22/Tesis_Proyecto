@@ -31,9 +31,8 @@ public class ConstantesFisiologicas implements Serializable {
 	private String estadoMental;
 	//foreing keys
 	//relacion consulta constantes
-	@OneToOne
-	@JoinColumn
-	private ConsultaMedica id_consulta_constantes;
+	@OneToOne(mappedBy = "id_consulta_constantes")
+	private ConsultaMedica consultasMedicas;
 	
 	
 	public ConstantesFisiologicas() {
@@ -42,7 +41,7 @@ public class ConstantesFisiologicas implements Serializable {
 
 	public ConstantesFisiologicas(int idConstante, String peso, String t, String fCard, String fRes, String mucosas,
 			char asa, String turgenciaPiel, int pulso, String otras, String estadoFisico, String estadoMental,
-			ConsultaMedica id_consulta_constantes) {
+			ConsultaMedica consultasMedicas) {
 		super();
 		this.idConstante = idConstante;
 		this.peso = peso;
@@ -56,7 +55,7 @@ public class ConstantesFisiologicas implements Serializable {
 		this.otras = otras;
 		this.estadoFisico = estadoFisico;
 		this.estadoMental = estadoMental;
-		this.id_consulta_constantes = id_consulta_constantes;
+		this.consultasMedicas = consultasMedicas;
 	}
 
 
@@ -180,13 +179,13 @@ public class ConstantesFisiologicas implements Serializable {
 	}
 
 
-	public ConsultaMedica getId_consulta_constantes() {
-		return id_consulta_constantes;
+	public ConsultaMedica getConsultasMedicas() {
+		return consultasMedicas;
 	}
 
 
-	public void setId_consulta_constantes(ConsultaMedica id_consulta_constantes) {
-		this.id_consulta_constantes = id_consulta_constantes;
+	public void setConsultasMedicas(ConsultaMedica consultasMedicas) {
+		this.consultasMedicas = consultasMedicas;
 	}
 
 
@@ -214,8 +213,9 @@ public class ConstantesFisiologicas implements Serializable {
 		return "ConstantesFisiologicas [idConstante=" + idConstante + ", peso=" + peso + ", T=" + T + ", fCard=" + fCard
 				+ ", fRes=" + fRes + ", mucosas=" + mucosas + ", Asa=" + Asa + ", turgenciaPiel=" + turgenciaPiel
 				+ ", pulso=" + pulso + ", otras=" + otras + ", estadoFisico=" + estadoFisico + ", estadoMental="
-				+ estadoMental + ", id_consulta_constantes=" + id_consulta_constantes + "]";
+				+ estadoMental + ", consultasMedicas=" + consultasMedicas + "]";
 	}
-   
+
+
 	
 }

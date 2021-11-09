@@ -27,18 +27,18 @@ public class Mascota implements Serializable {
 	private int edad;
 	private String coloYSenalesParti;
 	//Foreings Keys
-	//relacion propietario mascota
+	//relacion historia mascota
 	@OneToOne(cascade= CascadeType.ALL,mappedBy = "id_historia_mascota")
 	private HistoriaClinica mascota;
-	//relacion historia clinica mascota
 	
+	
+	//relacion propiertario mascota
 	@ManyToOne
 	@JoinColumn
 	private Propietario id_mascota_propietario;
 	
 	public Mascota() {
 	}
-
 
 	public Mascota(int id_mascota, String nombre, String especie, String raza, String sexo, Date fechaNac, int edad,
 			String coloYSenalesParti, HistoriaClinica mascota, Propietario id_mascota_propietario) {
@@ -55,134 +55,90 @@ public class Mascota implements Serializable {
 		this.id_mascota_propietario = id_mascota_propietario;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public HistoriaClinica getMascota() {
-		return mascota;
-	}
-
-
-
-
-
-	public void setMascota(HistoriaClinica mascota) {
-		this.mascota = mascota;
-	}
-
-
-
-	public Propietario getId_mascota_propietario() {
-		return id_mascota_propietario;
-	}
-
-
-	public void setId_mascota_propietario(Propietario id_mascota_propietario) {
-		this.id_mascota_propietario = id_mascota_propietario;
-	}
-
-
 	public int getId_mascota() {
 		return id_mascota;
 	}
-
 
 	public void setId_mascota(int id_mascota) {
 		this.id_mascota = id_mascota;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
 	public String getEspecie() {
 		return especie;
 	}
-
 
 	public void setEspecie(String especie) {
 		this.especie = especie;
 	}
 
-
 	public String getRaza() {
 		return raza;
 	}
-
 
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
 
-
 	public String getSexo() {
 		return sexo;
 	}
-
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
-
 	public Date getFechaNac() {
 		return fechaNac;
 	}
-
 
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
-
 	public int getEdad() {
 		return edad;
 	}
-
 
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
 
-
 	public String getColoYSenalesParti() {
 		return coloYSenalesParti;
 	}
-
 
 	public void setColoYSenalesParti(String coloYSenalesParti) {
 		this.coloYSenalesParti = coloYSenalesParti;
 	}
 
+	public HistoriaClinica getMascota() {
+		return mascota;
+	}
 
-	
+	public void setMascota(HistoriaClinica mascota) {
+		this.mascota = mascota;
+	}
 
+	public Propietario getId_mascota_propietario() {
+		return id_mascota_propietario;
+	}
 
-	
+	public void setId_mascota_propietario(Propietario id_mascota_propietario) {
+		this.id_mascota_propietario = id_mascota_propietario;
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id_mascota);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -196,7 +152,6 @@ public class Mascota implements Serializable {
 		return id_mascota == other.id_mascota;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", especie=" + especie + ", raza=" + raza
@@ -206,10 +161,5 @@ public class Mascota implements Serializable {
 	}
 
 
-
-
-
-
-	
    
 }

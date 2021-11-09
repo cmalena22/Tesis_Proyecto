@@ -27,16 +27,16 @@ public class HistoriaClinica implements Serializable {
 	private LocalDateTime  hora;
 	//Foreing Keys
 	//relacion historial_mascota
-	
-	
 	@OneToOne
 	@JoinColumn
 	private Mascota id_historia_mascota;
 	
+	
+	
 	//relacion historia medico
 	@ManyToOne
 	@JoinColumn
-	private MedicoVeterinario id_historia_medico;
+	private MedicoVeterinario id_medico;
 	
 	
 	//relacion historia consulta
@@ -50,25 +50,17 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
-	
-	
-
-
 
 	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota id_historia_mascota,
-			MedicoVeterinario id_historia_medico, ConsultaMedica id_historia_consulta) {
+			MedicoVeterinario id_medico, ConsultaMedica id_historia_consulta) {
 		super();
 		this.idHistorial = idHistorial;
 		this.diaDeAdminision = diaDeAdminision;
 		this.hora = hora;
 		this.id_historia_mascota = id_historia_mascota;
-		this.id_historia_medico = id_historia_medico;
+		this.id_medico = id_medico;
 		this.id_historia_consulta = id_historia_consulta;
 	}
-
-
-
-
 
 
 
@@ -77,9 +69,11 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
+
 	public void setIdHistorial(int idHistorial) {
 		this.idHistorial = idHistorial;
 	}
+
 
 
 	public Date getDiaDeAdminision() {
@@ -87,9 +81,11 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
+
 	public void setDiaDeAdminision(Date diaDeAdminision) {
 		this.diaDeAdminision = diaDeAdminision;
 	}
+
 
 
 	public LocalDateTime getHora() {
@@ -97,35 +93,10 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
+
 	public void setHora(LocalDateTime hora) {
 		this.hora = hora;
 	}
-
-
-
-
-	
-
-
-
-
-	public MedicoVeterinario getId_historia_medico() {
-		return id_historia_medico;
-	}
-
-
-
-
-
-
-
-	public void setId_historia_medico(MedicoVeterinario id_historia_medico) {
-		this.id_historia_medico = id_historia_medico;
-	}
-
-
-
-
 
 
 
@@ -141,11 +112,24 @@ public class HistoriaClinica implements Serializable {
 
 
 
+	public MedicoVeterinario getId_medico() {
+		return id_medico;
+	}
+
+
+
+	public void setId_medico(MedicoVeterinario id_medico) {
+		this.id_medico = id_medico;
+	}
+
+
+
 	public ConsultaMedica getId_historia_consulta() {
 		return id_historia_consulta;
 	}
 
-	
+
+
 	public void setId_historia_consulta(ConsultaMedica id_historia_consulta) {
 		this.id_historia_consulta = id_historia_consulta;
 	}
@@ -153,32 +137,15 @@ public class HistoriaClinica implements Serializable {
 
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(idHistorial);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		HistoriaClinica other = (HistoriaClinica) obj;
-		return idHistorial == other.idHistorial;
-	}
-
-
-
-	@Override
 	public String toString() {
 		return "HistoriaClinica [idHistorial=" + idHistorial + ", diaDeAdminision=" + diaDeAdminision + ", hora=" + hora
-				+ ", id_historia_mascota=" + id_historia_mascota + ", id_historia_medico=" + id_historia_medico
+				+ ", id_historia_mascota=" + id_historia_mascota + ", id_medico=" + id_medico
 				+ ", id_historia_consulta=" + id_historia_consulta + "]";
 	}
 
+
+	
+	
 
 
 
