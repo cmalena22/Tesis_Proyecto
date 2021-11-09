@@ -31,23 +31,17 @@ public class Mascota implements Serializable {
 	@OneToOne(cascade= CascadeType.ALL,mappedBy = "id_historia_mascota")
 	private HistoriaClinica mascota;
 	//relacion historia clinica mascota
-	@OneToOne
-	@JoinColumn
-	private HistoriaClinica id_historia_mascota;
 	
 	@ManyToOne
 	@JoinColumn
-	private Mascota id_mascota_propietario;
+	private Propietario id_mascota_propietario;
 	
 	public Mascota() {
 	}
 
 
-	
-
 	public Mascota(int id_mascota, String nombre, String especie, String raza, String sexo, Date fechaNac, int edad,
-			String coloYSenalesParti, HistoriaClinica mascota, HistoriaClinica id_historia_mascota,
-			Mascota id_mascota_propietario) {
+			String coloYSenalesParti, HistoriaClinica mascota, Propietario id_mascota_propietario) {
 		super();
 		this.id_mascota = id_mascota;
 		this.nombre = nombre;
@@ -58,9 +52,13 @@ public class Mascota implements Serializable {
 		this.edad = edad;
 		this.coloYSenalesParti = coloYSenalesParti;
 		this.mascota = mascota;
-		this.id_historia_mascota = id_historia_mascota;
 		this.id_mascota_propietario = id_mascota_propietario;
 	}
+
+
+
+
+
 
 
 
@@ -85,20 +83,14 @@ public class Mascota implements Serializable {
 
 
 
-
-
-	public Mascota getId_mascota_propietario() {
+	public Propietario getId_mascota_propietario() {
 		return id_mascota_propietario;
 	}
 
 
-
-
-	public void setId_mascota_propietario(Mascota id_mascota_propietario) {
+	public void setId_mascota_propietario(Propietario id_mascota_propietario) {
 		this.id_mascota_propietario = id_mascota_propietario;
 	}
-
-
 
 
 	public int getId_mascota() {
@@ -184,15 +176,7 @@ public class Mascota implements Serializable {
 	
 
 
-	public HistoriaClinica getId_historia_mascota() {
-		return id_historia_mascota;
-	}
-
-
-	public void setId_historia_mascota(HistoriaClinica id_historia_mascota) {
-		this.id_historia_mascota = id_historia_mascota;
-	}
-
+	
 
 	@Override
 	public int hashCode() {
@@ -213,15 +197,17 @@ public class Mascota implements Serializable {
 	}
 
 
-
-
-
 	@Override
 	public String toString() {
 		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", especie=" + especie + ", raza=" + raza
 				+ ", sexo=" + sexo + ", fechaNac=" + fechaNac + ", edad=" + edad + ", coloYSenalesParti="
-				+ coloYSenalesParti + ", mascota=" + mascota + ", id_historia_mascota=" + id_historia_mascota + "]";
+				+ coloYSenalesParti + ", mascota=" + mascota + ", id_mascota_propietario=" + id_mascota_propietario
+				+ "]";
 	}
+
+
+
+
 
 
 	
