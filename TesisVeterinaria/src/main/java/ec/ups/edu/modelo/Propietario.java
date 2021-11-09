@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Propietario implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPropietario;
 	private String direccion;
 	private String propietario;
