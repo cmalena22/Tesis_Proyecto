@@ -24,13 +24,10 @@ public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 	}
 	
 	public MedicoVeterinario inicioo(String username, String password) {
-		MedicoVeterinario us=new MedicoVeterinario();
-   	 String query = "SELECT e " +
-   		      "FROM MedicoVeterinario e " +
-   		      "WHERE e.correo = '" + username +
-   		      "' AND " +
-   		      " e.contraseña = '" + password + "'";
-      	us =em.createQuery(query, MedicoVeterinario.class).getSingleResult();
-   		      return us;
-   }
+		MedicoVeterinario us = new MedicoVeterinario();
+		String query = "SELECT e " + "FROM MedicoVeterinario e " + "WHERE e.correo = '" + username + "' AND "
+				+ " e.contrasena = '" + password + "'";
+		us = em.createQuery(query, MedicoVeterinario.class).getSingleResult();
+		return us;
+	}
 }

@@ -34,7 +34,7 @@ public class ApiRest {
 	@POST
 	@Path("/inicio")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response inicio(@FormParam("correo") String correo, @FormParam("contrasena") String contrasena)
+	public Response inicio(@FormParam("correo") String correo, @FormParam("contrasena") String contrasena, @FormParam("otra") String hsdg)
 			throws IOException {
 		System.out.println("Metodo crear");
 		MedicoVeterinario us = new MedicoVeterinario();
@@ -51,12 +51,11 @@ public class ApiRest {
 		try {
 			us = ejbMedicoVeterinarioFacade.inicioo(correoo, contrasenaa);
 			if (us != null) {
-				return Response.ok(correo)
+				return Response.ok(correo).build();
 
-						.header("Access-Control-Allow-Origin", "*")
-						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						.header("Access-Control-Max-Age", "120960")
-						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+						//.header("Access-Control-Allow-Origin", "*")
+						//.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+						//.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 						
 			}
 		} catch (Exception ex) {
