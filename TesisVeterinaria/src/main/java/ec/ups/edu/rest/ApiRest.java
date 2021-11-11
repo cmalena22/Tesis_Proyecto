@@ -5,8 +5,6 @@ import java.io.IOException;
 
 
 import javax.ejb.EJB;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
