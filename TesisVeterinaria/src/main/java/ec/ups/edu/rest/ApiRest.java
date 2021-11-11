@@ -5,8 +5,10 @@ import java.io.IOException;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
@@ -48,7 +50,9 @@ public class ApiRest {
 
 						.header("Access-Control-Allow-Origin", "*")
 						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+						.header("Access-Control-Max-Age", "120960")
 						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+						
 			}
 		} catch (Exception ex) {
 			return Response.ok("No creado").build();
@@ -57,5 +61,10 @@ public class ApiRest {
 		return Response.ok("No creado").build();
 	}
 
-	
+	  @GET
+	  @Path("/holamundo")
+	  @Produces("text/html")
+	  public String getHtml() {
+	    return "Hola Mundo!!";
+	  }
 }
