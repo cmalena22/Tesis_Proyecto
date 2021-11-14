@@ -15,11 +15,12 @@ import javax.persistence.*;
 public class Propietario implements Serializable {
 
 	@Id
-	private int idPropietario;
+	private String idPropietario;
 	private String direccion;
 	private String propietario;
 	private String telefono;
 	private String cuidad;
+	private String correo;
 	
 	//foreing keys
 	//relacion propietario mascota
@@ -34,20 +35,31 @@ public class Propietario implements Serializable {
 
 	}
 
-	public Propietario(int idPropietario, String direccion, String propietario, String telefono, String cuidad) {
+	public Propietario(String idPropietario, String direccion, String propietario, String telefono, String cuidad, String correo) {
 		super();
 		this.idPropietario = idPropietario;
 		this.direccion = direccion;
 		this.propietario = propietario;
 		this.telefono = telefono;
 		this.cuidad = cuidad;
+		this.correo=correo;
 	}
 
-	public int getIdPropietario() {
+	
+	
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getIdPropietario() {
 		return idPropietario;
 	}
 
-	public void setIdPropietario(int idPropietario) {
+	public void setIdPropietario(String idPropietario) {
 		this.idPropietario = idPropietario;
 	}
 
@@ -111,9 +123,11 @@ public class Propietario implements Serializable {
 	@Override
 	public String toString() {
 		return "Propietario [idPropietario=" + idPropietario + ", direccion=" + direccion + ", propietario="
-				+ propietario + ", telefono=" + telefono + ", cuidad=" + cuidad + ", listMascotas=" + listMascotas
-				+ "]";
+				+ propietario + ", telefono=" + telefono + ", cuidad=" + cuidad + ", correo=" + correo
+				+ ", listMascotas=" + listMascotas + "]";
 	}
+
+	
    
 	
 }
