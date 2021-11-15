@@ -1,12 +1,16 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
+
+
 
 /**
  * Entity implementation class for Entity: MedicoVeterinario
@@ -160,7 +164,19 @@ public class MedicoVeterinario implements Serializable {
 		return cedulaId == other.cedulaId;
 	}
 
-
+	private static MedicoVeterinario medi;
+	public static List<MedicoVeterinario> serializeMedicoVeterinario(List<MedicoVeterinario> medis) {
+		List<MedicoVeterinario> productoList = new ArrayList<>();
+		
+     medis.forEach(
+				e->{
+					medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getCorreo(),e.getContraseña(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getEspecialidad());
+					
+				}
+		);
+		
+		return productoList;
+	}
 
 	@Override
 	public String toString() {
