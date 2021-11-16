@@ -19,11 +19,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
-
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
-
+import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.modelo.Mascota;
@@ -37,6 +36,8 @@ public class ApiRest {
 	private MedicoVeterinarioFacade ejbMedicoVeterinarioFacade;
 	@EJB
 	private PropietarioFacade ejbPropietarioFacade;
+	@EJB
+	private MascotaFacade ejbMascotaFacade;
 
 	public ApiRest() {
 
@@ -114,7 +115,6 @@ public class ApiRest {
 		}
 	}
 
-
 	@POST
 	@Path("/registrarMascota")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -126,10 +126,15 @@ public class ApiRest {
 		System.out.println(idPro + "=" + nombre + "=" + especie + "=" + raza + "=" + sexo + "=" + fechaNac + "=" + edad
 				+ "=" + coloYSenalesParti);
 		System.out.println("Ingreso");
+
 		Propietario propietario = new Propietario();
 		propietario = ejbPropietarioFacade.buscarCedula(idPro);
+
 		System.out.println(propietario.toString());
+
 		Mascota mascota = new Mascota();
+		Jsonb jsonb = JsonbBuilder.create();
+
 		mascota.setNombre(nombre);
 		mascota.setEspecie(especie);
 		mascota.setEspecie(especie);
@@ -141,10 +146,25 @@ public class ApiRest {
 
 		mascota.setEdad(edad);
 		mascota.setColoYSenalesParti(coloYSenalesParti);
+
 		System.out.println("Mascota final" + mascota.toString());
+
+	   	ejbMascotaFacade.create(mascota);
+		return Response.ok(jsonb.toJson(mascota.getId_mascota())).build();
+		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
+		// authorization")
+
+	}
+
+	@GET
+	@Path("/texto")
+	@Produces(MediaType.APPLICATION_JSON)
+
+	public Response Prueba() {
+		System.out.println("Ingreso");
 		try {
-			ejbPropietarioFacade.create(propietario);
-			return Response.ok("Creado desde registrar Mascota").header("Access-Control-Allow-Origin", "*")
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok("Creado desde tesis veterinaria").header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		} catch (Exception e) {
@@ -155,68 +175,46 @@ public class ApiRest {
 		}
 	}
 
-	
-	@GET  
-	@Path("/texto")
-	@Produces(MediaType.APPLICATION_JSON)
-	
-	public Response Prueba() {
-		System.out.println("Ingreso");
-		try {
-			//ejbPropietarioFacade.create(propietario);
-			return Response.ok("Creado desde tesis veterinaria")
-	    			.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-		} catch (Exception e) {
-			// TODO: handle exception
-			return Response.ok("Error")
-	    			.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-		}
-	}
-	
-	
 	@GET
 	@Path("/medicoperfil/{correo}")
 	@Produces(MediaType.APPLICATION_JSON)
-    //@Produces(MediaType.TEXT_PLAIN)
+	// @Produces(MediaType.TEXT_PLAIN)
 	public Response medicoperfil(@PathParam("correo") String correopda) {
 		Jsonb jsonb = JsonbBuilder.create();
 		MedicoVeterinario usu = new MedicoVeterinario();
-		//usu = ejbMedicoVeterinarioFacade.buscarcorreo(correopda);
+		// usu = ejbMedicoVeterinarioFacade.buscarcorreo(correopda);
 		System.out.println(usu.getCedulaId());
 		System.out.println(usu.getNombres());
 		System.out.println(usu.getApellidos());
 		System.out.println(jsonb.toJson(usu));
-		
-		
+
 		try {
 			usu = ejbMedicoVeterinarioFacade.buscarcorreo(correopda);
-			usu = new MedicoVeterinario(usu.getCedulaId(),usu.getNombres(),usu.getApellidos(),usu.getCorreo(),usu.getContraseña(),usu.getDireccion(),usu.getFechaNac(),usu.getCelular(),usu.getTitulo(),usu.getEspecialidad());
+			usu = new MedicoVeterinario(usu.getCedulaId(), usu.getNombres(), usu.getApellidos(), usu.getCorreo(),
+					usu.getContraseña(), usu.getDireccion(), usu.getFechaNac(), usu.getCelular(), usu.getTitulo(),
+					usu.getEspecialidad());
 			if (usu != null) {
 				return Response.ok(jsonb.toJson(usu)).build();
 
-						//.header("Access-Control-Allow-Origin", "*")
-						//.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						//.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-						
+				// .header("Access-Control-Allow-Origin", "*")
+				// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
+				// authorization")
+				// .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+
 			}
 		} catch (Exception ex) {
 			return Response.ok("No esta").build();
 
 		}
 		return Response.ok("No esta").build();
-	
+
 	}
-	
+
 	@GET
 	@Path("/users/{userId}")
 	public Response findUserById(@PathParam("userId") String user) {
-	    System.out.println("UserID ==> " + user);
-	    return null;
+		System.out.println("UserID ==> " + user);
+		return null;
 	}
-
 
 }
