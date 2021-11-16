@@ -23,8 +23,8 @@ public class Mascota implements Serializable {
 	private String especie;
 	private String raza;
 	private String sexo;
-	private Date fechaNac;
-	private int edad;
+	private String fechaNac;
+	private String edad;
 	private String coloYSenalesParti;
 	//Foreings Keys
 	//relacion historia mascota
@@ -40,8 +40,8 @@ public class Mascota implements Serializable {
 	public Mascota() {
 	}
 
-	public Mascota(int id_mascota, String nombre, String especie, String raza, String sexo, Date fechaNac, int edad,
-			String coloYSenalesParti, HistoriaClinica mascota, Propietario id_mascota_propietario) {
+	public Mascota(int id_mascota, String nombre, String especie, String raza, String sexo, String fechaNac, String edad,
+			String coloYSenalesParti, Propietario id_mascota_propietario) {
 		super();
 		this.id_mascota = id_mascota;
 		this.nombre = nombre;
@@ -51,7 +51,7 @@ public class Mascota implements Serializable {
 		this.fechaNac = fechaNac;
 		this.edad = edad;
 		this.coloYSenalesParti = coloYSenalesParti;
-		this.mascota = mascota;
+		
 		this.id_mascota_propietario = id_mascota_propietario;
 	}
 
@@ -95,19 +95,19 @@ public class Mascota implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
-	public int getEdad() {
+	public String getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(String edad) {
 		this.edad = edad;
 	}
 
@@ -156,7 +156,7 @@ public class Mascota implements Serializable {
 	public String toString() {
 		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", especie=" + especie + ", raza=" + raza
 				+ ", sexo=" + sexo + ", fechaNac=" + fechaNac + ", edad=" + edad + ", coloYSenalesParti="
-				+ coloYSenalesParti + ", mascota=" + mascota + ", id_mascota_propietario=" + id_mascota_propietario
+				+ coloYSenalesParti  + ", id_mascota_propietario=" + id_mascota_propietario
 				+ "]";
 	}
 

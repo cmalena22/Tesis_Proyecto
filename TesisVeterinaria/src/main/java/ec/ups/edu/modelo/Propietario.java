@@ -124,7 +124,7 @@ public class Propietario implements Serializable {
 	public String toString() {
 		return "Propietario [idPropietario=" + idPropietario + ", direccion=" + direccion + ", propietario="
 				+ propietario + ", telefono=" + telefono + ", cuidad=" + cuidad + ", correo=" + correo
-				+ ", listMascotas=" + listMascotas + "]";
+				+  "]";
 	}
 
 	

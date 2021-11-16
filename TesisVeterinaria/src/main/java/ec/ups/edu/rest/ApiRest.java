@@ -1,6 +1,9 @@
 package ec.ups.edu.rest;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -15,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
+import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
 
@@ -90,8 +94,48 @@ public class ApiRest {
 		propietario.setCorreo(correo);
 		System.out.println(propietario.toString());
 		try {
-			//ejbPropietarioFacade.create(propietario);
+			// ejbPropietarioFacade.create(propietario);
 			return Response.ok("Creado desde tesis veterinaria").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+
+	@POST
+	@Path("/registrarMascota")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RegistrarMascota(@FormParam("idPro") String idPro, @FormParam("nombre") String nombre,
+			@FormParam("especie") String especie, @FormParam("raza") String raza, @FormParam("sexo") String sexo,
+			@FormParam("fechaNac") String fechaNac, @FormParam("edad") String edad,
+			@FormParam("coloYSenalesParti") String coloYSenalesParti) {
+		System.out.println(idPro + "=" + nombre + "=" + especie + "=" + raza + "=" + sexo + "=" + fechaNac + "=" + edad
+				+ "=" + coloYSenalesParti);
+		System.out.println("Ingreso");
+		Propietario propietario = new Propietario();
+		propietario = ejbPropietarioFacade.buscarCedula(idPro);
+		System.out.println(propietario.toString());
+		Mascota mascota = new Mascota();
+		mascota.setNombre(nombre);
+		mascota.setEspecie(especie);
+		mascota.setEspecie(especie);
+		mascota.setRaza(raza);
+		mascota.setSexo(sexo);
+		mascota.setId_mascota_propietario(propietario);
+
+		mascota.setFechaNac(fechaNac);
+
+		mascota.setEdad(edad);
+		mascota.setColoYSenalesParti(coloYSenalesParti);
+		System.out.println("Mascota final" + mascota.toString());
+		try {
+			ejbPropietarioFacade.create(propietario);
+			return Response.ok("Creado desde registrar Mascota").header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		} catch (Exception e) {
