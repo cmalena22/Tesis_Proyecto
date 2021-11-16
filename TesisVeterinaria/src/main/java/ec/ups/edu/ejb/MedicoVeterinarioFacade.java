@@ -30,4 +30,15 @@ public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 		us = em.createQuery(query, MedicoVeterinario.class).getSingleResult();
 		return us;
 	}
+	
+	public MedicoVeterinario buscarcorreo(String correo) {
+		MedicoVeterinario us = new MedicoVeterinario();
+		String query = "SELECT e " + "FROM MedicoVeterinario e " + "WHERE  e.correo = '" + correo + "'";
+		us = em.createQuery(query, MedicoVeterinario.class).getSingleResult();
+		System.out.println(query);
+		System.out.println(us.getNombres());
+		System.out.println(us.getApellidos());
+		return us;
+
+	}
 }
