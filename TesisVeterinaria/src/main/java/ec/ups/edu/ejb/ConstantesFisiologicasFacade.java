@@ -4,16 +4,16 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import ec.ups.edu.modelo.ConstantesFisiologicas;
+import ec.ups.edu.modelo.ConstantesFisiologicasCabecera;
 
 @Stateless
-public class ConstantesFisiologicasFacade extends AbstractFacade<ConstantesFisiologicas>{
+public class ConstantesFisiologicasFacade extends AbstractFacade<ConstantesFisiologicasCabecera>{
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager em;
 	
 	public ConstantesFisiologicasFacade() {
-		super(ConstantesFisiologicas.class);
+		super(ConstantesFisiologicasCabecera.class);
 	}
 
 	@Override

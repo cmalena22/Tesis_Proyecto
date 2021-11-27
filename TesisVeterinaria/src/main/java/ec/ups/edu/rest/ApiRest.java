@@ -54,14 +54,11 @@ public class ApiRest {
 		System.out.println("Contrasena " + contrasena);
 
 		MedicoVeterinario usu = new MedicoVeterinario();
-		usu.setCorreo(correo);
-		String correoo = usu.getCorreo();
+		
 
-		usu.setContraseña(contrasena);
-		String contrasenaa = usu.getContraseña();
-
+		
 		try {
-			us = ejbMedicoVeterinarioFacade.inicioo(correoo, contrasenaa);
+		//	us = ejbMedicoVeterinarioFacade.inicioo();
 			if (us != null) {
 				return Response.ok(correo).build();
 
@@ -115,7 +112,7 @@ public class ApiRest {
 		}
 	}
 
-	@POST
+	/*@POST
 	@Path("/registrarMascota")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -154,7 +151,7 @@ public class ApiRest {
 		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
 		// authorization")
 
-	}
+	}*/
 
 	@GET
 	@Path("/texto")
@@ -190,9 +187,8 @@ public class ApiRest {
 
 		try {
 			usu = ejbMedicoVeterinarioFacade.buscarcorreo(correopda);
-			usu = new MedicoVeterinario(usu.getCedulaId(), usu.getNombres(), usu.getApellidos(), usu.getCorreo(),
-					usu.getContraseña(), usu.getDireccion(), usu.getFechaNac(), usu.getCelular(), usu.getTitulo(),
-					usu.getEspecialidad());
+		//	usu = new MedicoVeterinario(usu.getCedulaId(), usu.getNombres(), usu.getApellidos(), usu.getDireccion(), usu.getFechaNac(), usu.getCelular(), usu.getTitulo(),
+		//			);
 			if (usu != null) {
 				return Response.ok(jsonb.toJson(usu)).build();
 

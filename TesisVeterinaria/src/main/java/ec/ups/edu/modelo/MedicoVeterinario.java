@@ -26,18 +26,28 @@ public class MedicoVeterinario implements Serializable {
 	private int cedulaId;
 	private String nombres;
 	private String apellidos;
-	private String correo;
-	private String contrasena;
 	private String direccion;
 	private Date fechaNac;
 	private String celular;
 	private String titulo;
-	private String especialidad;
 	//foreing keys
+	//relacion historia-medico
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cedula_id")
+	private  HistoriaClinica historiaClinica;
 	
-	//relacion historia clinica medico
-	@OneToMany(cascade=CascadeType.ALL,mappedBy = "id_medico")
-	private Set<HistoriaClinica> historia= new HashSet<HistoriaClinica>();
+
+	
+	//Relacion medico veterinario -  especialidad
+	@OneToOne
+	@JoinColumn
+	private Especialidad especialidad_id;
+	
+	
+	//Relacion Medico Veterinario	Usuario
+	@OneToOne
+	@JoinColumn
+	private Usuario usuario_id;
+	
 	
 	public MedicoVeterinario() {
 		super();
@@ -45,19 +55,18 @@ public class MedicoVeterinario implements Serializable {
 	
 	
 
-	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String correo, String contraseña,
-			String direccion, Date fechaNac, String celular, String titulo, String especialidad) {
+	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, 
+			String direccion, Date fechaNac, String celular, String titulo) {
 		super();
 		this.cedulaId = cedulaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
-		this.correo = correo;
-		this.contrasena = contraseña;
+		
 		this.direccion = direccion;
 		this.fechaNac = fechaNac;
 		this.celular = celular;
 		this.titulo = titulo;
-		this.especialidad = especialidad;
+	
 	}
 
 
@@ -80,12 +89,7 @@ public class MedicoVeterinario implements Serializable {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+	
 	public String getDireccion() {
 		return direccion;
 	}
@@ -110,41 +114,10 @@ public class MedicoVeterinario implements Serializable {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public String getEspecialidad() {
-		return especialidad;
-	}
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
 	
 	
 
-
-
-	public Set<HistoriaClinica> getHistoria() {
-		return historia;
-	}
-
-
-
-	public void setHistoria(Set<HistoriaClinica> historia) {
-		this.historia = historia;
-	}
-
-
-
-	public String getContraseña() {
-		return contrasena;
-	}
-
-
-
-	public void setContraseña(String contraseña) {
-		this.contrasena = contraseña;
-	}
-
-
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cedulaId);
@@ -170,7 +143,7 @@ public class MedicoVeterinario implements Serializable {
 		
      medis.forEach(
 				e->{
-					medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getCorreo(),e.getContraseña(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getEspecialidad());
+					medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo());
 					
 				}
 		);
@@ -181,9 +154,9 @@ public class MedicoVeterinario implements Serializable {
 	@Override
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
-				+ ", correo=" + correo + ", contraseña=" + contrasena + ", direccion=" + direccion + ", fechaNac="
-				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo + ", especialidad=" + especialidad
-				+ ", historia=" + historia + "]";
+				 + ", direccion=" + direccion + ", fechaNac="
+				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo 
+				 + "]";
 	}
 
 
