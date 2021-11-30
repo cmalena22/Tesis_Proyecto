@@ -1,6 +1,7 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -19,28 +20,25 @@ public class Especie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int especie_id;
 	private String nombreEspecie;
+	
 	//relacion especie-raza
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "especie_id")
+	private List<Raza> raza_id;
 
-	@OneToOne
-	@JoinColumn
-	private Raza razaId;
-	
-	
 	//relacion especie mascota
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "especie_id")
 	private Mascota mascota;
 	
 
 	public Especie() {
-		super();
+	
 	}
 
 
-	public Especie(int especie_id, String nombreEspecie, Raza razaId) {
+	public Especie(int especie_id, String nombreEspecie) {
 		super();
 		this.especie_id = especie_id;
 		this.nombreEspecie = nombreEspecie;
-		this.razaId = razaId;
 	}
 
 
@@ -64,13 +62,16 @@ public class Especie implements Serializable {
 	}
 
 
-	public Raza getRazaId() {
-		return razaId;
+	
+
+
+	public List<Raza> getRaza_id() {
+		return raza_id;
 	}
 
 
-	public void setRazaId(Raza razaId) {
-		this.razaId = razaId;
+	public void setRaza_id(List<Raza> raza_id) {
+		this.raza_id = raza_id;
 	}
 
 
@@ -105,8 +106,9 @@ public class Especie implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Especie [especie_id=" + especie_id + ", nombreEspecie=" + nombreEspecie + ", razaId=" + razaId + "]";
+		return "Especie [especie_id=" + especie_id + ", nombreEspecie=" + nombreEspecie + "]";
 	}
+
 
 	
 	

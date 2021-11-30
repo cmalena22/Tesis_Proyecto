@@ -20,67 +20,49 @@ public class Raza implements Serializable {
 	private int raza_id;
 	private String nombre;
 
-	//
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "razaId")
-	private Especie especie;
-
+	//Relacion especie - raza
+	@ManyToOne
+	@JoinColumn
+	private Especie especie_id;
 	
 	public Raza() {
 		
 	}
 
-	
-	
-	public Raza(int raza_id, String nombre) {
-		super();
+	public Raza(int raza_id, String nombre, Especie especie_id) {
 		this.raza_id = raza_id;
 		this.nombre = nombre;
+		this.especie_id = especie_id;
 	}
 
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(raza_id);
-	}
-
-	
-	
 	public int getRaza_id() {
 		return raza_id;
 	}
-
-
 
 	public void setRaza_id(int raza_id) {
 		this.raza_id = raza_id;
 	}
 
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-	public Especie getEspecie() {
-		return especie;
+	public Especie getEspecie_id() {
+		return especie_id;
 	}
 
-
-
-	public void setEspecie(Especie especie) {
-		this.especie = especie;
+	public void setEspecie_id(Especie especie_id) {
+		this.especie_id = especie_id;
 	}
 
-
+	@Override
+	public int hashCode() {
+		return Objects.hash(raza_id);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -94,12 +76,11 @@ public class Raza implements Serializable {
 		return raza_id == other.raza_id;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Raza [raza_id=" + raza_id + ", nombre=" + nombre + "]";
+		return "Raza [raza_id=" + raza_id + ", nombre=" + nombre + ", especie_id=" + especie_id + "]";
 	}
+
 	
 	
    
