@@ -25,9 +25,11 @@ import javax.json.bind.JsonbBuilder;
 import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
+import ec.ups.edu.ejb.RazaFacade;
 import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
+import ec.ups.edu.modelo.Raza;
 
 @Path("/prueba")
 public class ApiRest {
@@ -38,7 +40,8 @@ public class ApiRest {
 	private PropietarioFacade ejbPropietarioFacade;
 	@EJB
 	private MascotaFacade ejbMascotaFacade;
-
+	@EJB
+	private RazaFacade ejbRazaFacade;
 	public ApiRest() {
 
 	}
@@ -111,6 +114,51 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
+	
+	@POST
+	@Path("/obtenerEspecieMascota")
+	 @Produces(MediaType.APPLICATION_JSON)
+	public Response ingresarEspecieMascota() {
+		System.out.println("Especie mascota");
+		List<Raza> listaRaza = new ArrayList<Raza>();
+    	Jsonb jsonb = JsonbBuilder.create();
+    	listaRaza= Raza.serializeRaza(ejbRazaFacade.findAll());
+		
+		try {
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaRaza))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	@POST
+	@Path("/obtenerRazaMascota")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+
+	public Response obtenerRazaMascota() {
+
+		System.out.println("Especie mascota");
+	
+		try {
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok("Creado desde tesis veterinaria").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	
 
 	/*@POST
 	@Path("/registrarMascota")

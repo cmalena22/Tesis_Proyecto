@@ -1,6 +1,8 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -76,6 +78,22 @@ public class Raza implements Serializable {
 		return raza_id == other.raza_id;
 	}
 
+	
+	private static Raza raza;
+	public static List<Raza> serializeRaza(List<Raza> raza){
+		List<Raza > razaList= new ArrayList<Raza>();
+		raza.forEach(e->{
+			Raza razas = new Raza(e.getRaza_id(), e.getNombre(), e.getEspecie_id());
+			razaList.add(razas);
+			
+			
+			
+			
+		});
+		return razaList;
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "Raza [raza_id=" + raza_id + ", nombre=" + nombre + ", especie_id=" + especie_id + "]";
