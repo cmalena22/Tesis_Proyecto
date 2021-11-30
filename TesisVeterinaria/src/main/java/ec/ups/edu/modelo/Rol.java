@@ -21,7 +21,7 @@ public class Rol implements Serializable {
 	private String descripcion;
 	
 	// Relacion Rol- Usuario
-	@OneToOne(cascade=CascadeType.ALL, mappedBy ="usuarioId" )
+	@OneToOne(cascade=CascadeType.ALL, mappedBy ="rol_id" )
 	private Usuario usuario;
 	
 	
@@ -57,6 +57,18 @@ public class Rol implements Serializable {
 	}
 
 
+	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(rol_id);
@@ -78,9 +90,10 @@ public class Rol implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Rol [rol_id=" + rol_id + ", descripcion=" + descripcion + "]";
+		return "Rol [descripcion=" + descripcion + ", usuario=" + usuario + "]";
 	}
-	
+
+
 	
    
 }

@@ -26,13 +26,61 @@ public class Raza implements Serializable {
 
 	
 	public Raza() {
-		super();
+		
 	}
+
+	
+	
+	public Raza(int raza_id, String nombre) {
+		super();
+		this.raza_id = raza_id;
+		this.nombre = nombre;
+	}
+
+
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(raza_id);
 	}
+
+	
+	
+	public int getRaza_id() {
+		return raza_id;
+	}
+
+
+
+	public void setRaza_id(int raza_id) {
+		this.raza_id = raza_id;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+	public Especie getEspecie() {
+		return especie;
+	}
+
+
+
+	public void setEspecie(Especie especie) {
+		this.especie = especie;
+	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -44,6 +92,13 @@ public class Raza implements Serializable {
 			return false;
 		Raza other = (Raza) obj;
 		return raza_id == other.raza_id;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Raza [raza_id=" + raza_id + ", nombre=" + nombre + "]";
 	}
 	
 	

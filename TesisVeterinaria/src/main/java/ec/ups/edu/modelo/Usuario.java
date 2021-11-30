@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
 	//Relacion usuario rol
 	@OneToOne
 	@JoinColumn
-	private Rol usuarioId;
+	private Rol rol_id;
 	
 	//Relacion Usuario Medico
 
@@ -36,6 +36,8 @@ public class Usuario implements Serializable {
 	public Usuario() {
 		
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

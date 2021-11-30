@@ -52,78 +52,128 @@ public class MedicoVeterinario implements Serializable {
 	public MedicoVeterinario() {
 		super();
 	}
-	
-	
 
-	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, 
-			String direccion, Date fechaNac, String celular, String titulo) {
+
+	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String direccion, Date fechaNac,
+			String celular, String titulo, Especialidad especialidad_id, Usuario usuario_id) {
 		super();
 		this.cedulaId = cedulaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
-		
 		this.direccion = direccion;
 		this.fechaNac = fechaNac;
 		this.celular = celular;
 		this.titulo = titulo;
-	
+		this.especialidad_id = especialidad_id;
+		this.usuario_id = usuario_id;
 	}
-
 
 
 	public int getCedulaId() {
 		return cedulaId;
 	}
+
+
 	public void setCedulaId(int cedulaId) {
 		this.cedulaId = cedulaId;
 	}
+
+
 	public String getNombres() {
 		return nombres;
 	}
+
+
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
+
+
 	public String getApellidos() {
 		return apellidos;
 	}
+
+
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	
+
+
 	public String getDireccion() {
 		return direccion;
 	}
+
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+
 	public Date getFechaNac() {
 		return fechaNac;
 	}
+
+
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+
+
 	public String getCelular() {
 		return celular;
 	}
+
+
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
+
+
 	public String getTitulo() {
 		return titulo;
 	}
+
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
-	
 
-	
+
+	public HistoriaClinica getHistoriaClinica() {
+		return historiaClinica;
+	}
+
+
+	public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+		this.historiaClinica = historiaClinica;
+	}
+
+
+	public Especialidad getEspecialidad_id() {
+		return especialidad_id;
+	}
+
+
+	public void setEspecialidad_id(Especialidad especialidad_id) {
+		this.especialidad_id = especialidad_id;
+	}
+
+
+	public Usuario getUsuario_id() {
+		return usuario_id;
+	}
+
+
+	public void setUsuario_id(Usuario usuario_id) {
+		this.usuario_id = usuario_id;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(cedulaId);
 	}
 
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -137,30 +187,14 @@ public class MedicoVeterinario implements Serializable {
 		return cedulaId == other.cedulaId;
 	}
 
-	private static MedicoVeterinario medi;
-	public static List<MedicoVeterinario> serializeMedicoVeterinario(List<MedicoVeterinario> medis) {
-		List<MedicoVeterinario> productoList = new ArrayList<>();
-		
-     medis.forEach(
-				e->{
-					medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo());
-					
-				}
-		);
-		
-		return productoList;
-	}
 
 	@Override
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
-				 + ", direccion=" + direccion + ", fechaNac="
-				+ fechaNac + ", celular=" + celular + ", titulo=" + titulo 
-				 + "]";
+				+ ", direccion=" + direccion + ", fechaNac=" + fechaNac + ", celular=" + celular + ", titulo=" + titulo
+				+ ", especialidad_id=" + especialidad_id + ", usuario_id=" + usuario_id + "]";
 	}
-
-
-
+	
 	
 	
 	

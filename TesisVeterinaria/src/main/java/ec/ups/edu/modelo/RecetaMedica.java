@@ -26,9 +26,83 @@ public class RecetaMedica implements Serializable {
 	//relacon consulta medica receta
 	@ManyToOne
 	@JoinColumn
-	private ConsultaMedica recetaId;
+	private ConsultaMedica consulta_id;
 	
 	public RecetaMedica() {
 	}
+
+	public RecetaMedica(int idReceta, Date fecha, String rp, String prescripcion, ConsultaMedica consulta_id) {
+		super();
+		this.idReceta = idReceta;
+		this.fecha = fecha;
+		this.rp = rp;
+		this.prescripcion = prescripcion;
+		this.consulta_id = consulta_id;
+	}
+
+	public int getIdReceta() {
+		return idReceta;
+	}
+
+	public void setIdReceta(int idReceta) {
+		this.idReceta = idReceta;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getRp() {
+		return rp;
+	}
+
+	public void setRp(String rp) {
+		this.rp = rp;
+	}
+
+	public String getPrescripcion() {
+		return prescripcion;
+	}
+
+	public void setPrescripcion(String prescripcion) {
+		this.prescripcion = prescripcion;
+	}
+
+	public ConsultaMedica getConsulta_id() {
+		return consulta_id;
+	}
+
+	public void setConsulta_id(ConsultaMedica consulta_id) {
+		this.consulta_id = consulta_id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idReceta);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecetaMedica other = (RecetaMedica) obj;
+		return idReceta == other.idReceta;
+	}
+
+	@Override
+	public String toString() {
+		return "RecetaMedica [idReceta=" + idReceta + ", fecha=" + fecha + ", rp=" + rp + ", prescripcion="
+				+ prescripcion + ", consulta_id=" + consulta_id + "]";
+	}
+	
+	
 	
 }

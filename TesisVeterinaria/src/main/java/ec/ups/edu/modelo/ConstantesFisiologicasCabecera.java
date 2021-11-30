@@ -26,6 +26,63 @@ public class ConstantesFisiologicasCabecera implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "constantesidCab")
 	private Set<ConstantesFisiologicasDetalle> constantesFisiologicaDetalle;
 	
+	
+
+	public ConstantesFisiologicasCabecera() {
+		
+	}
+
+	public ConstantesFisiologicasCabecera(int constantes_idCab, String nombre) {
+		this.constantes_idCab = constantes_idCab;
+		this.nombre = nombre;
+	}
+
+	public int getConstantes_idCab() {
+		return constantes_idCab;
+	}
+
+	public void setConstantes_idCab(int constantes_idCab) {
+		this.constantes_idCab = constantes_idCab;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Set<ConstantesFisiologicasDetalle> getConstantesFisiologicaDetalle() {
+		return constantesFisiologicaDetalle;
+	}
+
+	public void setConstantesFisiologicaDetalle(Set<ConstantesFisiologicasDetalle> constantesFisiologicaDetalle) {
+		this.constantesFisiologicaDetalle = constantesFisiologicaDetalle;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(constantes_idCab);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConstantesFisiologicasCabecera other = (ConstantesFisiologicasCabecera) obj;
+		return constantes_idCab == other.constantes_idCab;
+	}
+
+	@Override
+	public String toString() {
+		return "ConstantesFisiologicasCabecera [constantes_idCab=" + constantes_idCab + ", nombre=" + nombre + "]";
+	}
+	
 
 	
 }
