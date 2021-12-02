@@ -1,6 +1,7 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,9 +26,7 @@ public class Especie implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "especie_id")
 	private List<Raza> raza_id;
 
-	//relacion especie mascota
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "especie_id")
-	private Mascota mascota;
+	
 	
 
 	public Especie() {
@@ -36,7 +35,6 @@ public class Especie implements Serializable {
 
 
 	public Especie(int especie_id, String nombreEspecie) {
-		super();
 		this.especie_id = especie_id;
 		this.nombreEspecie = nombreEspecie;
 	}
@@ -75,14 +73,7 @@ public class Especie implements Serializable {
 	}
 
 
-	public Mascota getMascota() {
-		return mascota;
-	}
-
-
-	public void setMascota(Mascota mascota) {
-		this.mascota = mascota;
-	}
+	
 
 
 	@Override
@@ -103,6 +94,18 @@ public class Especie implements Serializable {
 		return especie_id == other.especie_id;
 	}
 
+	private static Especie especie;
+
+	public static List<Especie> serializeEspecie(List<Especie> especies) {
+		List<Especie> especieList = new ArrayList<>();
+		especies.forEach(
+		e-> {
+			especie = new Especie(e.getEspecie_id(),e.getNombreEspecie());
+			especieList.add(especie);		
+		});
+		return especieList;
+
+	}
 
 	@Override
 	public String toString() {

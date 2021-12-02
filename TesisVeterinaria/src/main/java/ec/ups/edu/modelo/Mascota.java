@@ -20,8 +20,6 @@ public class Mascota implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id_mascota;
 	private String nombre;
-	private String especie;
-	private String raza;
 	private String sexo;
 	private String fechaNac;
 	private String edad;
@@ -42,24 +40,22 @@ public class Mascota implements Serializable {
 	
 	@OneToOne
 	@JoinColumn
-	private Especie especie_id;
+	private Raza raza_id;
 	
 	public Mascota() {
 	}
 
-	public Mascota(int id_mascota, String nombre, String especie, String raza, String sexo, String fechaNac,
-			String edad, String coloYSenalesParti, Propietario id_mascota_propietario, Especie especie_id) {
+	public Mascota(int id_mascota, String nombre, String sexo, String fechaNac,
+			String edad, String coloYSenalesParti, Propietario id_mascota_propietario, Raza raza_id) {
 		super();
 		this.id_mascota = id_mascota;
 		this.nombre = nombre;
-		this.especie = especie;
-		this.raza = raza;
 		this.sexo = sexo;
 		this.fechaNac = fechaNac;
 		this.edad = edad;
 		this.coloYSenalesParti = coloYSenalesParti;
 		this.id_mascota_propietario = id_mascota_propietario;
-		this.especie_id = especie_id;
+		this.raza_id = raza_id;
 	}
 
 	public int getId_mascota() {
@@ -78,21 +74,8 @@ public class Mascota implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getEspecie() {
-		return especie;
-	}
+	
 
-	public void setEspecie(String especie) {
-		this.especie = especie;
-	}
-
-	public String getRaza() {
-		return raza;
-	}
-
-	public void setRaza(String raza) {
-		this.raza = raza;
-	}
 
 	public String getSexo() {
 		return sexo;
@@ -142,12 +125,12 @@ public class Mascota implements Serializable {
 		this.id_mascota_propietario = id_mascota_propietario;
 	}
 
-	public Especie getEspecie_id() {
-		return especie_id;
+	public Raza getEspecie_id() {
+		return raza_id;
 	}
 
-	public void setEspecie_id(Especie especie_id) {
-		this.especie_id = especie_id;
+	public void setRaza_id(Raza raza_id) {
+		this.raza_id = raza_id;
 	}
 
 	@Override
@@ -169,11 +152,12 @@ public class Mascota implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", especie=" + especie + ", raza=" + raza
-				+ ", sexo=" + sexo + ", fechaNac=" + fechaNac + ", edad=" + edad + ", coloYSenalesParti="
-				+ coloYSenalesParti + ", id_mascota_propietario=" + id_mascota_propietario + ", especie_id="
-				+ especie_id + "]";
+		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", sexo=" + sexo + ", fechaNac=" + fechaNac
+				+ ", edad=" + edad + ", coloYSenalesParti=" + coloYSenalesParti + ", id_mascota_propietario="
+				+ id_mascota_propietario + ", raza_id=" + raza_id + "]";
 	}
+
+	
 
 	
 }

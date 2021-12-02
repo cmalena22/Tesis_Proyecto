@@ -15,20 +15,22 @@ import javax.persistence.*;
 
 public class Raza implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int raza_id;
 	private String nombre;
 
-	//Relacion especie - raza
+	// Relacion especie - raza
 	@ManyToOne
 	@JoinColumn
 	private Especie especie_id;
-	
+
+	//relacion raza mascota
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "raza_id")
+	private Mascota mascota;
 	public Raza() {
-		
+
 	}
 
 	public Raza(int raza_id, String nombre, Especie especie_id) {
@@ -78,28 +80,25 @@ public class Raza implements Serializable {
 		return raza_id == other.raza_id;
 	}
 
-	
 	private static Raza raza;
-	public static List<Raza> serializeRaza(List<Raza> raza){
-		List<Raza > razaList= new ArrayList<Raza>();
-		raza.forEach(e->{
-			Raza razas = new Raza(e.getRaza_id(), e.getNombre(), e.getEspecie_id());
-			razaList.add(razas);
-			
-			
-			
-			
+
+	public static List<Raza> serializeRaza(List<Raza> razas) {
+		List<Raza> razaList = new ArrayList<>();
+		razas.forEach(
+		e-> {
+			Especie especie = new Especie(e.getEspecie_id().getEspecie_id(), e.getEspecie_id().getNombreEspecie());
+
+			raza = new Raza(e.getRaza_id(), e.getNombre(),especie);
+			razaList.add(raza);
+
 		});
 		return razaList;
-		
+
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Raza [raza_id=" + raza_id + ", nombre=" + nombre + ", especie_id=" + especie_id + "]";
 	}
 
-	
-	
-   
 }

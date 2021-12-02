@@ -1,10 +1,12 @@
 package ec.ups.edu.ejb;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.ups.edu.modelo.Especialidad;
 import ec.ups.edu.modelo.Rol;
+@Stateless
 
 public class RolFacade  extends AbstractFacade<Rol>{
 

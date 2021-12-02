@@ -22,10 +22,12 @@ import javax.ws.rs.core.MediaType;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
+import ec.ups.edu.ejb.EspecieFacade;
 import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.ejb.RazaFacade;
+import ec.ups.edu.modelo.Especie;
 import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
@@ -42,6 +44,10 @@ public class ApiRest {
 	private MascotaFacade ejbMascotaFacade;
 	@EJB
 	private RazaFacade ejbRazaFacade;
+	@EJB
+	private EspecieFacade ejbEspecieFacade;
+	
+	
 	public ApiRest() {
 
 	}
@@ -103,7 +109,7 @@ public class ApiRest {
 		propietario.setCorreo(correo);
 		System.out.println(propietario.toString());
 		try {
-			// ejbPropietarioFacade.create(propietario);
+			 ejbPropietarioFacade.create(propietario);
 			return Response.ok("Creado desde tesis veterinaria").header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
@@ -115,18 +121,45 @@ public class ApiRest {
 		}
 	}
 	
-	@POST
+	@GET
 	@Path("/obtenerEspecieMascota")
 	 @Produces(MediaType.APPLICATION_JSON)
 	public Response ingresarEspecieMascota() {
 		System.out.println("Especie mascota");
+		Jsonb jsonb = JsonbBuilder.create();   	
 		List<Raza> listaRaza = new ArrayList<Raza>();
-    	Jsonb jsonb = JsonbBuilder.create();
-    	listaRaza= Raza.serializeRaza(ejbRazaFacade.findAll());
-		
+    	    			
 		try {
+			listaRaza= Raza.serializeRaza(ejbRazaFacade.findAll());
+	    	System.out.println("Raza"+ listaRaza);
 			// ejbPropietarioFacade.create(propietario);
 			return Response.ok(jsonb.toJson(listaRaza))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error")
+					.header("Access-Control-Allow-Origin","*")
+					.header("Access-Control-Allow-Header", "*")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	@GET
+	@Path("/obtenerRazaMascota")
+	 @Produces(MediaType.APPLICATION_JSON)
+
+	public Response obtenerRazaMascota() {
+
+		System.out.println("Especie mascota");
+		Jsonb jsonb = JsonbBuilder.create();   	
+		List<Especie> listaEspecie = new ArrayList<Especie>();
+    	    			
+		try {
+			listaEspecie= Especie.serializeEspecie(ejbEspecieFacade.findAll());
+	    	System.out.println("Raza"+ listaEspecie);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaEspecie))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
@@ -137,30 +170,10 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
+	
+	
+
 	@POST
-	@Path("/obtenerRazaMascota")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-
-	public Response obtenerRazaMascota() {
-
-		System.out.println("Especie mascota");
-	
-		try {
-			// ejbPropietarioFacade.create(propietario);
-			return Response.ok("Creado desde tesis veterinaria").header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-		} catch (Exception e) {
-			// TODO: handle exception
-			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-		}
-	}
-	
-	
-
-	/*@POST
 	@Path("/registrarMascota")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -170,36 +183,40 @@ public class ApiRest {
 			@FormParam("coloYSenalesParti") String coloYSenalesParti) {
 		System.out.println(idPro + "=" + nombre + "=" + especie + "=" + raza + "=" + sexo + "=" + fechaNac + "=" + edad
 				+ "=" + coloYSenalesParti);
+		
 		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
 
 		Propietario propietario = new Propietario();
 		propietario = ejbPropietarioFacade.buscarCedula(idPro);
-
 		System.out.println(propietario.toString());
 
+		Raza razaV =  new Raza();
+		razaV=ejbRazaFacade.buscarId(raza);
+		System.out.println(razaV.toString());
+		
 		Mascota mascota = new Mascota();
-		Jsonb jsonb = JsonbBuilder.create();
 
 		mascota.setNombre(nombre);
-		mascota.setEspecie(especie);
-		mascota.setEspecie(especie);
-		mascota.setRaza(raza);
 		mascota.setSexo(sexo);
-		mascota.setId_mascota_propietario(propietario);
-
 		mascota.setFechaNac(fechaNac);
-
 		mascota.setEdad(edad);
 		mascota.setColoYSenalesParti(coloYSenalesParti);
-
+		mascota.setId_mascota_propietario(propietario);
+		mascota.setRaza_id(razaV);
 		System.out.println("Mascota final" + mascota.toString());
+		
+		
+
+
+		
 
 	   	ejbMascotaFacade.create(mascota);
-		return Response.ok(jsonb.toJson(mascota.getId_mascota())).build();
+		return Response.ok("Bien").build();
 		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
 		// authorization")
 
-	}*/
+	}
 
 	@GET
 	@Path("/texto")
