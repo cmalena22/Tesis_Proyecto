@@ -41,4 +41,6 @@ public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 		return us;
 
 	}
+	
+	
 }

@@ -22,16 +22,21 @@ import javax.ws.rs.core.MediaType;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
+import ec.ups.edu.ejb.EspecialidadFacade;
 import ec.ups.edu.ejb.EspecieFacade;
 import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.ejb.RazaFacade;
+import ec.ups.edu.ejb.UsuarioFacade;
+import ec.ups.edu.modelo.Especialidad;
 import ec.ups.edu.modelo.Especie;
 import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
 import ec.ups.edu.modelo.Raza;
+import ec.ups.edu.modelo.Rol;
+import ec.ups.edu.modelo.Usuario;
 
 @Path("/prueba")
 public class ApiRest {
@@ -46,6 +51,10 @@ public class ApiRest {
 	private RazaFacade ejbRazaFacade;
 	@EJB
 	private EspecieFacade ejbEspecieFacade;
+	@EJB
+	private EspecialidadFacade ejbEspecialidadFacade;
+	@EJB
+	private UsuarioFacade ejbUsuarioFacade;
 	
 	
 	public ApiRest() {
@@ -277,5 +286,99 @@ public class ApiRest {
 		System.out.println("UserID ==> " + user);
 		return null;
 	}
+	
+	
+	@GET
+	@Path("/obtenerEspecialidad")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response capturarEspecialidad() {
+		System.out.println("Especialidad");
+		Jsonb jsonb = JsonbBuilder.create();   	
+		List<Especialidad> listaespe = new ArrayList<Especialidad>();
+    	    			
+		try {
+			listaespe= Especialidad.serializeEspecialidad(ejbEspecialidadFacade.findAll());
+	    	System.out.println("Raza"+ listaespe);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaespe)).build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("No esta").build();
 
+		}
+	}
+	
+	@POST
+	@Path("/registrarPUsuario")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RegistrarPUsuario(@FormParam("cedula") String cedula, @FormParam("nombres") String nombres,
+			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
+			@FormParam("fechaNac") String fechaNac,@FormParam("correo") String correo,@FormParam("contrasena") String contrasena,
+			@FormParam("celular") String celular,@FormParam("titulo") String titulo,@FormParam("especialidad_id") String especialidad_id) {
+
+		
+		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("cedula");
+		System.out.println(cedula);
+		System.out.println("nombres");
+		System.out.println(nombres);
+		System.out.println("apellidos");
+		System.out.println(apellidos);
+		System.out.println("direccion");
+		System.out.println(direccion);
+		System.out.println("fecha naci");
+		System.out.println(fechaNac);
+		System.out.println("correo");
+		System.out.println(correo);
+		System.out.println("contrasena");
+		System.out.println(contrasena);
+		System.out.println("celular");
+		System.out.println(celular);
+		System.out.println("titulo");
+		System.out.println(titulo);
+		System.out.println("especialidad id");
+		System.out.println(especialidad_id);
+		
+		Usuario usu=new Usuario();
+		usu.setCorreo(correo);
+		usu.setContrasena(contrasena);
+		
+		Rol rol=new Rol();
+		rol.setRol_id(1);
+		usu.setRol_id(rol);
+		System.out.println("rol id"+ rol.getRol_id());
+		
+		
+		Especialidad espe =new Especialidad();
+		int especia= Integer.parseInt(especialidad_id);
+		espe.setEspecialidad_id(especia);
+		
+
+		ejbUsuarioFacade.create(usu);
+		System.out.println("usu id"+ usu.getUsuario_id());
+		
+		MedicoVeterinario medi =new MedicoVeterinario();
+		medi.setCedulaId(cedula);
+		medi.setNombres(nombres);
+		medi.setApellidos(apellidos);
+		medi.setDireccion(direccion);
+		medi.setFechaNac(fechaNac);
+		medi.setCelular(celular);
+		medi.setTitulo(titulo);
+		medi.setEspecialidad_id(espe);
+		medi.setUsuario_id(usu);
+		
+	   
+		ejbMedicoVeterinarioFacade.create(medi);
+		
+		return Response.ok("Bien").build();
+		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
+		// authorization")
+
+	}
+
+	
 }

@@ -23,11 +23,11 @@ public class MedicoVeterinario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	private int cedulaId;
+	private String cedulaId;
 	private String nombres;
 	private String apellidos;
 	private String direccion;
-	private Date fechaNac;
+	private String fechaNac;
 	private String celular;
 	private String titulo;
 	//foreing keys
@@ -54,7 +54,7 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public MedicoVeterinario(int cedulaId, String nombres, String apellidos, String direccion, Date fechaNac,
+	public MedicoVeterinario(String cedulaId, String nombres, String apellidos, String direccion, String fechaNac,
 			String celular, String titulo, Especialidad especialidad_id, Usuario usuario_id) {
 		super();
 		this.cedulaId = cedulaId;
@@ -69,12 +69,12 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public int getCedulaId() {
+	public String getCedulaId() {
 		return cedulaId;
 	}
 
 
-	public void setCedulaId(int cedulaId) {
+	public void setCedulaId(String cedulaId) {
 		this.cedulaId = cedulaId;
 	}
 
@@ -109,12 +109,12 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

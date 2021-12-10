@@ -1,6 +1,8 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -101,7 +103,18 @@ public class Especialidad implements Serializable {
 	}
 
 
+	private static Especialidad espe;
 
+	public static List<Especialidad> serializeEspecialidad(List<Especialidad> especialidad) {
+		List<Especialidad> especialidadList = new ArrayList<>();
+		especialidad.forEach(
+		e-> {
+			espe = new Especialidad(e.getEspecialidad_id(),e.getTipoEspecialidad());
+			especialidadList.add(espe);		
+		});
+		return especialidadList;
+
+	}
 
 	@Override
 	public String toString() {
