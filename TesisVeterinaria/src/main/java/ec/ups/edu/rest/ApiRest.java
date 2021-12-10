@@ -67,16 +67,16 @@ public class ApiRest {
 	public Response inicio(@FormParam("correo") String correo, @FormParam("contrasena") String contrasena,
 			@FormParam("otra") String hsdg) throws IOException {
 		System.out.println("Metodo crear");
-		MedicoVeterinario us = new MedicoVeterinario();
+		Usuario us = new Usuario();
 		System.out.println("Correo " + correo);
 		System.out.println("Contrasena " + contrasena);
 
-		MedicoVeterinario usu = new MedicoVeterinario();
+		//MedicoVeterinario usu = new MedicoVeterinario();
 		
 
 		
 		try {
-		//	us = ejbMedicoVeterinarioFacade.inicioo();
+		us = ejbUsuarioFacade.inicioo(correo,contrasena);
 			if (us != null) {
 				return Response.ok(correo).build();
 
@@ -308,6 +308,7 @@ public class ApiRest {
 		}
 	}
 	
+	
 	@POST
 	@Path("/registrarPUsuario")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -342,9 +343,11 @@ public class ApiRest {
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
 		
+		
 		Usuario usu=new Usuario();
+		String contramd5= usu.md5(contrasena);
 		usu.setCorreo(correo);
-		usu.setContrasena(contrasena);
+		usu.setContrasena(contramd5);
 		
 		Rol rol=new Rol();
 		rol.setRol_id(1);
