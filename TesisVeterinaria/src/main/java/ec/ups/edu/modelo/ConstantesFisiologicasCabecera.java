@@ -1,6 +1,8 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -78,6 +80,19 @@ public class ConstantesFisiologicasCabecera implements Serializable {
 		return constantes_idCab == other.constantes_idCab;
 	}
 
+	private static ConstantesFisiologicasCabecera constanteCab;
+
+	public static List<ConstantesFisiologicasCabecera> serializeEspecie(List<ConstantesFisiologicasCabecera> constantesCab) {
+		List<ConstantesFisiologicasCabecera> constantesList = new ArrayList<>();
+		constantesCab.forEach(
+		e-> {
+			constanteCab = new ConstantesFisiologicasCabecera(e.getConstantes_idCab(),e.getNombre());
+			constantesList.add(constanteCab);		
+		});
+		return constantesList;
+
+	}
+	
 	@Override
 	public String toString() {
 		return "ConstantesFisiologicasCabecera [constantes_idCab=" + constantes_idCab + ", nombre=" + nombre + "]";
