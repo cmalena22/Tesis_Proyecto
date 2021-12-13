@@ -33,10 +33,27 @@ public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 	
 	public MedicoVeterinario buscarcorreo(String correo) {
 		MedicoVeterinario us = new MedicoVeterinario();
-		String query = "SELECT e " + "FROM MedicoVeterinario e " + "WHERE  e.correo = '" + correo + "'";
+		String query = "SELECT e " + "FROM MedicoVeterinario e " + "WHERE  e.usuario_id.correo = '" + correo + "'";
 		us = em.createQuery(query, MedicoVeterinario.class).getSingleResult();
 		System.out.println(query);
+		System.out.println(us.getCedulaId());
+		System.out.println(us.getApellidos());
+		System.out.println(us.getFechaNac());	
 		System.out.println(us.getNombres());
+		System.out.println(us.getTitulo());
+		System.out.println(us.getUsuario_id().getCorreo());
+		System.out.println(us.getEspecialidad_id().getTipoEspecialidad());
+		System.out.println(us.getEspecialidad_id().getEspecialidad_id());
+		return us;
+
+	}
+	
+	public MedicoVeterinario buscarcorreoV(String correo) {
+		MedicoVeterinario us = new MedicoVeterinario();
+		String query = "SELECT e " + "FROM MedicoVeterinario e " + "WHERE  e.usuario_id.correo = '" + correo + "'";
+		us = em.createQuery(query, MedicoVeterinario.class).getSingleResult();
+		System.out.println(query);
+		System.out.println(us.getUsuario_id().getCorreo());
 		System.out.println(us.getApellidos());
 		return us;
 

@@ -53,6 +53,7 @@ public class ApiRest {
 	private ConsultaMedica consultaM;
 	private  static  int idConsultaMedica;
 	private static int idMascota;
+	private static String correo;
 	@EJB
 	private MedicoVeterinarioFacade ejbMedicoVeterinarioFacade;
 	@EJB
@@ -87,7 +88,6 @@ public class ApiRest {
 		Usuario us = new Usuario();
 		System.out.println("Correo " + correo);
 		System.out.println("Contrasena " + contrasena);
-
 		MedicoVeterinario usu = new MedicoVeterinario();
 		//MedicoVeterinario usu = new MedicoVeterinario();
 		
@@ -176,7 +176,7 @@ public class ApiRest {
 		mascota.setRaza_id(razaV);
 		System.out.println("Mascota final" + mascota.toString());
 		ejbMascotaFacade.create(mascota);
-		return Response.ok("Bien").build();
+		return Response.ok(mascota.getId_mascota()).build();
 		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
 		// authorization")
 	}
@@ -262,7 +262,8 @@ public class ApiRest {
 			@FormParam("desparacitacion") String desparacitacion, @FormParam("estadoR") String estadoR,
 			@FormParam("producto") String producto, @FormParam("fecha") String fecha,@FormParam("procedencia") String procedencia,
 			@FormParam("anamnesis") String anamnesis,@FormParam("diagnostico") String diagnostico,@FormParam("pronostico") String pronostico,
-			@FormParam("tratamiento") String tratamiento,@FormParam("observaciones") String observaciones, @FormParam("idMascota") String idMascota){
+			@FormParam("tratamiento") String tratamiento,@FormParam("observaciones") String observaciones, @FormParam("idMascota") String idMascota
+			,@FormParam("medico") String medico){
 		
 		ConsultaMedica consultaMedica=  new ConsultaMedica();
 		consultaMedica.setMotivoConsulta(motivoConsulta);
@@ -282,6 +283,7 @@ public class ApiRest {
 		///consultaM=ejbConsultaMedica.buscarId(consultaMedica.getIdConsultaMedica());		
 	//	this.idConsultaMedica=consultaM.getIdConsultaMedica();
 		this.idMascota=Integer.parseInt(idMascota);
+		this.correo=medico;
 		System.out.println(idConsultaMedica);System.out.println("estamos rn registras consulta medica");
 		System.out.println("Ingreso");		System.out.println("motivo"+motivoConsulta);
 		System.out.println("vacunacion"+vacunacion);		System.out.println("desparacitavion"+desparacitacion);
@@ -290,6 +292,7 @@ public class ApiRest {
 		System.out.println("anamnesis"+anamnesis);		System.out.println("diagnosstico"+diagnostico);
 		System.out.println("pronostico"+pronostico);		System.out.println("tratamiento"+tratamiento);
 		System.out.println("observaciones"+observaciones);		System.out.println("idMascota"+idMascota);
+		System.out.println("medico correo"+medico);
 
 		
 
@@ -344,7 +347,11 @@ public class ApiRest {
          Mascota mascota= new Mascota();
          mascota=ejbMascotaFacade.find(idMascota);         
          System.out.println("Mascota recuperada"+mascota.toString());
-         
+         //medico
+         System.out.println("Id dentro de consta fisio de medico"+correo);
+         MedicoVeterinario medico =new MedicoVeterinario();
+         medico=ejbMedicoVeterinarioFacade.buscarcorreo(correo);
+         System.out.println("Medico recuperado por correo"+ medico.toString());
          
 		for (Roww roww : list) {
 			System.out.println(roww.getNombreConsta());		
