@@ -50,10 +50,9 @@ public class HistoriaClinica implements Serializable {
 
 
 
-	public HistoriaClinica(int idHistorial, Date diaDeAdminision, LocalDateTime hora, Mascota mascota_id,
+	public HistoriaClinica( Date diaDeAdminision, LocalDateTime hora, Mascota mascota_id,
 			MedicoVeterinario cedula_id, ConsultaMedica consulta_id) {
 		super();
-		this.idHistorial = idHistorial;
 		this.diaDeAdminision = diaDeAdminision;
 		this.hora = hora;
 		this.mascota_id = mascota_id;

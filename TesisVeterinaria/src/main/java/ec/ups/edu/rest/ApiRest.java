@@ -1,6 +1,7 @@
 package ec.ups.edu.rest;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +24,9 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
 import ec.ups.edu.ejb.ConstantesFisiologicasCabeceraFacade;
+import ec.ups.edu.ejb.ConstantesFisiologicasDetalleFacade;
+import ec.ups.edu.ejb.ConsultaMedicaFacade;
+import ec.ups.edu.ejb.EspecialidadFacade;
 import ec.ups.edu.ejb.EspecieFacade;
 import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
@@ -30,19 +34,25 @@ import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.ejb.RazaFacade;
 import ec.ups.edu.ejb.Roww;
 import ec.ups.edu.modelo.ConstantesFisiologicasCabecera;
+import ec.ups.edu.modelo.ConstantesFisiologicasDetalle;
 import ec.ups.edu.modelo.ConsultaMedica;
+import ec.ups.edu.ejb.UsuarioFacade;
+import ec.ups.edu.modelo.Especialidad;
 import ec.ups.edu.modelo.Especie;
 import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
 import ec.ups.edu.modelo.Raza;
+import ec.ups.edu.modelo.Rol;
+import ec.ups.edu.modelo.Usuario;
 
 @Path("/prueba")
 public class ApiRest {
 	
 	private List<Roww> list;
 	private ConsultaMedica consultaM;
-
+	private  static  int idConsultaMedica;
+	private static int idMascota;
 	@EJB
 	private MedicoVeterinarioFacade ejbMedicoVeterinarioFacade;
 	@EJB
@@ -55,11 +65,17 @@ public class ApiRest {
 	private EspecieFacade ejbEspecieFacade;
 	@EJB
 	private ConstantesFisiologicasCabeceraFacade ejbConstantesCabecera;
+	@EJB private ConstantesFisiologicasDetalleFacade ejbConstanteDetalle;
+	@EJB
+	private EspecialidadFacade ejbEspecialidadFacade;
+	@EJB
+	private UsuarioFacade ejbUsuarioFacade;
 	
+	@EJB private ConsultaMedicaFacade ejbConsultaMedica;
 
 	public ApiRest() {
-		this.list = new ArrayList<>();
-		this.consultaM= new ConsultaMedica();
+		this.list = new ArrayList<Roww>();
+		this.consultaM=new ConsultaMedica();
 	}
 
 	@POST
@@ -68,14 +84,17 @@ public class ApiRest {
 	public Response inicio(@FormParam("correo") String correo, @FormParam("contrasena") String contrasena,
 			@FormParam("otra") String hsdg) throws IOException {
 		System.out.println("Metodo crear");
-		MedicoVeterinario us = new MedicoVeterinario();
+		Usuario us = new Usuario();
 		System.out.println("Correo " + correo);
 		System.out.println("Contrasena " + contrasena);
 
 		MedicoVeterinario usu = new MedicoVeterinario();
+		//MedicoVeterinario usu = new MedicoVeterinario();
+		
 
 		try {
 			// us = ejbMedicoVeterinarioFacade.inicioo();
+		us = ejbUsuarioFacade.inicioo(correo,contrasena);
 			if (us != null) {
 				return Response.ok(correo).build();
 
@@ -243,26 +262,36 @@ public class ApiRest {
 			@FormParam("desparacitacion") String desparacitacion, @FormParam("estadoR") String estadoR,
 			@FormParam("producto") String producto, @FormParam("fecha") String fecha,@FormParam("procedencia") String procedencia,
 			@FormParam("anamnesis") String anamnesis,@FormParam("diagnostico") String diagnostico,@FormParam("pronostico") String pronostico,
-			@FormParam("tratamiento") String tratamiento,@FormParam("observaciones") String observaciones) {
+			@FormParam("tratamiento") String tratamiento,@FormParam("observaciones") String observaciones, @FormParam("idMascota") String idMascota){
+		
+		ConsultaMedica consultaMedica=  new ConsultaMedica();
+		consultaMedica.setMotivoConsulta(motivoConsulta);
+		consultaMedica.setVacunacion(vacunacion);
+		consultaMedica.setDesparacitacion(desparacitacion);
+		consultaMedica.setEstadoReproductivo(estadoR);
+		consultaMedica.setProducto(producto);
+		consultaMedica.setFechas(fecha);
+		consultaMedica.setProcedencia(procedencia);
+		consultaMedica.setAnamnesis(anamnesis);
+		consultaMedica.setDiagnostico(diagnostico);
+		consultaMedica.setPronostico(pronostico);
+		consultaMedica.setTratamiento(tratamiento);
+		consultaMedica.setObservaciones(observaciones);
+		//ejbConsultaMedica.create(consultaMedica);
+		System.out.println("Consutal============================="+consultaMedica.toString());		
+		///consultaM=ejbConsultaMedica.buscarId(consultaMedica.getIdConsultaMedica());		
+	//	this.idConsultaMedica=consultaM.getIdConsultaMedica();
+		this.idMascota=Integer.parseInt(idMascota);
+		System.out.println(idConsultaMedica);System.out.println("estamos rn registras consulta medica");
+		System.out.println("Ingreso");		System.out.println("motivo"+motivoConsulta);
+		System.out.println("vacunacion"+vacunacion);		System.out.println("desparacitavion"+desparacitacion);
+		System.out.println("Estado Repro"+estadoR);		System.out.println("producto"+producto);
+		System.out.println("fecha"+fecha);		System.out.println("procedencia"+procedencia);
+		System.out.println("anamnesis"+anamnesis);		System.out.println("diagnosstico"+diagnostico);
+		System.out.println("pronostico"+pronostico);		System.out.println("tratamiento"+tratamiento);
+		System.out.println("observaciones"+observaciones);		System.out.println("idMascota"+idMascota);
 
-		System.out.println("estamos rn registras consulta medica");
-		System.out.println("Ingreso");
-		System.out.println("motivo"+motivoConsulta);
-		System.out.println("vacunacion"+vacunacion);
-		System.out.println("desparacitavion"+desparacitacion);
-		System.out.println("Estado Repro"+estadoR);
-		System.out.println("producto"+producto);
-		System.out.println("fecha"+fecha);
-		System.out.println("procedencia"+procedencia);
-		System.out.println("anamnesis"+anamnesis);
-		System.out.println("diagnosstico"+diagnostico);
-		System.out.println("pronostico"+pronostico);
-		System.out.println("tratamiento"+tratamiento);
-		System.out.println("observaciones"+observaciones);
-		consultaM.setIdConsultaMedica(1);
-		consultaM.setMotivoConsulta(motivoConsulta);
-		System.out.println(consultaM.getIdConsultaMedica());
-		//consultaM.setVacunacion(True);
+		
 
 		
 		try {
@@ -286,17 +315,45 @@ public class ApiRest {
 
 	public Response agregarConsultaMedica(String jsonConsultaMedica) {
 		System.out.println("ConsutalMedica");
+		
+ 
 		System.out.println("JSONPRODUCTO----------------->" + jsonConsultaMedica);
 		// System.out.println(jsonConsultaMedica.getClass());
+		
 		Jsonb jsonb = JsonbBuilder.create();
 		
 		//list.add(new Roww("gola", "gola", "gola", "gola", "gola", "gola", "gola", "gola", "gola"));
 		list= jsonb.fromJson(jsonConsultaMedica, new ArrayList<Roww>() {}.getClass().getGenericSuperclass());	
-		System.out.println("La lista es :" +list);	
-		System.out.println("Id de consulta medica registrada es"+consultaM.getIdConsultaMedica());
+		//System.out.println("La lista es :" +list);	
+		//ConsultaMedica consultamedicaBusqueda= ejbConsultaMedica.buscarId(idConsultaMedica);
+		
+	  	//Historia Clinica
+    	//Se obtiene la Fecha
+    	 Date date = new Date(); 
+    	
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+        String strDate = formatter.format(date);  
+        System.out.println("Date Format with MM/dd/yyyy : "+strDate); 
+        
+        //hora
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date date2 = new Date();
+         System.out.println("Hora actual: " + dateFormat.format(date2));
+        //mASCOTA
+         System.out.println("id mascota recuperado"+idMascota);
+         Mascota mascota= new Mascota();
+         mascota=ejbMascotaFacade.find(idMascota);         
+         System.out.println("Mascota recuperada"+mascota.toString());
+         
+         
 		for (Roww roww : list) {
-			System.out.println(roww.getNombreConsta());			
+			System.out.println(roww.getNombreConsta());		
+		//	ConstantesFisiologicasCabecera cabecera= ejbConstantesCabecera.buscarId(roww.getNombreConsta());
+		//	ConstantesFisiologicasDetalle constDet= new ConstantesFisiologicasDetalle( roww.getValorConsta(), cabecera, consultamedicaBusqueda);
+			//ejbConstanteDetalle.create(constDet);
 		}
+	//	System.out.println("Id de consulta medica recuperada es:"+ consultamedicaBusqueda);
+		
 
 		try {
 
@@ -377,5 +434,102 @@ public class ApiRest {
 		System.out.println("UserID ==> " + user);
 		return null;
 	}
+	
+	
+	@GET
+	@Path("/obtenerEspecialidad")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response capturarEspecialidad() {
+		System.out.println("Especialidad");
+		Jsonb jsonb = JsonbBuilder.create();   	
+		List<Especialidad> listaespe = new ArrayList<Especialidad>();
+    	    			
+		try {
+			listaespe= Especialidad.serializeEspecialidad(ejbEspecialidadFacade.findAll());
+	    	System.out.println("Raza"+ listaespe);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaespe)).build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("No esta").build();
 
+		}
+	}
+	
+	
+	@POST
+	@Path("/registrarPUsuario")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RegistrarPUsuario(@FormParam("cedula") String cedula, @FormParam("nombres") String nombres,
+			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
+			@FormParam("fechaNac") String fechaNac,@FormParam("correo") String correo,@FormParam("contrasena") String contrasena,
+			@FormParam("celular") String celular,@FormParam("titulo") String titulo,@FormParam("especialidad_id") String especialidad_id) {
+
+		
+		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("cedula");
+		System.out.println(cedula);
+		System.out.println("nombres");
+		System.out.println(nombres);
+		System.out.println("apellidos");
+		System.out.println(apellidos);
+		System.out.println("direccion");
+		System.out.println(direccion);
+		System.out.println("fecha naci");
+		System.out.println(fechaNac);
+		System.out.println("correo");
+		System.out.println(correo);
+		System.out.println("contrasena");
+		System.out.println(contrasena);
+		System.out.println("celular");
+		System.out.println(celular);
+		System.out.println("titulo");
+		System.out.println(titulo);
+		System.out.println("especialidad id");
+		System.out.println(especialidad_id);
+		
+		
+		Usuario usu=new Usuario();
+		String contramd5= usu.md5(contrasena);
+		usu.setCorreo(correo);
+		usu.setContrasena(contramd5);
+		
+		Rol rol=new Rol();
+		rol.setRol_id(1);
+		usu.setRol_id(rol);
+		System.out.println("rol id"+ rol.getRol_id());
+		
+		
+		Especialidad espe =new Especialidad();
+		int especia= Integer.parseInt(especialidad_id);
+		espe.setEspecialidad_id(especia);
+		
+
+		ejbUsuarioFacade.create(usu);
+		System.out.println("usu id"+ usu.getUsuario_id());
+		
+		MedicoVeterinario medi =new MedicoVeterinario();
+		medi.setCedulaId(cedula);
+		medi.setNombres(nombres);
+		medi.setApellidos(apellidos);
+		medi.setDireccion(direccion);
+		medi.setFechaNac(fechaNac);
+		medi.setCelular(celular);
+		medi.setTitulo(titulo);
+		medi.setEspecialidad_id(espe);
+		medi.setUsuario_id(usu);
+		
+	   
+		ejbMedicoVeterinarioFacade.create(medi);
+		
+		return Response.ok("Bien").build();
+		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
+		// authorization")
+
+	}
+
+	
 }

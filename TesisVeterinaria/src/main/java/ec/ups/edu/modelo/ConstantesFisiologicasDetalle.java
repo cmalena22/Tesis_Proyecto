@@ -38,10 +38,9 @@ public class ConstantesFisiologicasDetalle implements Serializable {
 	}
 
 
-	public ConstantesFisiologicasDetalle(int constante_idDetalle, String valorAsignado,
+	public ConstantesFisiologicasDetalle( String valorAsignado,
 			ConstantesFisiologicasCabecera constantesidCab, ConsultaMedica consulta_id) {
 		super();
-		this.constante_idDetalle = constante_idDetalle;
 		this.valorAsignado = valorAsignado;
 		this.constantesidCab = constantesidCab;
 		this.consulta_id = consulta_id;

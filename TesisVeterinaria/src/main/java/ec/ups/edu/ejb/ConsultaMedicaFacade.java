@@ -5,7 +5,9 @@ import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import ec.ups.edu.modelo.ConstantesFisiologicasCabecera;
 import ec.ups.edu.modelo.ConsultaMedica;
 
 @Stateless
@@ -22,6 +24,23 @@ public class ConsultaMedicaFacade extends AbstractFacade<ConsultaMedica>{
 	protected EntityManager getEntityManager() {
 		// TODO Auto-generated method stub
 		return em;
+	}
+	
+	public ConsultaMedica buscarId(int id) {
+		ConsultaMedica cab = new ConsultaMedica();
+		try {
+			String sql = "SELECT p FROM ConsultaMedica p where p.idConsultaMedica=" + id + "";
+			System.out.println(sql);
+			Query query = em.createQuery(sql);
+			cab = (ConsultaMedica) query.getSingleResult();
+			System.out.println("recupere raza:" + cab);
+			System.out.println("pasa:" + id);
+		} catch (Exception e) {
+			System.out.println("pais" + e.getMessage());
+		}
+
+		return cab;
+
 	}
 
 }

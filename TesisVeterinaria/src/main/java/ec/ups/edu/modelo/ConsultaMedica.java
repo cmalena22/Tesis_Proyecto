@@ -20,15 +20,16 @@ public class ConsultaMedica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idConsultaMedica;
 	private String motivoConsulta;
-	private char vacunacion; 
+	private String vacunacion; 
 	private String producto;
-	private char desparacitacion;
-	private Date fechas;
+	private String desparacitacion;
+	private String fechas;
 	private String estadoReproductivo;
 	private String procedencia;
 	private String anamnesis;
 	private String diagnostico;
 	private String pronostico;
+	private String tratamiento;
 	private String observaciones;
 	//foreing Keys
 	//relacion historia-consulta
@@ -49,11 +50,14 @@ public class ConsultaMedica implements Serializable {
 	
 	public ConsultaMedica() { 
 	}
+	public ConsultaMedica(int idConsultaMedica) { 
+		this.idConsultaMedica=idConsultaMedica;
+	}
 
 
-	public ConsultaMedica(int idConsultaMedica, String motivoConsulta, char vacunacion, String producto,
-			char desparacitacion, Date fechas, String estadoReproductivo, String procedencia, String anamnesis,
-			String diagnostico, String pronostico, String observaciones) {
+	public ConsultaMedica(int idConsultaMedica, String motivoConsulta,String vacunacion, String producto,
+			String desparacitacion, String fechas, String estadoReproductivo, String procedencia, String anamnesis,
+			String diagnostico, String pronostico,String tratamiento, String observaciones) {
 		super();
 		this.idConsultaMedica = idConsultaMedica;
 		this.motivoConsulta = motivoConsulta;
@@ -66,6 +70,7 @@ public class ConsultaMedica implements Serializable {
 		this.anamnesis = anamnesis;
 		this.diagnostico = diagnostico;
 		this.pronostico = pronostico;
+		this.tratamiento=tratamiento;
 		this.observaciones = observaciones;
 	}
 
@@ -90,12 +95,12 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public char getVacunacion() {
+	public String getVacunacion() {
 		return vacunacion;
 	}
 
 
-	public void setVacunacion(char vacunacion) {
+	public void setVacunacion(String vacunacion) {
 		this.vacunacion = vacunacion;
 	}
 
@@ -110,22 +115,22 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public char getDesparacitacion() {
+	public String getDesparacitacion() {
 		return desparacitacion;
 	}
 
 
-	public void setDesparacitacion(char desparacitacion) {
+	public void setDesparacitacion(String desparacitacion) {
 		this.desparacitacion = desparacitacion;
 	}
 
 
-	public Date getFechas() {
+	public String getFechas() {
 		return fechas;
 	}
 
 
-	public void setFechas(Date fechas) {
+	public void setFechas(String fechas) {
 		this.fechas = fechas;
 	}
 
@@ -218,8 +223,16 @@ public class ConsultaMedica implements Serializable {
 	public void setListreceta(Set<RecetaMedica> listreceta) {
 		this.listreceta = listreceta;
 	}
+	
+	
 
 
+	public String getTratamiento() {
+		return tratamiento;
+	}
+	public void setTratamiento(String tratamiento) {
+		this.tratamiento = tratamiento;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(idConsultaMedica);
@@ -237,18 +250,19 @@ public class ConsultaMedica implements Serializable {
 		ConsultaMedica other = (ConsultaMedica) obj;
 		return idConsultaMedica == other.idConsultaMedica;
 	}
-
-
 	@Override
 	public String toString() {
 		return "ConsultaMedica [idConsultaMedica=" + idConsultaMedica + ", motivoConsulta=" + motivoConsulta
 				+ ", vacunacion=" + vacunacion + ", producto=" + producto + ", desparacitacion=" + desparacitacion
 				+ ", fechas=" + fechas + ", estadoReproductivo=" + estadoReproductivo + ", procedencia=" + procedencia
 				+ ", anamnesis=" + anamnesis + ", diagnostico=" + diagnostico + ", pronostico=" + pronostico
-				+ ", observaciones=" + observaciones + ", listaConsultaMedica=" + listaConsultaMedica
-				+ ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta=" + listreceta + "]";
+				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", listaConsultaMedica="
+				+ listaConsultaMedica + ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta="
+				+ listreceta + "]";
 	}
 
+
+	
 	
 
 	
