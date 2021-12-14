@@ -190,6 +190,19 @@ public class MedicoVeterinario implements Serializable {
 		return cedulaId == other.cedulaId;
 	}
 
+	private static MedicoVeterinario medi;
+
+	public static List<MedicoVeterinario> serializeMedico(List<MedicoVeterinario> medico) {
+		List<MedicoVeterinario> mediList = new ArrayList<>();
+		medico.forEach(
+		e-> {
+			medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getEspecialidad_id(),e.getUsuario_id());
+			mediList.add(medi);		
+		});
+		return mediList;
+
+	}
+
 
 	@Override
 	public String toString() {
