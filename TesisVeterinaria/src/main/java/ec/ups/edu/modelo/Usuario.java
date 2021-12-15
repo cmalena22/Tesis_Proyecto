@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,14 +27,13 @@ public class Usuario implements Serializable {
 	private String contrasena;
 	
 	//Relacion usuario rol
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Rol rol_id;
 	
 	//Relacion Usuario Medico
-
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario_id")
-	private MedicoVeterinario medicoVeterinario;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario_id")
+	private List<MedicoVeterinario> medicoVeterinario;
 	
 	
 	
@@ -102,13 +102,13 @@ public class Usuario implements Serializable {
 
 
 
-	public MedicoVeterinario getMedicoVeterinario() {
+	public List<MedicoVeterinario> getMedicoVeterinario() {
 		return medicoVeterinario;
 	}
 
 
 
-	public void setMedicoVeterinario(MedicoVeterinario medicoVeterinario) {
+	public void setMedicoVeterinario(List<MedicoVeterinario> medicoVeterinario) {
 		this.medicoVeterinario = medicoVeterinario;
 	}
 

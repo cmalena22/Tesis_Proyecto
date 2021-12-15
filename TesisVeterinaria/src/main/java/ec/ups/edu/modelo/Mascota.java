@@ -38,7 +38,7 @@ public class Mascota implements Serializable {
 	
 	//relacion especia mascota
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Raza raza_id;
 	

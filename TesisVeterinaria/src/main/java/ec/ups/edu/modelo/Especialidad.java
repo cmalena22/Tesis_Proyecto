@@ -22,8 +22,8 @@ public class Especialidad implements Serializable {
 	private int especialidad_id;
 	private String tipoEspecialidad;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "especialidad_id")
-	private MedicoVeterinario medicoVeterinario;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad_id")
+	private List<MedicoVeterinario> medicoVeterinario;
 	
 
 	
@@ -70,14 +70,14 @@ public class Especialidad implements Serializable {
 
 
 
-	public MedicoVeterinario getMedicoVeterinario() {
+	public List<MedicoVeterinario> getMedicoVeterinario() {
 		return medicoVeterinario;
 	}
 
 
 
 
-	public void setMedicoVeterinario(MedicoVeterinario medicoVeterinario) {
+	public void setMedicoVeterinario(List<MedicoVeterinario> medicoVeterinario) {
 		this.medicoVeterinario = medicoVeterinario;
 	}
 

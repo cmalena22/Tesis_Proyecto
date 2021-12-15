@@ -35,19 +35,19 @@ public class MedicoVeterinario implements Serializable {
 	private String titulo;
 	//foreing keys
 	//relacion historia-medico
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cedula_id")
-	private  HistoriaClinica historiaClinica;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cedula_id")
+	private  List<HistoriaClinica> historiaClinica;
 	
 
 	
 	//Relacion medico veterinario -  especialidad
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Especialidad especialidad_id;
 	
 	
 	//Relacion Medico Veterinario	Usuario
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Usuario usuario_id;
 	
@@ -142,12 +142,12 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public HistoriaClinica getHistoriaClinica() {
+	public List<HistoriaClinica> getHistoriaClinica() {
 		return historiaClinica;
 	}
 
 
-	public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+	public void setHistoriaClinica(List<HistoriaClinica> historiaClinica) {
 		this.historiaClinica = historiaClinica;
 	}
 
@@ -190,13 +190,29 @@ public class MedicoVeterinario implements Serializable {
 		return cedulaId == other.cedulaId;
 	}
 
+	private static MedicoVeterinario medi;
+
+	public static List<MedicoVeterinario> serializeMedico(List<MedicoVeterinario> medico) {
+		List<MedicoVeterinario> mediList = new ArrayList<>();
+		medico.forEach(
+		e-> {
+			medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getEspecialidad_id(),e.getUsuario_id());
+			mediList.add(medi);		
+		});
+		return mediList;
+
+	}
+
 
 	@Override
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
 				+ ", direccion=" + direccion + ", fechaNac=" + fechaNac + ", celular=" + celular + ", titulo=" + titulo
-				+ ", especialidad_id=" + especialidad_id + ", usuario_id=" + usuario_id + "]";
+				+ ", historiaClinica=" + historiaClinica + ", especialidad_id=" + especialidad_id + ", usuario_id="
+				+ usuario_id + "]";
 	}
+
+
 	
 	
 	

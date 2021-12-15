@@ -50,7 +50,12 @@ public class UsuarioFacade  extends AbstractFacade<Usuario>{
 		}
 
 		return usuario;
+	}
 
+public int idusuario(String correo) {
+		
+		String query = "SELECT  e.usuario_id " + "FROM Usuario e " + "WHERE e.correo = '" + correo + "' ";
+		return em.createQuery(query, Integer.class).getSingleResult();
 	}
 	
 

@@ -37,7 +37,7 @@ public class HistoriaClinica implements Serializable {
 	
 	//relacion historia medico	
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private MedicoVeterinario cedula_id;
 	

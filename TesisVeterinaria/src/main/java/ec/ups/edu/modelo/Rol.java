@@ -1,6 +1,7 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -21,8 +22,8 @@ public class Rol implements Serializable {
 	private String descripcion;
 	
 	// Relacion Rol- Usuario
-	@OneToOne(cascade=CascadeType.ALL, mappedBy ="rol_id" )
-	private Usuario usuario;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy ="rol_id" )
+	private List<Usuario> usuario;
 	
 	
 	public Rol() {
@@ -59,12 +60,12 @@ public class Rol implements Serializable {
 
 	
 	
-	public Usuario getUsuario() {
+	public List<Usuario> getUsuario() {
 		return usuario;
 	}
 
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(List<Usuario> usuario) {
 		this.usuario = usuario;
 	}
 

@@ -27,8 +27,9 @@ public class Raza implements Serializable {
 	private Especie especie_id;
 
 	//relacion raza mascota
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "raza_id")
-	private Mascota mascota;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "raza_id")
+	private List<Mascota> mascota;
+	
 	public Raza() {
 
 	}
@@ -61,6 +62,16 @@ public class Raza implements Serializable {
 
 	public void setEspecie_id(Especie especie_id) {
 		this.especie_id = especie_id;
+	}
+	
+	
+
+	public List<Mascota> getMascota() {
+		return mascota;
+	}
+
+	public void setMascota(List<Mascota> mascota) {
+		this.mascota = mascota;
 	}
 
 	@Override
