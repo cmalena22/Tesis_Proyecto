@@ -3,7 +3,10 @@ package ec.ups.edu.modelo;
 import java.io.Serializable;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
@@ -24,7 +27,7 @@ public class HistoriaClinica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idHistorial;
 	private Date diaDeAdminision;
-	private LocalDateTime  hora;
+	private LocalTime  hora;
 	//Foreing Keys
 
 	//relacion mascota - historia
@@ -38,26 +41,35 @@ public class HistoriaClinica implements Serializable {
 	@JoinColumn
 	private MedicoVeterinario cedula_id;
 	
-	//relacion historia consulta
-	@ManyToOne
-	@JoinColumn
-	private ConsultaMedica consulta_id;
+	//relacion historia consulta	
+	@OneToMany(mappedBy = "historia_Id")
+	private Set<ConsultaMedica> listaConsultaMedica;
 	
 	
 	
 	public HistoriaClinica() {
 	}
 
+	
 
-
-	public HistoriaClinica( Date diaDeAdminision, LocalDateTime hora, Mascota mascota_id,
-			MedicoVeterinario cedula_id, ConsultaMedica consulta_id) {
+	public HistoriaClinica(Date diaDeAdminision, LocalTime hora, Mascota mascota_id, MedicoVeterinario cedula_id) {
 		super();
 		this.diaDeAdminision = diaDeAdminision;
 		this.hora = hora;
 		this.mascota_id = mascota_id;
 		this.cedula_id = cedula_id;
-		this.consulta_id = consulta_id;
+	}
+
+	
+
+	public Set<ConsultaMedica> getListaConsultaMedica() {
+		return listaConsultaMedica;
+	}
+
+
+
+	public void setListaConsultaMedica(Set<ConsultaMedica> listaConsultaMedica) {
+		this.listaConsultaMedica = listaConsultaMedica;
 	}
 
 
@@ -86,13 +98,13 @@ public class HistoriaClinica implements Serializable {
 
 
 
-	public LocalDateTime getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
 
 
-	public void setHora(LocalDateTime hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
@@ -122,17 +134,7 @@ public class HistoriaClinica implements Serializable {
 
 
 
-	public ConsultaMedica getConsulta_id() {
-		return consulta_id;
-	}
-
-
-
-	public void setConsulta_id(ConsultaMedica consulta_id) {
-		this.consulta_id = consulta_id;
-	}
-
-
+	
 
 	@Override
 	public int hashCode() {
@@ -140,6 +142,8 @@ public class HistoriaClinica implements Serializable {
 	}
 
 
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -158,7 +162,7 @@ public class HistoriaClinica implements Serializable {
 	@Override
 	public String toString() {
 		return "HistoriaClinica [idHistorial=" + idHistorial + ", diaDeAdminision=" + diaDeAdminision + ", hora=" + hora
-				+ ", mascota_id=" + mascota_id + ", cedula_id=" + cedula_id + ", consulta_id=" + consulta_id + "]";
+				+ ", mascota_id=" + mascota_id + ", cedula_id=" + cedula_id + "]";
 	}
 
 

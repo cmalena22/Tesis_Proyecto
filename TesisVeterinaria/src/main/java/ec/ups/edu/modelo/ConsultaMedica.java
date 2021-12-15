@@ -33,9 +33,11 @@ public class ConsultaMedica implements Serializable {
 	private String observaciones;
 	//foreing Keys
 	//relacion historia-consulta
+	@ManyToOne
+	@JoinColumn
+	private HistoriaClinica historia_Id;
 	
-	@OneToMany(mappedBy = "consulta_id")
-	private Set<HistoriaClinica> listaConsultaMedica;
+	
 	
 	//Relacion consulta- constante fisio detalle	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta_id")
@@ -55,11 +57,13 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public ConsultaMedica(int idConsultaMedica, String motivoConsulta,String vacunacion, String producto,
+
+
+	public ConsultaMedica( String motivoConsulta, String vacunacion, String producto,
 			String desparacitacion, String fechas, String estadoReproductivo, String procedencia, String anamnesis,
-			String diagnostico, String pronostico,String tratamiento, String observaciones) {
+			String diagnostico, String pronostico, String tratamiento, String observaciones,
+			HistoriaClinica historia_Id) {
 		super();
-		this.idConsultaMedica = idConsultaMedica;
 		this.motivoConsulta = motivoConsulta;
 		this.vacunacion = vacunacion;
 		this.producto = producto;
@@ -70,11 +74,10 @@ public class ConsultaMedica implements Serializable {
 		this.anamnesis = anamnesis;
 		this.diagnostico = diagnostico;
 		this.pronostico = pronostico;
-		this.tratamiento=tratamiento;
+		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
+		this.historia_Id = historia_Id;
 	}
-
-
 	public int getIdConsultaMedica() {
 		return idConsultaMedica;
 	}
@@ -195,16 +198,13 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public Set<HistoriaClinica> getListaConsultaMedica() {
-		return listaConsultaMedica;
+
+	public HistoriaClinica getHistoria_Id() {
+		return historia_Id;
 	}
-
-
-	public void setListaConsultaMedica(Set<HistoriaClinica> listaConsultaMedica) {
-		this.listaConsultaMedica = listaConsultaMedica;
+	public void setHistoria_Id(HistoriaClinica historia_Id) {
+		this.historia_Id = historia_Id;
 	}
-
-
 	public Set<ConstantesFisiologicasDetalle> getConstantesFiologicasDetalle() {
 		return constantesFiologicasDetalle;
 	}
@@ -256,9 +256,8 @@ public class ConsultaMedica implements Serializable {
 				+ ", vacunacion=" + vacunacion + ", producto=" + producto + ", desparacitacion=" + desparacitacion
 				+ ", fechas=" + fechas + ", estadoReproductivo=" + estadoReproductivo + ", procedencia=" + procedencia
 				+ ", anamnesis=" + anamnesis + ", diagnostico=" + diagnostico + ", pronostico=" + pronostico
-				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", listaConsultaMedica="
-				+ listaConsultaMedica + ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta="
-				+ listreceta + "]";
+				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", historia_Id=" + historia_Id
+				+ ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta=" + listreceta + "]";
 	}
 
 
