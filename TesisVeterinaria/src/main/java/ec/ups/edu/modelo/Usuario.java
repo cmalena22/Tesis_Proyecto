@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Usuario implements Serializable {
 	
 	//Relacion Usuario Medico
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario_id")
-	private List<MedicoVeterinario> medicoVeterinario;
+	private Set<MedicoVeterinario> medicoVeterinario  = new HashSet<MedicoVeterinario>();
 	
 	
 	
@@ -49,6 +50,7 @@ public class Usuario implements Serializable {
 		this.correo = correo;
 		this.contrasena = contrasena;
 		this.rol_id = rol_id;
+		this.medicoVeterinario=medicoVeterinario;
 		
 	}
 
@@ -102,13 +104,13 @@ public class Usuario implements Serializable {
 
 
 
-	public List<MedicoVeterinario> getMedicoVeterinario() {
+	public Set<MedicoVeterinario> getMedicoVeterinario() {
 		return medicoVeterinario;
 	}
 
 
 
-	public void setMedicoVeterinario(List<MedicoVeterinario> medicoVeterinario) {
+	public void setMedicoVeterinario(Set<MedicoVeterinario> medicoVeterinario) {
 		this.medicoVeterinario = medicoVeterinario;
 	}
 
@@ -116,8 +118,15 @@ public class Usuario implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(usuario_id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((rol_id == null) ? 0 : rol_id.hashCode());
+		return result;
 	}
+
+
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -128,7 +137,12 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return usuario_id == other.usuario_id;
+		if (rol_id == null) {
+			if (other.rol_id != null)
+				return false;
+		} else if (!rol_id.equals(other.rol_id))
+			return false;
+		return true;
 	}
 
 

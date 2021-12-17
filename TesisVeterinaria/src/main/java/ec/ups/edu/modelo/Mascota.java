@@ -45,10 +45,22 @@ public class Mascota implements Serializable {
 	public Mascota() {
 	}
 
-	public Mascota(int id_mascota, String nombre, String sexo, String fechaNac,
+	public Mascota(int id_mascota,String nombre, String sexo, String fechaNac,
 			String edad, String coloYSenalesParti, Propietario id_mascota_propietario, Raza raza_id) {
 		super();
-		this.id_mascota = id_mascota;
+		this.id_mascota=id_mascota;
+		this.nombre = nombre;
+		this.sexo = sexo;
+		this.fechaNac = fechaNac;
+		this.edad = edad;
+		this.coloYSenalesParti = coloYSenalesParti;
+		this.id_mascota_propietario = id_mascota_propietario;
+		this.raza_id = raza_id;
+	}
+
+	public Mascota(String nombre, String sexo, String fechaNac,
+			String edad, String coloYSenalesParti, Propietario id_mascota_propietario, Raza raza_id) {
+		super();
 		this.nombre = nombre;
 		this.sexo = sexo;
 		this.fechaNac = fechaNac;

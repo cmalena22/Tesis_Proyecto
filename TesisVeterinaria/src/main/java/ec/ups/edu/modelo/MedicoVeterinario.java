@@ -36,7 +36,7 @@ public class MedicoVeterinario implements Serializable {
 	//foreing keys
 	//relacion historia-medico
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cedula_id")
-	private  List<HistoriaClinica> historiaClinica;
+	private  Set<HistoriaClinica> historiaClinica =  new HashSet<HistoriaClinica>();
 	
 
 	
@@ -69,6 +69,20 @@ public class MedicoVeterinario implements Serializable {
 		this.titulo = titulo;
 		this.especialidad_id = especialidad_id;
 		this.usuario_id = usuario_id;
+	}
+
+	public MedicoVeterinario(String cedulaId, String nombres, String apellidos, String direccion, String fechaNac,
+			String celular, String titulo, Especialidad especialidad_id) {
+		super();
+		this.cedulaId = cedulaId;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.fechaNac = fechaNac;
+		this.celular = celular;
+		this.titulo = titulo;
+		this.especialidad_id = especialidad_id;
+		
 	}
 
 
@@ -142,12 +156,12 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public List<HistoriaClinica> getHistoriaClinica() {
+	public Set<HistoriaClinica> getHistoriaClinica() {
 		return historiaClinica;
 	}
 
 
-	public void setHistoriaClinica(List<HistoriaClinica> historiaClinica) {
+	public void setHistoriaClinica(Set<HistoriaClinica> historiaClinica) {
 		this.historiaClinica = historiaClinica;
 	}
 

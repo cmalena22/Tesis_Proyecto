@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -409,25 +410,16 @@ public class ApiRest {
 	@Path("/listarHistoriaClinica")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listarHistoriaClinica() {
-		List<HistoriaClinica> listaHistoria = new ArrayList<HistoriaClinica>();
-		List<ConstantesFisiologicasDetalle> listaDetallesConstante = new ArrayList<ConstantesFisiologicasDetalle>();
+		System.out.println("Constantes Cabecera mascota");
 		Jsonb jsonb = JsonbBuilder.create();
-
-		// listaHistoria=HistoriaClinica.serializeHistoriaClinica(ejbHistoriaClinicaFacade.findAll());
-		for (HistoriaClinica historiaClinica : listaHistoria) {
-			// listaDetallesConstante=ConstantesFisiologicasDetalle.serializeConstantesFiosiologicasDetalle(ejbConstanteDetalle.obtenerConstante(historiaClinica.getConsulta_id().getIdConsultaMedica()));
-			for (ConstantesFisiologicasDetalle constantesFisiologicasDetalle : listaDetallesConstante) {
-				System.out.println("id detalle constante" + constantesFisiologicasDetalle.getConstante_idDetalle());
-				System.out.println("Valore" + constantesFisiologicasDetalle.getValorAsignado());
-				System.out
-						.println("variabes" + constantesFisiologicasDetalle.getConstantesidCab().getConstantes_idCab());
-			}
-		}
-
+		List<HistoriaClinica> listaHistoria = new ArrayList<HistoriaClinica>();
+	
+	
 		try {
-
+			listaHistoria = HistoriaClinica.serializeHistoriaClinica(ejbHistoriaClinicaFacade.findAll());
+			System.out.println("historias" + listaHistoria);
 			// ejbPropietarioFacade.create(propietario);
-			return Response.ok("ok").header("Access-Control-Allow-Origin", "*")
+			return Response.ok(jsonb.toJson(listaHistoria)).header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		} catch (Exception e) {
@@ -438,6 +430,58 @@ public class ApiRest {
 		}
 	}
 
+	@GET
+	@Path("/listarConsultaMedica/{idHistoria}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarConsultaMedica(@PathParam("idHistoria") int idHistoria) {
+		System.out.println("Constantes Cabecera mascota");
+		System.out.println("Id historiaaaaaaaaaaa==="+ idHistoria);
+		Jsonb jsonb = JsonbBuilder.create();
+		List<HistoriaClinica> consultaMedicasList = new ArrayList<HistoriaClinica>();
+	
+	
+		try {
+			consultaMedicasList = HistoriaClinica.serializeHistoriaClinica(ejbHistoriaClinicaFacade.consultaById(idHistoria));
+			System.out.println("historias" + consultaMedicasList);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(consultaMedicasList)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+
+	@GET
+	@Path("/listarConsultaMedicaByIdHistoria/{idHistoria}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarConsultaMedicaByIdHistoria(@PathParam("idHistoria") int idHistoria) {
+		System.out.println("Constantes Cabecera mascota");
+		System.out.println("Id historiaaaaaaaaaaa==="+ idHistoria);
+		Jsonb jsonb = JsonbBuilder.create();
+		List<ConsultaMedica> consultaMedicasList = new ArrayList<ConsultaMedica>();
+	
+	
+		try {
+			consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.consultaById(idHistoria));
+			System.out.println("historias" + consultaMedicasList);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(consultaMedicasList)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+
+
+	
 	@GET
 	@Path("/texto")
 	@Produces(MediaType.APPLICATION_JSON)

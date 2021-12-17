@@ -1,6 +1,9 @@
 package ec.ups.edu.ejb;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 
@@ -42,5 +45,12 @@ public class HistoriaClinicaFacade extends AbstractFacade<HistoriaClinica>{
 
 		return historia;
 
+	}
+	
+	public List<HistoriaClinica> consultaById(int id) {
+		List<HistoriaClinica> us = new  ArrayList<HistoriaClinica>();
+		String query = "SELECT e " + "FROM HistoriaClinica e " + "WHERE e.idHistorial = " + id + "";
+		us = em.createQuery(query, HistoriaClinica.class).getResultList();
+		return us;
 	}
 }
