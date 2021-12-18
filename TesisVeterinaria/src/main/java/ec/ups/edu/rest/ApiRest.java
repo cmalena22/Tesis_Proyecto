@@ -697,7 +697,7 @@ public class ApiRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RecordarContra(@FormParam("correo") String correo) {
 
-
+		Jsonb jsonb = JsonbBuilder.create();
 		
 		System.out.println("el correo es: ");
 		System.out.println(correo);
@@ -710,14 +710,33 @@ public class ApiRest {
 			if (us != null) {
 				String contra= ejbUsuarioFacade.Contradusuario(correo);
 				System.out.println(contra);
+				
 				Mail mail= new Mail();
+				/*
 				mail.setTo(correo);
 				mail.setSubject("Recuperar la contraseña");
 				mail.setDescr("Su contraseña es: "+ contra);
 				mail.enviarEmail();
 				//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se envio un correo con su contraseña"));
 				//new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se envio un correo con su contraseña")
-				return Response.ok("ok").build();
+				*/
+				String subject = "Recuperacion de contraseña";
+				String content = "Codigo de recuperacion: " + contra;
+				mail.sendPlainTextEmail("smtp.gmail.com", "587", "tesisveterinariapo@gmail.com", "Politecnica*2020", correo, subject, content);
+				System.out.println(us.getCorreo());
+				System.out.println(us.getContrasena());
+				System.out.println(us.getUsuario_id());
+				System.out.println(us.getRol_id());
+				Usuario usua= new Usuario();
+				Rol rol =new Rol();
+				rol.setRol_id(us.getRol_id().getRol_id());
+				rol.setDescripcion(us.getRol_id().getDescripcion());
+				
+				usua.setUsuario_id(us.getUsuario_id());
+				usua.setCorreo(us.getCorreo());
+				usua.setContrasena(us.getContrasena());
+				usua.setRol_id(rol);
+				return Response.ok(jsonb.toJson(usua)).build();
 
 			}
 		} catch (Exception ex) {
@@ -727,6 +746,31 @@ public class ApiRest {
 		return Response.ok("No creado").build();
 		
 	}
+	
+	@POST
+	@Path("/recordarcontrados")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RecordarContrados(@FormParam("correo") String correo,@FormParam("contrasena") String contrasena,@FormParam("contrasenaNueva") String contrasenaNueva) {
+
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("el correo es: ");
+		System.out.println(correo);
+		System.out.println("codigo ");
+		System.out.println(contrasena);
+		System.out.println("Contraseña nueva");
+		System.out.println(contrasenaNueva);
+		
+		Usuario usu = new Usuario();
+		int codigoUsuario = ejbUsuarioFacade.idusuario(correo);
+		System.out.println(codigoUsuario);
+		ejbUsuarioFacade.acti(codigoUsuario,contrasenaNueva);
+		
+		return Response.ok("ok").build();
+		
+	}
+	
 	
 	
 	

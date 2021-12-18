@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Raza;
 import ec.ups.edu.modelo.Usuario;
@@ -71,4 +72,16 @@ public String Contradusuario(String correo) {
 	String query = "SELECT  e.contrasena " + "FROM Usuario e " + "WHERE e.correo = '" + correo + "' ";
 	return em.createQuery(query, String.class).getSingleResult();
 }
+
+
+
+public void acti(int id,String contraNueva) {
+	//Usuario usu=new Usuario();
+	Usuario us = new Usuario();
+	String contra=us.md5(contraNueva);
+	 String query = "UPDATE Usuario e " + "SET e.contrasena='" + contra + "' WHERE  e.usuario_id=" + id;
+	 System.out.println(query);
+	em.createQuery(query).executeUpdate();
+}
+
 }
