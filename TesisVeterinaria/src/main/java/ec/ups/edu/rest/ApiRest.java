@@ -697,7 +697,7 @@ public class ApiRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RecordarContra(@FormParam("correo") String correo) {
 
-<<<<<<< HEAD
+
 		
 		System.out.println("el correo es: ");
 		System.out.println(correo);
