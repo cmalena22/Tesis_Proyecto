@@ -1,10 +1,14 @@
 package ec.ups.edu.ejb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.ups.edu.modelo.ConstantesFisiologicasDetalle;
+import ec.ups.edu.modelo.MedicoVeterinario;
 
 @Stateless
 public class ConstantesFisiologicasDetalleFacade extends AbstractFacade<ConstantesFisiologicasDetalle>{
@@ -21,4 +25,12 @@ public class ConstantesFisiologicasDetalleFacade extends AbstractFacade<Constant
 		// TODO Auto-generated method stub
 		return em;
 	}
+	
+	public List<ConstantesFisiologicasDetalle> obtenerConstante(int idConsulta) {
+		List<ConstantesFisiologicasDetalle> us = new ArrayList<ConstantesFisiologicasDetalle>();
+		String query = "SELECT e " + "FROM ConstantesFisiologicasDetalle e " + "WHERE  e.consulta_id.idConsultaMedica = " + idConsulta + "";
+		us = em.createQuery(query, ConstantesFisiologicasDetalle.class).getResultList();
+		return us;
+	}
+	
 }

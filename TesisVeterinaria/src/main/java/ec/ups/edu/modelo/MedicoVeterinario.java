@@ -35,19 +35,19 @@ public class MedicoVeterinario implements Serializable {
 	private String titulo;
 	//foreing keys
 	//relacion historia-medico
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cedula_id")
-	private  HistoriaClinica historiaClinica;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cedula_id")
+	private  Set<HistoriaClinica> historiaClinica =  new HashSet<HistoriaClinica>();
 	
 
 	
 	//Relacion medico veterinario -  especialidad
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Especialidad especialidad_id;
 	
 	
 	//Relacion Medico Veterinario	Usuario
-	@OneToOne
+	@ManyToOne
 	@JoinColumn
 	private Usuario usuario_id;
 	
@@ -69,6 +69,20 @@ public class MedicoVeterinario implements Serializable {
 		this.titulo = titulo;
 		this.especialidad_id = especialidad_id;
 		this.usuario_id = usuario_id;
+	}
+
+	public MedicoVeterinario(String cedulaId, String nombres, String apellidos, String direccion, String fechaNac,
+			String celular, String titulo, Especialidad especialidad_id) {
+		super();
+		this.cedulaId = cedulaId;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.fechaNac = fechaNac;
+		this.celular = celular;
+		this.titulo = titulo;
+		this.especialidad_id = especialidad_id;
+		
 	}
 
 
@@ -142,12 +156,12 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
-	public HistoriaClinica getHistoriaClinica() {
+	public Set<HistoriaClinica> getHistoriaClinica() {
 		return historiaClinica;
 	}
 
 
-	public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+	public void setHistoriaClinica(Set<HistoriaClinica> historiaClinica) {
 		this.historiaClinica = historiaClinica;
 	}
 
@@ -208,8 +222,11 @@ public class MedicoVeterinario implements Serializable {
 	public String toString() {
 		return "MedicoVeterinario [cedulaId=" + cedulaId + ", nombres=" + nombres + ", apellidos=" + apellidos
 				+ ", direccion=" + direccion + ", fechaNac=" + fechaNac + ", celular=" + celular + ", titulo=" + titulo
-				+ ", especialidad_id=" + especialidad_id + ", usuario_id=" + usuario_id + "]";
+				+ ", historiaClinica=" + historiaClinica + ", especialidad_id=" + especialidad_id + ", usuario_id="
+				+ usuario_id + "]";
 	}
+
+
 	
 	
 	

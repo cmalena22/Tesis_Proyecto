@@ -1,7 +1,10 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -21,8 +24,8 @@ public class Rol implements Serializable {
 	private String descripcion;
 	
 	// Relacion Rol- Usuario
-	@OneToOne(cascade=CascadeType.ALL, mappedBy ="rol_id" )
-	private Usuario usuario;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy ="rol_id" )
+	private Set<Usuario> usuario = new HashSet<Usuario>();
 	
 	
 	public Rol() {
@@ -59,19 +62,22 @@ public class Rol implements Serializable {
 
 	
 	
-	public Usuario getUsuario() {
+	public Set<Usuario> getUsuario() {
 		return usuario;
 	}
 
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Set<Usuario> usuario) {
 		this.usuario = usuario;
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(rol_id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + rol_id;
+		return result;
 	}
 
 
@@ -84,16 +90,17 @@ public class Rol implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Rol other = (Rol) obj;
-		return rol_id == other.rol_id;
+		if (rol_id != other.rol_id)
+			return false;
+		return true;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Rol [descripcion=" + descripcion + ", usuario=" + usuario + "]";
+		return "Rol [rol_id=" + rol_id + ", descripcion=" + descripcion + "]";
 	}
 
 
-	
    
 }

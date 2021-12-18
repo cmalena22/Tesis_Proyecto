@@ -1,7 +1,10 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,19 +36,21 @@ public class ConsultaMedica implements Serializable {
 	private String observaciones;
 	//foreing Keys
 	//relacion historia-consulta
+	@ManyToOne
+	@JoinColumn
+	private HistoriaClinica historia_Id;
 	
-	@OneToMany(mappedBy = "consulta_id")
-	private Set<HistoriaClinica> listaConsultaMedica;
+	
 	
 	//Relacion consulta- constante fisio detalle	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "consulta_id")
-	private Set<ConstantesFisiologicasDetalle> constantesFiologicasDetalle;
+	private Set<ConstantesFisiologicasDetalle> constantesFiologicasDetalle  = new HashSet<ConstantesFisiologicasDetalle>();
 	
 	
 		
 	//Relacion receta consult amedica
 	@OneToMany(mappedBy = "consulta_id")
-	private Set<RecetaMedica> listreceta;
+	private Set<RecetaMedica> listreceta = new HashSet<RecetaMedica>();;
 	
 	
 	public ConsultaMedica() { 
@@ -55,11 +60,13 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public ConsultaMedica(int idConsultaMedica, String motivoConsulta,String vacunacion, String producto,
+
+
+	public ConsultaMedica( String motivoConsulta, String vacunacion, String producto,
 			String desparacitacion, String fechas, String estadoReproductivo, String procedencia, String anamnesis,
-			String diagnostico, String pronostico,String tratamiento, String observaciones) {
+			String diagnostico, String pronostico, String tratamiento, String observaciones,
+			HistoriaClinica historia_Id) {
 		super();
-		this.idConsultaMedica = idConsultaMedica;
 		this.motivoConsulta = motivoConsulta;
 		this.vacunacion = vacunacion;
 		this.producto = producto;
@@ -70,11 +77,30 @@ public class ConsultaMedica implements Serializable {
 		this.anamnesis = anamnesis;
 		this.diagnostico = diagnostico;
 		this.pronostico = pronostico;
-		this.tratamiento=tratamiento;
+		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
+		this.historia_Id = historia_Id;
 	}
-
-
+	public ConsultaMedica(int idConsultaMedica, String motivoConsulta, String vacunacion, String producto,
+			String desparacitacion, String fechas, String estadoReproductivo, String procedencia, String anamnesis,
+			String diagnostico, String pronostico, String tratamiento, String observaciones,
+			HistoriaClinica historia_Id) {
+		super();
+		this.idConsultaMedica=idConsultaMedica;
+		this.motivoConsulta = motivoConsulta;
+		this.vacunacion = vacunacion;
+		this.producto = producto;
+		this.desparacitacion = desparacitacion;
+		this.fechas = fechas;
+		this.estadoReproductivo = estadoReproductivo;
+		this.procedencia = procedencia;
+		this.anamnesis = anamnesis;
+		this.diagnostico = diagnostico;
+		this.pronostico = pronostico;
+		this.tratamiento = tratamiento;
+		this.observaciones = observaciones;
+		this.historia_Id = historia_Id;
+	}
 	public int getIdConsultaMedica() {
 		return idConsultaMedica;
 	}
@@ -195,16 +221,13 @@ public class ConsultaMedica implements Serializable {
 	}
 
 
-	public Set<HistoriaClinica> getListaConsultaMedica() {
-		return listaConsultaMedica;
+
+	public HistoriaClinica getHistoria_Id() {
+		return historia_Id;
 	}
-
-
-	public void setListaConsultaMedica(Set<HistoriaClinica> listaConsultaMedica) {
-		this.listaConsultaMedica = listaConsultaMedica;
+	public void setHistoria_Id(HistoriaClinica historia_Id) {
+		this.historia_Id = historia_Id;
 	}
-
-
 	public Set<ConstantesFisiologicasDetalle> getConstantesFiologicasDetalle() {
 		return constantesFiologicasDetalle;
 	}
@@ -250,18 +273,66 @@ public class ConsultaMedica implements Serializable {
 		ConsultaMedica other = (ConsultaMedica) obj;
 		return idConsultaMedica == other.idConsultaMedica;
 	}
+	
+	private static ConsultaMedica consulta;
+	private static HistoriaClinica historia;
+	private static Mascota mascota;
+	private static MedicoVeterinario medico;
+	private static Raza raza;
+	private static Propietario propietario;
+	private static Especialidad especialidad;
+	private static Usuario usuario;
+	private static Especie especie;
+	private static List<Especialidad> listEspecialidad= new ArrayList<Especialidad>();
+	private static List<Raza> listraza= new ArrayList<Raza>();
+	private static List<Propietario> listPropietario= new ArrayList<Propietario>();
+	private static List<Usuario> listUsuario= new ArrayList<Usuario>();
+
+
+
+	public static List<ConsultaMedica> serializeConsulta(List<ConsultaMedica> consultas) {
+		List<ConsultaMedica> consultaList = new ArrayList<>();
+		listPropietario.forEach(e->{
+		});
+		listEspecialidad.forEach(e->{
+			especialidad=new Especialidad(e.getEspecialidad_id(), e.getTipoEspecialidad());
+		});
+		listUsuario.forEach(e->{
+			usuario=new Usuario(e.getUsuario_id(), e.getCorreo(), e.getContrasena(), e.getRol_id());
+		});
+		listraza.forEach(e->{
+		});
+		consultas.forEach(
+		e-> {
+			propietario=new Propietario(e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getIdPropietario(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getDireccion(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getPropietario(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getTelefono(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getCuidad(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getCorreo());
+
+			medico=new MedicoVeterinario(e.getHistoria_Id().getCedula_id().getCedulaId(), e.getHistoria_Id().getCedula_id().getNombres(), e.getHistoria_Id().getCedula_id().getApellidos(), e.getHistoria_Id().getCedula_id().getDireccion(), e.getHistoria_Id().getCedula_id().getFechaNac(), e.getHistoria_Id().getCedula_id().getCelular(), e.getHistoria_Id().getCedula_id().getTitulo(),especialidad,usuario);
+			especie=new Especie(e.getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(), e.getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
+			raza=new Raza(e.getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getHistoria_Id().getMascota_id().getEspecie_id().getNombre() , especie);
+
+			mascota=new Mascota(e.getHistoria_Id().getMascota_id().getId_mascota(), e.getHistoria_Id().getMascota_id().getNombre(), e.getHistoria_Id().getMascota_id().getSexo(), e.getHistoria_Id().getMascota_id().getFechaNac(), e.getHistoria_Id().getMascota_id().getEdad(), e.getHistoria_Id().getMascota_id().getColoYSenalesParti(), propietario,raza);
+
+			historia = new HistoriaClinica(e.getHistoria_Id().getIdHistorial(),e.getHistoria_Id().getDiaDeAdminision(),e.getHistoria_Id().getHora(),mascota,medico);
+
+			consulta = new ConsultaMedica(e.getIdConsultaMedica(),e.getMotivoConsulta(), e.getVacunacion(), e.getProducto(), e.getDesparacitacion(), e.getFechas(), e.getEstadoReproductivo(),
+					e.getProcedencia(), e.getAnamnesis(), e.getDiagnostico(), e.getPronostico(), e.getTratamiento(), e.getObservaciones(), historia);
+			consultaList.add(consulta);
+
+		});
+		return consultaList;
+
+	}
 	@Override
 	public String toString() {
 		return "ConsultaMedica [idConsultaMedica=" + idConsultaMedica + ", motivoConsulta=" + motivoConsulta
 				+ ", vacunacion=" + vacunacion + ", producto=" + producto + ", desparacitacion=" + desparacitacion
 				+ ", fechas=" + fechas + ", estadoReproductivo=" + estadoReproductivo + ", procedencia=" + procedencia
 				+ ", anamnesis=" + anamnesis + ", diagnostico=" + diagnostico + ", pronostico=" + pronostico
-				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", listaConsultaMedica="
-				+ listaConsultaMedica + ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta="
-				+ listreceta + "]";
+				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", historia_Id=" + historia_Id
+				+ ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta=" + listreceta + "]";
 	}
-
-
+	
+	
 	
 	
 
