@@ -39,4 +39,16 @@ public int idusuario(String correo) {
 	}
 	
 
+public Usuario CorreoOk(String username) {
+	Usuario us = new Usuario();
+	String query = "SELECT e " + "FROM Usuario e " + "WHERE e.correo = '" + username + "'";
+	us = em.createQuery(query, Usuario.class).getSingleResult();
+	return us;
+}
+
+public String Contradusuario(String correo) {
+	
+	String query = "SELECT  e.contrasena " + "FROM Usuario e " + "WHERE e.correo = '" + correo + "' ";
+	return em.createQuery(query, String.class).getSingleResult();
+}
 }

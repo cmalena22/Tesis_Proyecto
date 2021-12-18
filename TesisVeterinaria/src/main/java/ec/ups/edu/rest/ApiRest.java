@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -39,6 +41,7 @@ import ec.ups.edu.modelo.ConsultaMedica;
 import ec.ups.edu.ejb.UsuarioFacade;
 import ec.ups.edu.modelo.Especialidad;
 import ec.ups.edu.modelo.Especie;
+import ec.ups.edu.modelo.Mail;
 import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
@@ -450,9 +453,9 @@ public class ApiRest {
 		 
 		 
 		 try {
-			 //listamedi= MedicoVeterinario.serializeMedico(ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda)));
+			
 				medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
-				//ya llegan los datos ,hay que ver como pasarlos al ionic
+			
 				System.out.println(medi.getCedulaId());
 				System.out.println(medi.getNombres());
 				System.out.println(medi.getApellidos());
@@ -477,12 +480,7 @@ public class ApiRest {
 					final  MedicoVeterinario medico;
 					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),espec,usua);
 					return Response.ok(jsonb.toJson(medico)).build();
-					//jsonb.toJson(medi)
-					// .header("Access-Control-Allow-Origin", "*")
-					// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
-					// authorization")
-					// .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-
+			
 				}
 			} catch (Exception ex) {
 				return Response.ok("No esta").build();
@@ -595,6 +593,44 @@ public class ApiRest {
 		// authorization")
 
 	}
+	
+	
+	@POST
+	@Path("/recordarcontra")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RecordarContra(@FormParam("correo") String correo) {
 
+		
+		System.out.println("el correo es: ");
+		System.out.println(correo);
+		
+		Usuario us = new Usuario();
+		Usuario usu = new Usuario();
+		try {
+			// us = ejbMedicoVeterinarioFacade.inicioo();
+		us = ejbUsuarioFacade.CorreoOk(correo);
+			if (us != null) {
+				String contra= ejbUsuarioFacade.Contradusuario(correo);
+				System.out.println(contra);
+				Mail mail= new Mail();
+				mail.setTo(correo);
+				mail.setSubject("Recuperar la contraseña");
+				mail.setDescr("Su contraseña es: "+ contra);
+				mail.enviarEmail();
+				//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se envio un correo con su contraseña"));
+				//new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Se envio un correo con su contraseña")
+				return Response.ok("ok").build();
+
+			}
+		} catch (Exception ex) {
+			return Response.ok("No creado").build();
+
+		}
+		return Response.ok("No creado").build();
+		
+	}
+	
+	
 	
 }
