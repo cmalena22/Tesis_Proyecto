@@ -325,6 +325,7 @@ public class ApiRest {
 		consultaMedica.setTratamiento(tratamiento);
 		consultaMedica.setObservaciones(observaciones);
 		consultaMedica.setHistoria_Id(h);
+		consultaMedica.setFechaConsulta(date);
 		ejbConsultaMedica.create(consultaMedica);
 		//ConsultaMedica c = new ConsultaMedica();
 		consultaM=ejbConsultaMedica.find(consultaMedica.getIdConsultaMedica());
@@ -363,6 +364,80 @@ public class ApiRest {
 	}
 	
 
+	//private static int idConsultaMedica;
+	@POST
+	@Path("/registrarConsultaMedicaByHistoria")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response registrarConsultaMedicaByHistoria(@FormParam("motivoConsulta") String motivoConsulta,
+			@FormParam("vacunacion") String vacunacion, @FormParam("desparacitacion") String desparacitacion,
+			@FormParam("estadoR") String estadoR, @FormParam("producto") String producto,
+			@FormParam("fecha") String fecha, @FormParam("procedencia") String procedencia,
+			@FormParam("anamnesis") String anamnesis, @FormParam("diagnostico") String diagnostico,
+			@FormParam("pronostico") String pronostico, @FormParam("tratamiento") String tratamiento,
+			@FormParam("observaciones") String observaciones,@FormParam("idMascota") String idMascota) {
+			System.out.println("__________--------------------------------------- registrar consulta medica2");
+		// Historia Clinica
+				// Se obtiene la Fecha
+				LocalTime time = LocalTime.now();
+				Date date = new Date();
+				HistoriaClinica h = new HistoriaClinica();
+				h=ejbHistoriaClinicaFacade.find(Integer.parseInt(idMascota));
+				System.out.println("Historia recu" + h.getIdHistorial());
+				
+				
+
+		//aqui
+		ConsultaMedica consultaMedica = new ConsultaMedica();
+		consultaMedica.setMotivoConsulta(motivoConsulta);
+		consultaMedica.setVacunacion(vacunacion);
+		consultaMedica.setDesparacitacion(desparacitacion);
+		consultaMedica.setEstadoReproductivo(estadoR);
+		consultaMedica.setProducto(producto);
+		consultaMedica.setFechas(fecha);
+		consultaMedica.setProcedencia(procedencia);
+		consultaMedica.setAnamnesis(anamnesis);
+		consultaMedica.setDiagnostico(diagnostico);
+		consultaMedica.setPronostico(pronostico);
+		consultaMedica.setTratamiento(tratamiento);
+		consultaMedica.setObservaciones(observaciones);
+		consultaMedica.setHistoria_Id(h);
+		consultaMedica.setFechaConsulta(date);
+		//System.out.println(consultaMedica);
+		ejbConsultaMedica.create(consultaMedica);
+		ConsultaMedica c = new ConsultaMedica();
+		consultaM=ejbConsultaMedica.find(consultaMedica.getIdConsultaMedica());
+		System.out.println("Cccccccccccccccccc22222222"+consultaM.getIdConsultaMedica());
+		consultaM = ejbConsultaMedica.find(consultaMedica.getIdConsultaMedica());
+		idConsultaMedica = consultaM.getIdConsultaMedica();
+		
+		//System.out.println(idConsultaMedica);
+		System.out.println("estamos rn registras consulta medica");
+		System.out.println("Ingreso");
+		System.out.println("motivo" + motivoConsulta);
+		System.out.println("vacunacion" + vacunacion);
+		System.out.println("desparacitavion" + desparacitacion);
+		System.out.println("Estado Repro" + estadoR);
+		System.out.println("producto" + producto);
+		System.out.println("fecha" + fecha);
+		System.out.println("procedencia" + procedencia);
+		System.out.println("anamnesis" + anamnesis);
+		System.out.println("diagnosstico" + diagnostico);
+		System.out.println("pronostico" + pronostico);
+		System.out.println("tratamiento" + tratamiento);
+		System.out.println("observaciones" + observaciones);
+		System.out.println("idMascota" + idMascota);
+		try {
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok("ok").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
 	
 
 	@POST
@@ -467,6 +542,56 @@ public class ApiRest {
 	
 		try {
 			consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.consultaById(idHistoria));
+			System.out.println("historias" + consultaMedicasList);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(consultaMedicasList)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+
+	@GET
+	@Path("/listarConstantesFisioByConsulta/{idConsulta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarConstantesFisioByConsulta(@PathParam("idConsulta") int idConsulta) {
+		System.out.println("Constantes Cabecera mascota");
+		System.out.println("Id historiaaaaaaaaaaa==="+ idConsulta);
+		Jsonb jsonb = JsonbBuilder.create();
+		List<ConstantesFisiologicasDetalle> consultaMedicasList = new ArrayList<ConstantesFisiologicasDetalle>();
+	
+	
+		try {
+			consultaMedicasList = ConstantesFisiologicasDetalle.serializeConstantesFiosiologicasDetalle(ejbConstanteDetalle.obtenerConstante(idConsulta));
+			System.out.println("historias" + consultaMedicasList);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(consultaMedicasList)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+
+	@GET
+	@Path("/listarConsultaById/{idConsulta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarConsultaById(@PathParam("idConsulta") int idConsulta) {
+		System.out.println("Constantes Cabecera mascota");
+		System.out.println("Id historiaaaaaaaaaaa==="+ idConsulta);
+		Jsonb jsonb = JsonbBuilder.create();
+		List<ConsultaMedica> consultaMedicasList = new ArrayList<ConsultaMedica>();
+	
+	
+		try {
+			consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.buscarId(idConsulta));
 			System.out.println("historias" + consultaMedicasList);
 			// ejbPropietarioFacade.create(propietario);
 			return Response.ok(jsonb.toJson(consultaMedicasList)).header("Access-Control-Allow-Origin", "*")

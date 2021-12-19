@@ -30,21 +30,12 @@ public class ConsultaMedicaFacade extends AbstractFacade<ConsultaMedica>{
 		return em;
 	}
 	
-	public ConsultaMedica buscarId(int id) {
-		ConsultaMedica cab = new ConsultaMedica();
-		try {
-			String sql = "SELECT p FROM ConsultaMedica p where p.idConsultaMedica=" + id + "";
-			System.out.println(sql);
-			Query query = em.createQuery(sql);
-			cab = (ConsultaMedica) query.getSingleResult();
-			System.out.println("recupere raza:" + cab);
-			System.out.println("pasa:" + id);
-		} catch (Exception e) {
-			System.out.println("pais" + e.getMessage());
-		}
-
+	public  List<ConsultaMedica> buscarId(int id) {
+		List<ConsultaMedica> cab = new  ArrayList<ConsultaMedica>();
+		String query ="SELECT p FROM ConsultaMedica p where p.idConsultaMedica=" + id + "";
+		cab = em.createQuery(query, ConsultaMedica.class).getResultList();
 		return cab;
-
+		
 	}
 	public List<ConsultaMedica> consultaById(int id) {
 		List<ConsultaMedica> us = new  ArrayList<ConsultaMedica>();

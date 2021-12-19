@@ -121,40 +121,33 @@ public class ConstantesFisiologicasDetalle implements Serializable {
 	private static HistoriaClinica historia;
 	private static Mascota mascota;
 	private static MedicoVeterinario medico;
-	private static Raza raza;
-	private static Propietario propietario;
-	private static Especialidad especialidad;
-	private static Usuario usuario;
-	private static Especie especie;
-	private static List<Especialidad> listEspecialidad= new ArrayList<Especialidad>();
-	private static List<Usuario> listUsuario= new ArrayList<Usuario>();
+
+	private static List<MedicoVeterinario>listMedico= new ArrayList<MedicoVeterinario>();
+	private static List<Mascota>listMascota= new ArrayList<Mascota>();
+	private static List<ConsultaMedica>listConsultaMedica= new ArrayList<ConsultaMedica>();
+
+
 public static List<ConstantesFisiologicasDetalle> serializeConstantesFiosiologicasDetalle(List<ConstantesFisiologicasDetalle> detalles) {
 		List<ConstantesFisiologicasDetalle> detallesList = new ArrayList<>();		
-	
-		listEspecialidad.forEach(e->{
-			especialidad=new Especialidad(e.getEspecialidad_id(), e.getTipoEspecialidad());
+		
+		listMedico.forEach(e->{
+			medico= new MedicoVeterinario(e.getCedulaId(), e.getNombres(),e.getApellidos(), e.getDireccion(),
+					e.getFechaNac(), e.getCelular(), e.getTitulo(),e.getEspecialidad_id(),e.getUsuario_id());
+
 		});
-		listUsuario.forEach(e->{
-			usuario=new Usuario(e.getUsuario_id(), e.getCorreo(), e.getContrasena(), e.getRol_id());
+		listMascota.forEach(e->{
+			mascota=new Mascota(e.getId_mascota(), e.getNombre(), 
+					e.getSexo(), e.getFechaNac(), e.getEdad(), 
+					e.getColoYSenalesParti(), e.getId_mascota_propietario(),e.getEspecie_id());
+
 		});
+		
 		detalles.forEach(
 		e-> {
-			propietario=new Propietario(e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getIdPropietario(),
-					e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getDireccion(), e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getPropietario(), 
-					e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getTelefono(),
-					e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getCuidad(), e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getCorreo());
-
-			medico=new MedicoVeterinario(e.getConsulta_id().getHistoria_Id().getCedula_id().getCedulaId(), e.getConsulta_id().getHistoria_Id().getCedula_id().getNombres(), e.getConsulta_id().getHistoria_Id().getCedula_id().getApellidos(), e.getConsulta_id().getHistoria_Id().getCedula_id().getDireccion(), e.getConsulta_id().getHistoria_Id().getCedula_id().getFechaNac(), e.getConsulta_id().getHistoria_Id().getCedula_id().getCelular(), e.getConsulta_id().getHistoria_Id().getCedula_id().getTitulo(),especialidad,usuario);
-			especie=new Especie(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
-			raza=new Raza(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getNombre() , especie);
-
-			mascota=new Mascota(e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota(), e.getConsulta_id().getHistoria_Id().getMascota_id().getNombre(), 
-					e.getConsulta_id().getHistoria_Id().getMascota_id().getSexo(), e.getConsulta_id().getHistoria_Id().getMascota_id().getFechaNac(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEdad(), 
-					e.getConsulta_id().getHistoria_Id().getMascota_id().getColoYSenalesParti(), propietario,raza);
-
+		
 			historia = new HistoriaClinica(e.getConsulta_id().getHistoria_Id().getIdHistorial(),e.getConsulta_id().getHistoria_Id().getDiaDeAdminision(),e.getConsulta_id().getHistoria_Id().getHora(),mascota,medico);
 
-			consulta= new ConsultaMedica( e.getConsulta_id().getIdConsultaMedica() ,e.getConsulta_id().getMotivoConsulta(),e.getConsulta_id().getVacunacion(),e.getConsulta_id().getProducto(),e.getConsulta_id().getDesparacitacion(),e.getConsulta_id().getFechas(),
+			consulta= new ConsultaMedica( e.getConsulta_id().getIdConsultaMedica(),e.getConsulta_id().getFechaConsulta() ,e.getConsulta_id().getMotivoConsulta(),e.getConsulta_id().getVacunacion(),e.getConsulta_id().getProducto(),e.getConsulta_id().getDesparacitacion(),e.getConsulta_id().getFechas(),
 					e.getConsulta_id().getEstadoReproductivo(),e.getConsulta_id().getProcedencia(),e.getConsulta_id().getAnamnesis(),e.getConsulta_id().getDiagnostico(),e.getConsulta_id().getPronostico(),e.getConsulta_id().getTratamiento(),e.getConsulta_id().getObservaciones(),historia);
 			cabecera= new ConstantesFisiologicasCabecera(e.getConstantesidCab().getConstantes_idCab(),e.getConstantesidCab().getNombre());
 			detalle = new ConstantesFisiologicasDetalle(e.getConstante_idDetalle(),e.getValorAsignado(), cabecera,consulta);

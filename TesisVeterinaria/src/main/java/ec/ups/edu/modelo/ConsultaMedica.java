@@ -22,6 +22,7 @@ public class ConsultaMedica implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idConsultaMedica;
+	private Date fechaConsulta;
 	private String motivoConsulta;
 	private String vacunacion; 
 	private String producto;
@@ -81,11 +82,12 @@ public class ConsultaMedica implements Serializable {
 		this.observaciones = observaciones;
 		this.historia_Id = historia_Id;
 	}
-	public ConsultaMedica(int idConsultaMedica, String motivoConsulta, String vacunacion, String producto,
+	public ConsultaMedica(int idConsultaMedica,Date fechaConsulta, String motivoConsulta, String vacunacion, String producto,
 			String desparacitacion, String fechas, String estadoReproductivo, String procedencia, String anamnesis,
 			String diagnostico, String pronostico, String tratamiento, String observaciones,
 			HistoriaClinica historia_Id) {
 		super();
+		this.fechaConsulta=fechaConsulta;
 		this.idConsultaMedica=idConsultaMedica;
 		this.motivoConsulta = motivoConsulta;
 		this.vacunacion = vacunacion;
@@ -100,6 +102,17 @@ public class ConsultaMedica implements Serializable {
 		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
 		this.historia_Id = historia_Id;
+		
+	}
+	
+	
+
+	public Date getFechaConsulta() {
+		return fechaConsulta;
+	}
+	
+	public void setFechaConsulta(Date fechaConsulta) {
+		this.fechaConsulta = fechaConsulta;
 	}
 	public int getIdConsultaMedica() {
 		return idConsultaMedica;
@@ -314,7 +327,7 @@ public class ConsultaMedica implements Serializable {
 
 			historia = new HistoriaClinica(e.getHistoria_Id().getIdHistorial(),e.getHistoria_Id().getDiaDeAdminision(),e.getHistoria_Id().getHora(),mascota,medico);
 
-			consulta = new ConsultaMedica(e.getIdConsultaMedica(),e.getMotivoConsulta(), e.getVacunacion(), e.getProducto(), e.getDesparacitacion(), e.getFechas(), e.getEstadoReproductivo(),
+			consulta = new ConsultaMedica(e.getIdConsultaMedica(),e.getFechaConsulta(), e.getMotivoConsulta(), e.getVacunacion(), e.getProducto(), e.getDesparacitacion(), e.getFechas(), e.getEstadoReproductivo(),
 					e.getProcedencia(), e.getAnamnesis(), e.getDiagnostico(), e.getPronostico(), e.getTratamiento(), e.getObservaciones(), historia);
 			consultaList.add(consulta);
 
@@ -324,14 +337,14 @@ public class ConsultaMedica implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "ConsultaMedica [idConsultaMedica=" + idConsultaMedica + ", motivoConsulta=" + motivoConsulta
-				+ ", vacunacion=" + vacunacion + ", producto=" + producto + ", desparacitacion=" + desparacitacion
-				+ ", fechas=" + fechas + ", estadoReproductivo=" + estadoReproductivo + ", procedencia=" + procedencia
-				+ ", anamnesis=" + anamnesis + ", diagnostico=" + diagnostico + ", pronostico=" + pronostico
-				+ ", tratamiento=" + tratamiento + ", observaciones=" + observaciones + ", historia_Id=" + historia_Id
-				+ ", constantesFiologicasDetalle=" + constantesFiologicasDetalle + ", listreceta=" + listreceta + "]";
+		return "ConsultaMedica [idConsultaMedica=" + idConsultaMedica + ", fechaConsulta=" + fechaConsulta
+				+ ", motivoConsulta=" + motivoConsulta + ", vacunacion=" + vacunacion + ", producto=" + producto
+				+ ", desparacitacion=" + desparacitacion + ", fechas=" + fechas + ", estadoReproductivo="
+				+ estadoReproductivo + ", procedencia=" + procedencia + ", anamnesis=" + anamnesis + ", diagnostico="
+				+ diagnostico + ", pronostico=" + pronostico + ", tratamiento=" + tratamiento + ", observaciones="
+				+ observaciones + ", historia_Id=" + historia_Id + ", constantesFiologicasDetalle="
+				+ constantesFiologicasDetalle + ", listreceta=" + listreceta + "]";
 	}
-	
 	
 	
 	
