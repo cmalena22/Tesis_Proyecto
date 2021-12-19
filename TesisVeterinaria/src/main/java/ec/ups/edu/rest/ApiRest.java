@@ -198,15 +198,16 @@ public class ApiRest {
 	}
 
 	@GET
-	@Path("/obtenerEspecieMascota")
+	@Path("/obtenerRazaByEspecie/{idEspecie}")	
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response ingresarEspecieMascota() {
+	public Response obtenerRazaByEspecie(@PathParam("idEspecie") int idEspecie) {
 		System.out.println("Especie mascota");
 		Jsonb jsonb = JsonbBuilder.create();
+		Raza raza= new Raza();
 		List<Raza> listaRaza = new ArrayList<Raza>();
-
+		
 		try {
-			listaRaza = Raza.serializeRaza(ejbRazaFacade.findAll());
+			listaRaza = Raza.serializeRaza(ejbRazaFacade.obtenerRazaByEspecie(idEspecie));
 			System.out.println("Raza" + listaRaza);
 			// ejbPropietarioFacade.create(propietario);
 			return Response.ok(jsonb.toJson(listaRaza)).header("Access-Control-Allow-Origin", "*")
@@ -219,12 +220,11 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
-
 	@GET
-	@Path("/obtenerRazaMascota")
+	@Path("/obtenerEspecieMascota")
 	@Produces(MediaType.APPLICATION_JSON)
 
-	public Response obtenerRazaMascota() {
+	public Response obtenerEspecieMascota() {
 
 		System.out.println("Especie mascota");
 		Jsonb jsonb = JsonbBuilder.create();

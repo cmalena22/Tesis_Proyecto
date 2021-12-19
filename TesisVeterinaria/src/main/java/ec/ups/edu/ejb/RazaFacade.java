@@ -1,5 +1,8 @@
 package ec.ups.edu.ejb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,4 +44,10 @@ public class RazaFacade  extends AbstractFacade<Raza>{
 
 	}
 
+	public List<Raza> obtenerRazaByEspecie(int idEspecie) {
+		List<Raza> us = new ArrayList<Raza>();
+		String query = "SELECT e " + "FROM Raza e " + "WHERE  e.especie_id.especie_id = " + idEspecie + "";
+		us = em.createQuery(query, Raza.class).getResultList();
+		return us;
+	}
 }
