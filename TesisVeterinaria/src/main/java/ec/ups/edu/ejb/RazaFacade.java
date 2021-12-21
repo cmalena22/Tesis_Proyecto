@@ -44,9 +44,9 @@ public class RazaFacade  extends AbstractFacade<Raza>{
 
 	}
 
-	public List<Raza> obtenerRazaByEspecie(int idEspecie) {
+	public List<Raza> obtenerRazaByEspecie(String idEspecie) {
 		List<Raza> us = new ArrayList<Raza>();
-		String query = "SELECT e " + "FROM Raza e " + "WHERE  e.especie_id.especie_id = " + idEspecie + "";
+		String query = "SELECT e " + "FROM Raza e " + "WHERE  e.especie_id.nombreEspecie = '" + idEspecie + "'";
 		us = em.createQuery(query, Raza.class).getResultList();
 		return us;
 	}

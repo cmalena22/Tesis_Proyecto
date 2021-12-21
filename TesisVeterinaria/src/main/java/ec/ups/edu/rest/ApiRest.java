@@ -200,7 +200,7 @@ public class ApiRest {
 	@GET
 	@Path("/obtenerRazaByEspecie/{idEspecie}")	
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response obtenerRazaByEspecie(@PathParam("idEspecie") int idEspecie) {
+	public Response obtenerRazaByEspecie(@PathParam("idEspecie") String idEspecie) {
 		System.out.println("Especie mascota");
 		Jsonb jsonb = JsonbBuilder.create();
 		Raza raza= new Raza();
@@ -297,7 +297,7 @@ public class ApiRest {
 				//System.out.println("Id dentro de consta fisio de medico" + medico);
 				Usuario usu = new Usuario();
 				MedicoVeterinario medi= new MedicoVeterinario();
-				ejbUsuarioFacade.idusuario("cinthia@gmail.com");
+				ejbUsuarioFacade.idusuario(medico);
 				System.out.println(ejbUsuarioFacade.idusuario(medico));				
 				System.out.println("--------------------------------------");				 
 				medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(medico));
