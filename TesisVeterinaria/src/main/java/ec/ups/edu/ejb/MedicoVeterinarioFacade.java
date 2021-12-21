@@ -71,6 +71,22 @@ public class MedicoVeterinarioFacade extends AbstractFacade<MedicoVeterinario>{
 
 	}
 	
+	public void actualizarusuario(int id,String cedula,String nombres,String apellidos,String celular,String direccion,String fechaNac,String titulo,int especialidad) {
+		//Usuario usu=new Usuario();
+		//Usuario us = new Usuario();
+		 String query = "UPDATE MedicoVeterinario e " + "SET e.cedulaId='" + cedula + 
+				 "',e.nombres='" + nombres + 
+				  "',e.apellidos='" + apellidos + 
+				   "',e.celular='" + celular + 
+				    "',e.direccion='" + direccion + 
+				     "',e.fechaNac='" + fechaNac + 
+				      "',e.titulo='" + titulo + 
+				       "',e.especialidad_id.especialidad_id=" + especialidad + 
+				 " WHERE  e.usuario_id.usuario_id=" + id;
+		System.out.println(query);
+		em.createQuery(query).executeUpdate();
+	}
+	
 	
 	
 }

@@ -84,4 +84,12 @@ public void acti(int id,String contraNueva) {
 	em.createQuery(query).executeUpdate();
 }
 
+public void actualizarusuario(int id,String correo) {
+	//Usuario usu=new Usuario();
+	//Usuario us = new Usuario();
+	 String query = "UPDATE Usuario e " + "SET e.correo='" + correo + "' WHERE  e.usuario_id=" + id;
+	 System.out.println(query);
+	em.createQuery(query).executeUpdate();
+}
+
 }

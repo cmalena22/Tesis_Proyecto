@@ -896,6 +896,53 @@ public class ApiRest {
 		
 	}
 	
+	@POST
+	@Path("/actualizarPMedico")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarPMedico(@FormParam("cedula") String cedula, @FormParam("nombres") String nombres,
+			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
+			@FormParam("fechaNac") String fechaNac, @FormParam("correo") String correo,
+			@FormParam("celular") String celular,@FormParam("titulo") String titulo, 
+			@FormParam("especialidad_id") String especialidad_id,@FormParam("usuario_id") String usuario_id) {
+
+		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
+		System.out.println("cedula");
+		System.out.println(cedula);
+		System.out.println("nombres");
+		System.out.println(nombres);
+		System.out.println("apellidos");
+		System.out.println(apellidos);
+		System.out.println("direccion");
+		System.out.println(direccion);
+		System.out.println("fecha naci");
+		System.out.println(fechaNac);
+		System.out.println("correo");
+		System.out.println(correo);
+		System.out.println("celular");
+		System.out.println(celular);
+		System.out.println("titulo");
+		System.out.println(titulo);
+		System.out.println("especialidad id");
+		System.out.println(especialidad_id);
+		System.out.println("usuario id");
+		System.out.println(usuario_id);
+		
+		int usua_id= Integer.parseInt(usuario_id);
+		ejbUsuarioFacade.actualizarusuario(usua_id,correo);
+
+		int espe= Integer.parseInt(especialidad_id);
+		//public void actualizarusuario(int id,String cedula,String nombres,String apellidos,String celular,String direccion,String fechaNac,String titulo,int especialidad) 
+		
+		ejbMedicoVeterinarioFacade.actualizarusuario(usua_id, cedula, nombres, apellidos, celular, direccion, fechaNac, titulo, espe);
+		
+		return Response.ok("Bien").build();
+		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
+		// authorization")
+
+	}
+	
 	
 	
 	
