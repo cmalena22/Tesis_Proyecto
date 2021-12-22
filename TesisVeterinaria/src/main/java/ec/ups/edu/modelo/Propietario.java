@@ -1,6 +1,8 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -119,6 +121,36 @@ public class Propietario implements Serializable {
 		Propietario other = (Propietario) obj;
 		return idPropietario == other.idPropietario;
 	}
+	
+	private static Propietario propie;
+
+	public static List<Propietario> serializePropietario(List<Propietario> propietarios) {
+		List<Propietario> propietarioList = new ArrayList<>();
+		propietarios.forEach(
+		e-> {
+			
+			propie = new Propietario(e.getIdPropietario(), e.getDireccion(), e.getPropietario(), e.getTelefono(), e.getCuidad(), e.getCorreo());
+			
+			propietarioList.add(propie);
+
+		});
+		return propietarioList;
+
+	}
+	
+	private static Propietario propiebyId;
+
+	public static Propietario serializePropietarioByID(Propietario propietario) {
+		Propietario prop = new Propietario();
+		
+			
+			propiebyId = new Propietario(propietario.getIdPropietario(), propietario.getDireccion(), propietario.getPropietario(), propietario.getTelefono(), propietario.getCuidad(), propietario.getCorreo());
+			
+		
+		return propiebyId;
+
+	}
+
 
 	@Override
 	public String toString() {

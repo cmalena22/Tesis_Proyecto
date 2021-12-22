@@ -2,6 +2,9 @@ package ec.ups.edu.ejb;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
@@ -10,6 +13,7 @@ import javax.persistence.Query;
 
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
+import ec.ups.edu.modelo.Raza;
 
 @Stateless
 public class PropietarioFacade extends AbstractFacade<Propietario>{
@@ -42,4 +46,11 @@ public class PropietarioFacade extends AbstractFacade<Propietario>{
 		return pro;
 
 	}
+	public List<Propietario> obtenerPropietarioById(String idPropietario) {
+		List<Propietario> us = new ArrayList<Propietario>();
+		String query = "SELECT e " + "FROM Propietario e " + "WHERE  e.idPropietario = '" + idPropietario + "'";
+		us = em.createQuery(query, Propietario.class).getResultList();
+		return us;
+	}
+
 }

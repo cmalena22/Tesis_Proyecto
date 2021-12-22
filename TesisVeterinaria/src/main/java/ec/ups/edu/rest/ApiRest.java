@@ -611,7 +611,55 @@ public class ApiRest {
 		}
 	}
 
-
+	@GET
+	@Path("/listarPropietario")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarPropietario() {
+		System.out.println("Constantes Cabecera mascota");
+		Jsonb jsonb = JsonbBuilder.create();
+		List<Propietario> listaPropietario = new ArrayList<Propietario>();
+	
+	
+		try {
+			listaPropietario = Propietario.serializePropietario(ejbPropietarioFacade.findAll());
+			System.out.println("historias" + listaPropietario);
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaPropietario)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	@GET
+	@Path("/PropietariobyId/{idPropietario}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response PropietariobyId(@PathParam("idPropietario") String idPropietario) {
+		System.out.println("Constantes Cabecera mascota");
+		Jsonb jsonb = JsonbBuilder.create();
+		List<Propietario> listaPropietario = new ArrayList<Propietario>();
+		Propietario pro = new Propietario();
+		
+	
+		try {
+			listaPropietario=Propietario.serializePropietario(ejbPropietarioFacade.obtenerPropietarioById(idPropietario));
+			System.out.println("historias" + pro);
+			
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listaPropietario)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
 	
 	@GET
 	@Path("/texto")
