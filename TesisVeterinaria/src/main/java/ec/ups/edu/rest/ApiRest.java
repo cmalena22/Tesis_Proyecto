@@ -103,6 +103,7 @@ public class ApiRest {
 			@FormParam("otra") String hsdg) throws IOException {
 		System.out.println("Metodo crear");
 		Usuario us = new Usuario();
+		Jsonb jsonb = JsonbBuilder.create();
 		System.out.println("Correo " + correo);
 		System.out.println("Contrasena " + contrasena);
 		MedicoVeterinario usu = new MedicoVeterinario();
@@ -111,8 +112,43 @@ public class ApiRest {
 		try {
 			// us = ejbMedicoVeterinarioFacade.inicioo();
 			us = ejbUsuarioFacade.inicioo(correo, contrasena);
+			/*
+			 * System.out.println(medi.getCedulaId());
+				System.out.println(medi.getNombres());
+				System.out.println(medi.getApellidos());
+				System.out.println(medi.getDireccion());
+				System.out.println(medi.getFechaNac());
+				System.out.println(medi.getCelular());
+				System.out.println(medi.getTitulo());
+				System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
+				System.out.println(medi.getUsuario_id().getUsuario_id());
+				
+				Usuario usua= new Usuario();
+				usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
+				usua.setCorreo(medi.getUsuario_id().getCorreo());
+				usua.setContrasena(medi.getUsuario_id().getContrasena());
+			
+				Especialidad espec= new Especialidad();
+				espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
+				espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
+				
+			 */
+			System.out.println(us.getUsuario_id());
+			System.out.println(us.getCorreo());
+			System.out.println(us.getContrasena());
+			System.out.println(us.getRol_id());
+			
+			Rol rol= new Rol();
+			rol.setRol_id(us.getRol_id().getRol_id());
+			rol.setDescripcion(us.getRol_id().getDescripcion());
+			//jsonb.toJson(us)
 			if (us != null) {
-				return Response.ok(correo).build();
+				Usuario usuar= new Usuario();
+				usuar.setUsuario_id(us.getUsuario_id());
+				usuar.setCorreo(us.getCorreo());
+				usuar.setContrasena(us.getContrasena());
+				usuar.setRol_id(rol);
+				return Response.ok(jsonb.toJson(usuar)).build();
 
 				// .header("Access-Control-Allow-Origin", "*")
 				// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
