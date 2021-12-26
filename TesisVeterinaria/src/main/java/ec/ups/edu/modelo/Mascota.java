@@ -1,7 +1,9 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -162,6 +164,37 @@ public class Mascota implements Serializable {
 		return id_mascota == other.id_mascota;
 	}
 
+	
+	private static Mascota mascota;
+	private static Propietario propietario;
+	private static Especie especie;
+	private static Raza raza;
+	private static  List<Propietario>lisPropietario = new ArrayList<Propietario>();
+	private static  List<Especie>lisEspecie = new ArrayList<Especie>();
+
+	public static List<Mascota> serializeMascota(List<Mascota> mascotas) {
+		List<Mascota> mascotaList = new ArrayList<>();
+		
+		lisPropietario.forEach(e->{
+			 propietario = new Propietario(e.getPropietario(), e.getDireccion(),e.getPropietario(), e.getTelefono(), e.getCuidad(), e.getCorreo());
+
+		});
+		lisEspecie.forEach(e->{
+		});
+		mascotas.forEach(
+		e-> {
+			especie = new Especie(e.getEspecie_id().getEspecie_id().getEspecie_id(), e.getEspecie_id().getEspecie_id().getNombreEspecie());
+
+			raza = new Raza(e.getEspecie_id().getRaza_id(), e.getEspecie_id().getNombre(),especie);
+			mascota = new Mascota(e.getNombre(), e.getSexo(), e.getFechaNac(), e.getEdad(), e.getColoYSenalesParti(), propietario, raza);
+			
+			mascotaList.add(mascota);
+
+		});
+		return mascotaList;
+
+	}
+	
 	@Override
 	public String toString() {
 		return "Mascota [id_mascota=" + id_mascota + ", nombre=" + nombre + ", sexo=" + sexo + ", fechaNac=" + fechaNac

@@ -698,6 +698,30 @@ public class ApiRest {
 	}
 	
 	@GET
+	@Path("/MascotasByIdPropietario/{idPropietario}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response MascotasByIdPropietario(@PathParam("idPropietario") String idPropietario) {
+		System.out.println("Constantes Cabecera mascota");
+		Jsonb jsonb = JsonbBuilder.create();
+		List<Mascota> listsMascota = new ArrayList<Mascota>();
+		
+	
+		try {
+			listsMascota=Mascota.serializeMascota(ejbMascotaFacade.obtenerMascotaByIdPropietario(idPropietario));
+						
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok(jsonb.toJson(listsMascota)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	@GET
 	@Path("/texto")
 	@Produces(MediaType.APPLICATION_JSON)
 
