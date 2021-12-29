@@ -1058,7 +1058,7 @@ public class ApiRest {
 	
 	//
 	
-	
+	//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
 	@POST
 	@Path("/registrarRecetaM")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1092,6 +1092,55 @@ public class ApiRest {
 		
 	}
 	
-	//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
 	
+	@GET
+	@Path("/listarConsultaok/{idConsulta}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response listamedicook(@PathParam("idConsulta") String idConsulta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		System.out.println("consulta id " + idConsulta);
+		
+		RecetaMedica rece = new RecetaMedica();
+	
+		int consulid= Integer.parseInt(idConsulta);
+		try {
+			rece = ejbRecetaMedica.CorreoOk(consulid);
+			if (rece != null) {
+				System.out.println("receta existe de dicha consulta");
+				return Response.ok("creado").build();
+
+			}
+		} catch (Exception ex) {
+			return Response.ok("No creado").build();
+
+		}
+		return Response.ok("No creado").build();
+	}
+	
+	//tengo que realizar serializable de esto
+	@GET
+	@Path("/listasRecetaMedica/{idConsulta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarRecetaMedica(@PathParam("idConsulta") String idConsulta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
+		int idconsulta= Integer.parseInt(idConsulta);
+	
+		try {
+			//	consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.buscarId(idConsulta));
+			//serializeReceta
+			recetalist = RecetaMedica.serializeReceta(ejbRecetaMedica.IdListConsult(idconsulta));
+			//System.out.println("----" + recetalist);
+			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
 }
