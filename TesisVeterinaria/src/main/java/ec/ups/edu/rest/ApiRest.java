@@ -39,6 +39,7 @@ import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.ejb.RazaFacade;
+import ec.ups.edu.ejb.RecetaMedicaFacade;
 import ec.ups.edu.ejb.Roww;
 import ec.ups.edu.modelo.ConstantesFisiologicasCabecera;
 import ec.ups.edu.modelo.ConstantesFisiologicasDetalle;
@@ -55,6 +56,7 @@ import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
 import ec.ups.edu.modelo.Raza;
+import ec.ups.edu.modelo.RecetaMedica;
 import ec.ups.edu.modelo.Rol;
 import ec.ups.edu.modelo.Usuario;
 
@@ -89,6 +91,9 @@ public class ApiRest {
 
 	@EJB
 	private ConsultaMedicaFacade ejbConsultaMedica;
+	
+	@EJB
+	private RecetaMedicaFacade ejbRecetaMedica;
 
 	public ApiRest() {
 		this.list = new ArrayList<Roww>();
@@ -1052,6 +1057,40 @@ public class ApiRest {
 	}
 	
 	//
+	
+	
+	@POST
+	@Path("/registrarRecetaM")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,@FormParam("consulta_id") String consulta_id) {
+
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("el rp es:---");
+		System.out.println(rp);
+		System.out.println("prescripcion---");
+		System.out.println(prescripcion);
+		System.out.println("consulta_id---");
+		System.out.println(consulta_id);
+		
+		Date date = new Date();
+		ConsultaMedica cons= new ConsultaMedica();
+		int consultaid= Integer.parseInt(consulta_id);
+		cons.setIdConsultaMedica(consultaid);
+		
+		RecetaMedica rem= new RecetaMedica();
+		rem.setRp(rp);
+		rem.setPrescripcion(prescripcion);
+		rem.setFecha(date);
+		rem.setConsulta_id(cons);
+		
+		
+		ejbRecetaMedica.create(rem);
+		
+		return Response.ok("ok").build();
+		
+	}
 	
 	
 }
