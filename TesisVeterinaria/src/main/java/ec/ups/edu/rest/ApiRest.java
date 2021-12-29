@@ -1118,7 +1118,7 @@ public class ApiRest {
 		return Response.ok("No creado").build();
 	}
 	
-	//tengo que realizar serializable de esto
+	
 	@GET
 	@Path("/listasRecetaMedica/{idConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
