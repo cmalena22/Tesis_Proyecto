@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.ups.edu.modelo.ConsultaMedica;
+import ec.ups.edu.modelo.Propietario;
 import ec.ups.edu.modelo.RecetaMedica;
 import ec.ups.edu.modelo.Usuario;
 
@@ -41,6 +42,21 @@ public class RecetaMedicaFacade extends AbstractFacade<RecetaMedica>{
 		String query ="SELECT e FROM RecetaMedica e where e.consulta_id.idConsultaMedica=" + id + "";
 		cab = em.createQuery(query, RecetaMedica.class).getResultList();
 		return cab;
+	}
+	
+	public List<RecetaMedica> buscarIdReceta(int idReceta) {
+		List<RecetaMedica> rece = new ArrayList<RecetaMedica>();
+		String query = "SELECT e " + "FROM RecetaMedica e " + "WHERE  e.idReceta = " + idReceta + "";
+		rece = em.createQuery(query, RecetaMedica.class).getResultList();
+		return rece;
+	}
+	
+	public void actualizarReceta(int id,String rp,String prescripcion) {
+		String query = "UPDATE RecetaMedica e " + "SET e.rp='" + rp + 
+				 "',e.prescripcion='" + prescripcion + 
+				 "' WHERE  e.idReceta=" + id;
+		 System.out.println(query);
+		em.createQuery(query).executeUpdate();
 	}
 	
 	

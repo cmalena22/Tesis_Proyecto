@@ -1143,4 +1143,74 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
+	
+	
+	@GET
+	@Path("/listaDetalleRecetaM/{idReceta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RecetaDetalle(@PathParam("idReceta") String idReceta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
+		int idRecetaa= Integer.parseInt(idReceta);
+		
+	
+		try {
+			recetalist=RecetaMedica.serializeReceta(ejbRecetaMedica.buscarIdReceta(idRecetaa));
+			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	//actualizaRecetaM
+	@POST
+	@Path("/actualizaRecetaM")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarRecetaM(@FormParam("idReceta") String idReceta, @FormParam("rp") String rp,
+			@FormParam("prescripcion") String prescripcion, @FormParam("consulta_id") String consulta_id) {
+
+		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		
+		int idRecetaa= Integer.parseInt(idReceta);
+		int consulta_idd= Integer.parseInt(consulta_id);
+		
+		ejbRecetaMedica.actualizarReceta(idRecetaa,rp,prescripcion);
+		
+		return Response.ok("Bien").build();
+		
+	}
+	
+	//
+	@GET
+	@Path("/EliminarRecetaM/{idReceta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response EliminarReceta(@PathParam("idReceta") String idReceta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		int idRecetaa= Integer.parseInt(idReceta);
+		RecetaMedica rece =new RecetaMedica();
+		rece.setIdReceta(idRecetaa);
+		
+		try {
+			ejbRecetaMedica.remove(rece);
+			return Response.ok("ok").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
 }
