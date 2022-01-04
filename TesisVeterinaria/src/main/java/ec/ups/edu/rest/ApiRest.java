@@ -1213,4 +1213,33 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
+	
+	//CorreoOk
+	@POST
+	@Path("/CorreoOk")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response CorreoOk(@FormParam("correo") String correo) {
+
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("el correo es: ");
+		System.out.println(correo);
+		
+		Usuario us = new Usuario();
+		
+		try {
+		
+		us = ejbUsuarioFacade.CorreoOk(correo);
+			if (us != null) {
+				return Response.ok("ok").build();
+			}
+		} catch (Exception ex) {
+			return Response.ok("No creado").build();
+
+		}
+		return Response.ok("No creado").build();
+		
+	}
+	
 }
