@@ -39,6 +39,7 @@ import ec.ups.edu.ejb.MascotaFacade;
 import ec.ups.edu.ejb.MedicoVeterinarioFacade;
 import ec.ups.edu.ejb.PropietarioFacade;
 import ec.ups.edu.ejb.RazaFacade;
+import ec.ups.edu.ejb.RecetaMedicaFacade;
 import ec.ups.edu.ejb.Roww;
 import ec.ups.edu.modelo.ConstantesFisiologicasCabecera;
 import ec.ups.edu.modelo.ConstantesFisiologicasDetalle;
@@ -55,6 +56,7 @@ import ec.ups.edu.modelo.Mascota;
 import ec.ups.edu.modelo.MedicoVeterinario;
 import ec.ups.edu.modelo.Propietario;
 import ec.ups.edu.modelo.Raza;
+import ec.ups.edu.modelo.RecetaMedica;
 import ec.ups.edu.modelo.Rol;
 import ec.ups.edu.modelo.Usuario;
 
@@ -88,6 +90,9 @@ public class ApiRest {
 
 	@EJB
 	private ConsultaMedicaFacade ejbConsultaMedica;
+	
+	@EJB
+	private RecetaMedicaFacade ejbRecetaMedica;
 
 	public ApiRest() {
 		this.list = new ArrayList<Roww>();
@@ -1182,4 +1187,189 @@ public class ApiRest {
 
 	//
 
+	
+	//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
+	@POST
+	@Path("/registrarRecetaM")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,@FormParam("consulta_id") String consulta_id) {
+
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("el rp es:---");
+		System.out.println(rp);
+		System.out.println("prescripcion---");
+		System.out.println(prescripcion);
+		System.out.println("consulta_id---");
+		System.out.println(consulta_id);
+		
+		Date date = new Date();
+		ConsultaMedica cons= new ConsultaMedica();
+		int consultaid= Integer.parseInt(consulta_id);
+		cons.setIdConsultaMedica(consultaid);
+		
+		RecetaMedica rem= new RecetaMedica();
+		rem.setRp(rp);
+		rem.setPrescripcion(prescripcion);
+		rem.setFecha(date);
+		rem.setConsulta_id(cons);
+		
+		
+		ejbRecetaMedica.create(rem);
+		
+		return Response.ok("ok").build();
+		
+	}
+	
+	
+	@GET
+	@Path("/listarConsultaok/{idConsulta}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response listamedicook(@PathParam("idConsulta") String idConsulta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		System.out.println("consulta id " + idConsulta);
+		
+		RecetaMedica rece = new RecetaMedica();
+	
+		int consulid= Integer.parseInt(idConsulta);
+		try {
+			rece = ejbRecetaMedica.CorreoOk(consulid);
+			if (rece != null) {
+				System.out.println("receta existe de dicha consulta");
+				return Response.ok("creado").build();
+
+			}
+		} catch (Exception ex) {
+			return Response.ok("No creado").build();
+
+		}
+		return Response.ok("No creado").build();
+	}
+	
+	
+	@GET
+	@Path("/listasRecetaMedica/{idConsulta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarRecetaMedica(@PathParam("idConsulta") String idConsulta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
+		int idconsulta= Integer.parseInt(idConsulta);
+	
+		try {
+			//	consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.buscarId(idConsulta));
+			//serializeReceta
+			recetalist = RecetaMedica.serializeReceta(ejbRecetaMedica.IdListConsult(idconsulta));
+			//System.out.println("----" + recetalist);
+			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	
+	@GET
+	@Path("/listaDetalleRecetaM/{idReceta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response RecetaDetalle(@PathParam("idReceta") String idReceta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
+		int idRecetaa= Integer.parseInt(idReceta);
+		
+	
+		try {
+			recetalist=RecetaMedica.serializeReceta(ejbRecetaMedica.buscarIdReceta(idRecetaa));
+			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	//actualizaRecetaM
+	@POST
+	@Path("/actualizaRecetaM")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ActualizarRecetaM(@FormParam("idReceta") String idReceta, @FormParam("rp") String rp,
+			@FormParam("prescripcion") String prescripcion, @FormParam("consulta_id") String consulta_id) {
+
+		System.out.println("Ingreso");
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		
+		int idRecetaa= Integer.parseInt(idReceta);
+		int consulta_idd= Integer.parseInt(consulta_id);
+		
+		ejbRecetaMedica.actualizarReceta(idRecetaa,rp,prescripcion);
+		
+		return Response.ok("Bien").build();
+		
+	}
+	
+	//
+	@GET
+	@Path("/EliminarRecetaM/{idReceta}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response EliminarReceta(@PathParam("idReceta") String idReceta) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		int idRecetaa= Integer.parseInt(idReceta);
+		RecetaMedica rece =new RecetaMedica();
+		rece.setIdReceta(idRecetaa);
+		
+		try {
+			ejbRecetaMedica.remove(rece);
+			return Response.ok("ok").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		}
+	}
+	
+	//CorreoOk
+	@POST
+	@Path("/CorreoOk")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response CorreoOk(@FormParam("correo") String correo) {
+
+		Jsonb jsonb = JsonbBuilder.create();
+		
+		System.out.println("el correo es: ");
+		System.out.println(correo);
+		
+		Usuario us = new Usuario();
+		
+		try {
+		
+		us = ejbUsuarioFacade.CorreoOk(correo);
+			if (us != null) {
+				return Response.ok("ok").build();
+			}
+		} catch (Exception ex) {
+			return Response.ok("No creado").build();
+
+		}
+		return Response.ok("No creado").build();
+		
+	}
+	
 }

@@ -1,7 +1,9 @@
 package ec.ups.edu.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -104,5 +106,65 @@ public class RecetaMedica implements Serializable {
 	}
 	
 	
+	private static ConsultaMedica consulta;
+	private static RecetaMedica receta;
+	private static HistoriaClinica historia;
+	private static Mascota mascota;
+	private static MedicoVeterinario medico;
+	private static Raza raza;
+	private static Propietario propietario;
+	private static Especialidad especialidad;
+	private static Usuario usuario;
+	private static Especie especie;
+	private static List<Especialidad> listEspecialidad= new ArrayList<Especialidad>();
+	private static List<Raza> listraza= new ArrayList<Raza>();
+	private static List<Propietario> listPropietario= new ArrayList<Propietario>();
+	private static List<Usuario> listUsuario= new ArrayList<Usuario>();
+
 	
+	public static List<RecetaMedica> serializeReceta(List<RecetaMedica> recetas) {
+		List<RecetaMedica> recetaList = new ArrayList<>();
+		listPropietario.forEach(e->{
+		});
+		listEspecialidad.forEach(e->{
+			especialidad=new Especialidad(e.getEspecialidad_id(), e.getTipoEspecialidad());
+		});
+		listUsuario.forEach(e->{
+			usuario=new Usuario(e.getUsuario_id(), e.getCorreo(), e.getContrasena(), e.getRol_id());
+		});
+		listraza.forEach(e->{
+		});
+		recetas.forEach(
+		e-> {
+			
+			propietario=new Propietario(e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getIdPropietario(), e.getConsulta_id().getHistoria_Id().
+					getMascota_id().getId_mascota_propietario().getDireccion(), e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getPropietario(),
+					 e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getTelefono(),
+					  e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getCuidad(), e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota_propietario().getCorreo());
+
+			
+			medico=new MedicoVeterinario(e.getConsulta_id().getHistoria_Id().getCedula_id().getCedulaId(), e.getConsulta_id().getHistoria_Id().getCedula_id().getNombres(),
+					 e.getConsulta_id().getHistoria_Id().getCedula_id().getApellidos(), e.getConsulta_id().getHistoria_Id().getCedula_id().getDireccion(), e.getConsulta_id().getHistoria_Id().getCedula_id().getFechaNac(),
+					  e.getConsulta_id().getHistoria_Id().getCedula_id().getCelular(), e.getConsulta_id().getHistoria_Id().getCedula_id().getTitulo(),especialidad,usuario);
+			
+			especie=new Especie(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(),
+					 e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEstado());
+			
+			raza=new Raza(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getNombre(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEstado() , especie);
+
+			
+			mascota=new Mascota(e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota(), e.getConsulta_id().getHistoria_Id().getMascota_id().getNombre(),
+					 e.getConsulta_id().getHistoria_Id().getMascota_id().getSexo(), e.getConsulta_id().getHistoria_Id().getMascota_id().getFechaNac(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEdad(), 
+					 e.getConsulta_id().getHistoria_Id().getMascota_id().getColoYSenalesParti(), propietario,raza);
+			
+			historia = new HistoriaClinica(e.getConsulta_id().getHistoria_Id().getIdHistorial(),e.getConsulta_id().getHistoria_Id().getDiaDeAdminision(),e.getConsulta_id().getHistoria_Id().getHora(),mascota,medico);
+
+			consulta = new ConsultaMedica(e.getConsulta_id().getIdConsultaMedica(),e.getConsulta_id().getFechaConsulta(),e.getConsulta_id().getMotivoConsulta(), e.getConsulta_id().getVacunacion(), e.getConsulta_id().getProducto(), e.getConsulta_id().getDesparacitacion(), e.getConsulta_id().getFechas(), e.getConsulta_id().getEstadoReproductivo(),
+					e.getConsulta_id().getProcedencia(), e.getConsulta_id().getAnamnesis(), e.getConsulta_id().getDiagnostico(), e.getConsulta_id().getPronostico(), e.getConsulta_id().getTratamiento(), e.getConsulta_id().getObservaciones(), historia);
+			receta = new RecetaMedica(e.getIdReceta(),e.getFecha(),e.getRp(),e.getPrescripcion(),consulta);
+			recetaList.add(receta);
+		});
+		return recetaList;
+
+	}
 }
