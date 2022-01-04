@@ -25,7 +25,7 @@ public class Especie implements Serializable {
 	//relacion especie-raza
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "especie_id")
 	private List<Raza> raza_id;
-
+	private String estado;
 	
 	
 
@@ -34,10 +34,18 @@ public class Especie implements Serializable {
 	}
 
 
-	public Especie(int especie_id, String nombreEspecie) {
+	
+
+
+	public Especie(int especie_id, String nombreEspecie, String estado) {
+		super();
 		this.especie_id = especie_id;
 		this.nombreEspecie = nombreEspecie;
+		this.estado = estado;
 	}
+
+
+
 
 
 	public int getEspecie_id() {
@@ -76,6 +84,22 @@ public class Especie implements Serializable {
 	
 
 
+	public String getEstado() {
+		return estado;
+	}
+
+
+
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
+
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(especie_id);
@@ -100,18 +124,22 @@ public class Especie implements Serializable {
 		List<Especie> especieList = new ArrayList<>();
 		especies.forEach(
 		e-> {
-			especie = new Especie(e.getEspecie_id(),e.getNombreEspecie());
+			especie = new Especie(e.getEspecie_id(),e.getNombreEspecie(), e.getEstado());
 			especieList.add(especie);		
 		});
 		return especieList;
 
 	}
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "Especie [especie_id=" + especie_id + ", nombreEspecie=" + nombreEspecie + "]";
+		return "Especie [especie_id=" + especie_id + ", nombreEspecie=" + nombreEspecie + ","
+				+ ", estado=" + estado + "]";
 	}
-
 
 	
 	

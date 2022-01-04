@@ -195,8 +195,8 @@ public class HistoriaClinica implements Serializable {
 		historias.forEach(
 		e-> {		
 			
-			especie=new Especie(e.getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(), e.getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
-			raza=new Raza(e.getMascota_id().getEspecie_id().getRaza_id(),e.getMascota_id().getEspecie_id().getNombre(), especie);
+			especie=new Especie(e.getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(),e.getMascota_id().getEspecie_id().getEspecie_id().getEstado(),e.getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
+			raza=new Raza(e.getMascota_id().getEspecie_id().getRaza_id(),e.getMascota_id().getEspecie_id().getNombre(),e.getMascota_id().getEspecie_id().getEstado(), especie);
 
 			propietario=new Propietario(e.getMascota_id().getId_mascota_propietario().getIdPropietario(),
 					e.getMascota_id().getId_mascota_propietario().getDireccion(), e.getMascota_id().getId_mascota_propietario().getPropietario(), 
