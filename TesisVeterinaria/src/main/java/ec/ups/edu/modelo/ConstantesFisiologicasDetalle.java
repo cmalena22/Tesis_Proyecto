@@ -132,7 +132,7 @@ public static List<ConstantesFisiologicasDetalle> serializeConstantesFiosiologic
 		
 		listMedico.forEach(e->{
 			medico= new MedicoVeterinario(e.getCedulaId(), e.getNombres(),e.getApellidos(), e.getDireccion(),
-					e.getFechaNac(), e.getCelular(), e.getTitulo(),e.getEspecialidad_id(),e.getUsuario_id());
+					e.getFechaNac(), e.getCelular(), e.getTitulo(), e.getFotoMedico(),e.getEspecialidad_id(),e.getUsuario_id());
 
 		});
 		listMascota.forEach(e->{

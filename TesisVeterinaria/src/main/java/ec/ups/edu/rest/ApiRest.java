@@ -806,6 +806,7 @@ public class ApiRest {
 				System.out.println(medi.getFechaNac());
 				System.out.println(medi.getCelular());
 				System.out.println(medi.getTitulo());
+				System.out.println(medi.getFotoMedico());
 				System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
 				System.out.println(medi.getUsuario_id().getUsuario_id());
 				
@@ -821,7 +822,7 @@ public class ApiRest {
 				if (medi != null) {
 					
 					final  MedicoVeterinario medico;
-					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),espec,usua);
+					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),medi.getFotoMedico(),espec,usua);
 					return Response.ok(jsonb.toJson(medico)).build();
 			
 				}
@@ -869,7 +870,7 @@ public class ApiRest {
 			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
 			@FormParam("fechaNac") String fechaNac, @FormParam("correo") String correo,
 			@FormParam("contrasena") String contrasena, @FormParam("celular") String celular,
-			@FormParam("titulo") String titulo, @FormParam("especialidad_id") String especialidad_id) {
+			@FormParam("titulo") String titulo, @FormParam("fotomedico") String fotomedico,@FormParam("especialidad_id") String especialidad_id) {
 
 		System.out.println("Ingreso");
 		Jsonb jsonb = JsonbBuilder.create();
@@ -891,6 +892,8 @@ public class ApiRest {
 		System.out.println(celular);
 		System.out.println("titulo");
 		System.out.println(titulo);
+		System.out.println("fotomedico");
+		System.out.println(fotomedico);
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
 		Usuario usu = new Usuario();
@@ -917,6 +920,7 @@ public class ApiRest {
 		medi.setFechaNac(fechaNac);
 		medi.setCelular(celular);
 		medi.setTitulo(titulo);
+		medi.setFotoMedico(fotomedico);
 		medi.setEspecialidad_id(espe);
 		medi.setUsuario_id(usu);
 

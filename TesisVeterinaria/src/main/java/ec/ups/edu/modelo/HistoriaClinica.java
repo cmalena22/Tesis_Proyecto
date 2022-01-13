@@ -211,7 +211,7 @@ public class HistoriaClinica implements Serializable {
 			
 			medico =  new MedicoVeterinario(e.getCedula_id().getCedulaId(), e.getCedula_id().getNombres(),
 			e.getCedula_id().getApellidos(),e.getCedula_id().getDireccion(),e.getCedula_id().getFechaNac(), 
-			e.getCedula_id().getCelular(), e.getCedula_id().getTitulo(),especialidad,usuario);
+			e.getCedula_id().getCelular(), e.getCedula_id().getTitulo(),e.getCedula_id().getFotoMedico(),especialidad,usuario);
 			
 			historia = new HistoriaClinica(e.getIdHistorial(),e.getDiaDeAdminision(), e.getHora(), mascota,medico);
 			historiaList.add(historia);
