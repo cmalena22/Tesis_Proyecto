@@ -148,9 +148,9 @@ public class RecetaMedica implements Serializable {
 					  e.getConsulta_id().getHistoria_Id().getCedula_id().getCelular(), e.getConsulta_id().getHistoria_Id().getCedula_id().getTitulo(), e.getConsulta_id().getHistoria_Id().getCedula_id().getFotoMedico(),especialidad,usuario);
 			
 			especie=new Especie(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(),
-					 e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
+					 e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEstado());
 			
-			raza=new Raza(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getNombre() , especie);
+			raza=new Raza(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getNombre(),e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEstado() , especie);
 
 			
 			mascota=new Mascota(e.getConsulta_id().getHistoria_Id().getMascota_id().getId_mascota(), e.getConsulta_id().getHistoria_Id().getMascota_id().getNombre(),

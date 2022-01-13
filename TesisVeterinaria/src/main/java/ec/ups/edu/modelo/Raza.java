@@ -20,6 +20,7 @@ public class Raza implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int raza_id;
 	private String nombre;
+	private String estado;
 
 	// Relacion especie - raza
 	@ManyToOne
@@ -34,9 +35,12 @@ public class Raza implements Serializable {
 
 	}
 
-	public Raza(int raza_id, String nombre, Especie especie_id) {
+
+	public Raza(int raza_id, String nombre, String estado, Especie especie_id) {
+		super();
 		this.raza_id = raza_id;
 		this.nombre = nombre;
+		this.estado = estado;
 		this.especie_id = especie_id;
 	}
 
@@ -73,6 +77,18 @@ public class Raza implements Serializable {
 	public void setMascota(List<Mascota> mascota) {
 		this.mascota = mascota;
 	}
+	
+	
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -97,9 +113,9 @@ public class Raza implements Serializable {
 		List<Raza> razaList = new ArrayList<>();
 		razas.forEach(
 		e-> {
-			Especie especie = new Especie(e.getEspecie_id().getEspecie_id(), e.getEspecie_id().getNombreEspecie());
+			Especie especie = new Especie(e.getEspecie_id().getEspecie_id(), e.getEspecie_id().getNombreEspecie(),e.getEspecie_id().getEstado());
 
-			raza = new Raza(e.getRaza_id(), e.getNombre(),especie);
+			raza = new Raza(e.getRaza_id(), e.getNombre(),e.getEstado(),especie);
 			razaList.add(raza);
 
 		});

@@ -183,9 +183,9 @@ public class Mascota implements Serializable {
 		});
 		mascotas.forEach(
 		e-> {
-			especie = new Especie(e.getEspecie_id().getEspecie_id().getEspecie_id(), e.getEspecie_id().getEspecie_id().getNombreEspecie());
+			especie = new Especie(e.getEspecie_id().getEspecie_id().getEspecie_id(),e.getEspecie_id().getEspecie_id().getEstado(), e.getEspecie_id().getEspecie_id().getNombreEspecie());
 
-			raza = new Raza(e.getEspecie_id().getRaza_id(), e.getEspecie_id().getNombre(),especie);
+			raza = new Raza(e.getEspecie_id().getRaza_id(), e.getEspecie_id().getNombre(),e.getEspecie_id().getEstado(),especie);
 			mascota = new Mascota(e.getNombre(), e.getSexo(), e.getFechaNac(), e.getEdad(), e.getColoYSenalesParti(), propietario, raza);
 			
 			mascotaList.add(mascota);
