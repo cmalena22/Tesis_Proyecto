@@ -917,46 +917,50 @@ public class ApiRest {
 		ejbUsuarioFacade.idusuario(correopda);
 		System.out.println(ejbUsuarioFacade.idusuario(correopda));
 
-		System.out.println("--------------------------------------");
+		
+		 System.out.println("--------------------------------------");
+		 
+		 
+		 try {
+			
+				medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
+			
+				System.out.println(medi.getCedulaId());
+				System.out.println(medi.getNombres());
+				System.out.println(medi.getApellidos());
+				System.out.println(medi.getDireccion());
+				System.out.println(medi.getFechaNac());
+				System.out.println(medi.getCelular());
+				System.out.println(medi.getTitulo());
+				System.out.println(medi.getFotoMedico());
+				System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
+				System.out.println(medi.getUsuario_id().getUsuario_id());
+				
+				Usuario usua= new Usuario();
+				usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
+				usua.setCorreo(medi.getUsuario_id().getCorreo());
+				usua.setContrasena(medi.getUsuario_id().getContrasena());
+			
+				Especialidad espec= new Especialidad();
+				espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
+				espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
+				
+				if (medi != null) {
+					
+					final  MedicoVeterinario medico;
+					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),medi.getFotoMedico(),espec,usua);
+					return Response.ok(jsonb.toJson(medico)).build();
+			
+				}
+			} catch (Exception ex) {
+				return Response.ok("No esta").build();
 
-		try {
-
-			medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
-
-			System.out.println(medi.getCedulaId());
-			System.out.println(medi.getNombres());
-			System.out.println(medi.getApellidos());
-			System.out.println(medi.getDireccion());
-			System.out.println(medi.getFechaNac());
-			System.out.println(medi.getCelular());
-			System.out.println(medi.getTitulo());
-			System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
-			System.out.println(medi.getUsuario_id().getUsuario_id());
-
-			Usuario usua = new Usuario();
-			usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
-			usua.setCorreo(medi.getUsuario_id().getCorreo());
-			usua.setContrasena(medi.getUsuario_id().getContrasena());
-
-			Especialidad espec = new Especialidad();
-			espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
-			espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
-
-			if (medi != null) {
-
-				final MedicoVeterinario medico;
-				medico = new MedicoVeterinario(medi.getCedulaId(), medi.getNombres(), medi.getApellidos(),
-						medi.getDireccion(), medi.getFechaNac(), medi.getCelular(), medi.getTitulo(), espec, usua);
-				return Response.ok(jsonb.toJson(medico)).build();
-
-			}
-		} catch (Exception ex) {
-			return Response.ok("No esta").build();
 
 		}
 		return Response.ok("No esta").build();
 
 	}
+	
 
 	@GET
 	@Path("/users/{userId}")
@@ -993,7 +997,7 @@ public class ApiRest {
 			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
 			@FormParam("fechaNac") String fechaNac, @FormParam("correo") String correo,
 			@FormParam("contrasena") String contrasena, @FormParam("celular") String celular,
-			@FormParam("titulo") String titulo, @FormParam("especialidad_id") String especialidad_id) {
+			@FormParam("titulo") String titulo, @FormParam("fotomedico") String fotomedico,@FormParam("especialidad_id") String especialidad_id) {
 
 		System.out.println("Ingreso");
 		Jsonb jsonb = JsonbBuilder.create();
@@ -1015,6 +1019,8 @@ public class ApiRest {
 		System.out.println(celular);
 		System.out.println("titulo");
 		System.out.println(titulo);
+		System.out.println("fotomedico");
+		System.out.println(fotomedico);
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
 		Usuario usu = new Usuario();
@@ -1041,6 +1047,7 @@ public class ApiRest {
 		medi.setFechaNac(fechaNac);
 		medi.setCelular(celular);
 		medi.setTitulo(titulo);
+		medi.setFotoMedico(fotomedico);
 		medi.setEspecialidad_id(espe);
 		medi.setUsuario_id(usu);
 

@@ -319,9 +319,11 @@ public class ConsultaMedica implements Serializable {
 		e-> {
 			propietario=new Propietario(e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getIdPropietario(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getDireccion(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getPropietario(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getTelefono(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getCuidad(), e.getHistoria_Id().getMascota_id().getId_mascota_propietario().getCorreo());
 
-			medico=new MedicoVeterinario(e.getHistoria_Id().getCedula_id().getCedulaId(), e.getHistoria_Id().getCedula_id().getNombres(), e.getHistoria_Id().getCedula_id().getApellidos(), e.getHistoria_Id().getCedula_id().getDireccion(), e.getHistoria_Id().getCedula_id().getFechaNac(), e.getHistoria_Id().getCedula_id().getCelular(), e.getHistoria_Id().getCedula_id().getTitulo(),especialidad,usuario);
+
+			medico=new MedicoVeterinario(e.getHistoria_Id().getCedula_id().getCedulaId(), e.getHistoria_Id().getCedula_id().getNombres(), e.getHistoria_Id().getCedula_id().getApellidos(), e.getHistoria_Id().getCedula_id().getDireccion(), e.getHistoria_Id().getCedula_id().getFechaNac(), e.getHistoria_Id().getCedula_id().getCelular(), e.getHistoria_Id().getCedula_id().getTitulo(),e.getHistoria_Id().getCedula_id().getFotoMedico(),especialidad,usuario);
 			especie=new Especie(e.getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(), e.getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEstado(),e.getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie());
 			raza=new Raza(e.getHistoria_Id().getMascota_id().getEspecie_id().getRaza_id(),e.getHistoria_Id().getMascota_id().getEspecie_id().getNombre() ,e.getHistoria_Id().getMascota_id().getEspecie_id().getEstado(), especie);
+
 
 			mascota=new Mascota(e.getHistoria_Id().getMascota_id().getId_mascota(), e.getHistoria_Id().getMascota_id().getNombre(), e.getHistoria_Id().getMascota_id().getSexo(), e.getHistoria_Id().getMascota_id().getFechaNac(), e.getHistoria_Id().getMascota_id().getEdad(), e.getHistoria_Id().getMascota_id().getColoYSenalesParti(), propietario,raza);
 

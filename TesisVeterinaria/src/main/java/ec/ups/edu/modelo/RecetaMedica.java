@@ -145,7 +145,7 @@ public class RecetaMedica implements Serializable {
 			
 			medico=new MedicoVeterinario(e.getConsulta_id().getHistoria_Id().getCedula_id().getCedulaId(), e.getConsulta_id().getHistoria_Id().getCedula_id().getNombres(),
 					 e.getConsulta_id().getHistoria_Id().getCedula_id().getApellidos(), e.getConsulta_id().getHistoria_Id().getCedula_id().getDireccion(), e.getConsulta_id().getHistoria_Id().getCedula_id().getFechaNac(),
-					  e.getConsulta_id().getHistoria_Id().getCedula_id().getCelular(), e.getConsulta_id().getHistoria_Id().getCedula_id().getTitulo(),especialidad,usuario);
+					  e.getConsulta_id().getHistoria_Id().getCedula_id().getCelular(), e.getConsulta_id().getHistoria_Id().getCedula_id().getTitulo(), e.getConsulta_id().getHistoria_Id().getCedula_id().getFotoMedico(),especialidad,usuario);
 			
 			especie=new Especie(e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEspecie_id(),
 					 e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getNombreEspecie(), e.getConsulta_id().getHistoria_Id().getMascota_id().getEspecie_id().getEspecie_id().getEstado());

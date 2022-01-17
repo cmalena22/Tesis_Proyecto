@@ -33,6 +33,7 @@ public class MedicoVeterinario implements Serializable {
 	private String fechaNac;
 	private String celular;
 	private String titulo;
+	private String fotoMedico;
 	//foreing keys
 	//relacion historia-medico
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cedula_id")
@@ -57,8 +58,10 @@ public class MedicoVeterinario implements Serializable {
 	}
 
 
+
 	public MedicoVeterinario(String cedulaId, String nombres, String apellidos, String direccion, String fechaNac,
-			String celular, String titulo, Especialidad especialidad_id, Usuario usuario_id) {
+			String celular, String titulo, String fotoMedico,
+			Especialidad especialidad_id, Usuario usuario_id) {
 		super();
 		this.cedulaId = cedulaId;
 		this.nombres = nombres;
@@ -67,9 +70,11 @@ public class MedicoVeterinario implements Serializable {
 		this.fechaNac = fechaNac;
 		this.celular = celular;
 		this.titulo = titulo;
+		this.fotoMedico = fotoMedico;
 		this.especialidad_id = especialidad_id;
 		this.usuario_id = usuario_id;
 	}
+
 
 	public MedicoVeterinario(String cedulaId, String nombres, String apellidos, String direccion, String fechaNac,
 			String celular, String titulo, Especialidad especialidad_id) {
@@ -165,6 +170,19 @@ public class MedicoVeterinario implements Serializable {
 		this.historiaClinica = historiaClinica;
 	}
 
+	
+
+	public String getFotoMedico() {
+		return fotoMedico;
+	}
+
+
+
+	public void setFotoMedico(String fotoMedico) {
+		this.fotoMedico = fotoMedico;
+	}
+
+
 
 	public Especialidad getEspecialidad_id() {
 		return especialidad_id;
@@ -210,7 +228,7 @@ public class MedicoVeterinario implements Serializable {
 		List<MedicoVeterinario> mediList = new ArrayList<>();
 		medico.forEach(
 		e-> {
-			medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getEspecialidad_id(),e.getUsuario_id());
+			medi = new MedicoVeterinario(e.getCedulaId(),e.getNombres(),e.getApellidos(),e.getDireccion(),e.getFechaNac(),e.getCelular(),e.getTitulo(),e.getFotoMedico(),e.getEspecialidad_id(),e.getUsuario_id());
 			mediList.add(medi);		
 		});
 		return mediList;
