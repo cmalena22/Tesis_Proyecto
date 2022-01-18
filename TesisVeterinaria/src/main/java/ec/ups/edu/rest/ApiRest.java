@@ -1,5 +1,6 @@
 package ec.ups.edu.rest;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -59,6 +60,7 @@ import ec.ups.edu.modelo.Raza;
 import ec.ups.edu.modelo.RecetaMedica;
 import ec.ups.edu.modelo.Rol;
 import ec.ups.edu.modelo.Usuario;
+
 
 @Path("/prueba")
 public class ApiRest {
@@ -170,6 +172,9 @@ public class ApiRest {
 	@Path("/holamundo")
 	@Produces("text/html")
 	public String getHtml() {
+		String text="Hola  perez";
+		String text2=text.replace(" ", "+");
+		System.out.println(text2);
 		return "Hola Mundo!!";
 	}
 
@@ -989,6 +994,7 @@ public class ApiRest {
 		}
 	}
 
+	//0105933733
 	@POST
 	@Path("/registrarPUsuario")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1021,6 +1027,8 @@ public class ApiRest {
 		System.out.println(titulo);
 		System.out.println("fotomedico");
 		System.out.println(fotomedico);
+		String fotomedireplace=fotomedico.replace(" ", "+");
+		System.out.println(fotomedireplace);
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
 		Usuario usu = new Usuario();
@@ -1047,7 +1055,7 @@ public class ApiRest {
 		medi.setFechaNac(fechaNac);
 		medi.setCelular(celular);
 		medi.setTitulo(titulo);
-		medi.setFotoMedico(fotomedico);
+		medi.setFotoMedico(fotomedireplace);
 		medi.setEspecialidad_id(espe);
 		medi.setUsuario_id(usu);
 
@@ -1379,4 +1387,7 @@ public class ApiRest {
 		
 	}
 	
+	//0105933733
 }
+
+

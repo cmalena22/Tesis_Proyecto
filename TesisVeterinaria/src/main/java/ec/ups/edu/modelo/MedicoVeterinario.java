@@ -1,5 +1,6 @@
 package ec.ups.edu.modelo;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -34,6 +35,7 @@ public class MedicoVeterinario implements Serializable {
 	private String celular;
 	private String titulo;
 	private String fotoMedico;
+	//private byte [] fotoMedico;
 	//foreing keys
 	//relacion historia-medico
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cedula_id")
