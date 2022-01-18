@@ -182,7 +182,7 @@ public class ApiRest {
 	@Path("/registrarPropietario")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
-	public Response Prueba(@FormParam("cedula") String cedula, @FormParam("nombrepropietario") String nombrepropietario,
+	public Response registrarPropietario(@FormParam("cedula") String cedula, @FormParam("nombrepropietario") String nombrepropietario,
 			@FormParam("ciudad") String ciudad, @FormParam("direccion") String direccion,
 			@FormParam("telefono") String telefono, @FormParam("correo") String correo) {
 
