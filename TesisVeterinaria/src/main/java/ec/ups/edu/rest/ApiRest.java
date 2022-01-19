@@ -875,6 +875,7 @@ public class ApiRest {
 		}
 	}
 
+	/*
 	@GET
 	@Path("/medicoperfil/{correo}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -910,6 +911,7 @@ public class ApiRest {
 		return Response.ok("No esta").build();
 
 	}
+	*/
 
 	@GET
 	@Path("/medicoperfilcorreo/{correopda}")
@@ -1204,14 +1206,22 @@ public class ApiRest {
 
 	
 	//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
-	@POST
-	@Path("/registrarRecetaM")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,@FormParam("consulta_id") String consulta_id) {
-
-		Jsonb jsonb = JsonbBuilder.create();
+	
+	
+	@POST //el tipo de solicitud HTTP especifica para el método.
+	@Path("/registrarRecetaM") //se utiliza para especificar la ruta relativa del método.
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) //se utiliza para especificar el tipo de solicitud.
+	@Produces(MediaType.APPLICATION_JSON) ////se utiliza para especificar el tipo de respuesta.
+	
+	/*
+	 * (Responde) para enviar respuestas 
+	   (FormParam) mapear para cada uno de los parámetros esperados del formulario
+	 */
+	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,
+			@FormParam("consulta_id") String consulta_id) {
+		Jsonb jsonb = JsonbBuilder.create(); //crear un jsonb
 		
+		//Imprimir mensajes y los datos del @FormParam
 		System.out.println("el rp es:---");
 		System.out.println(rp);
 		System.out.println("prescripcion---");
@@ -1219,25 +1229,22 @@ public class ApiRest {
 		System.out.println("consulta_id---");
 		System.out.println(consulta_id);
 		
-		Date date = new Date();
-		ConsultaMedica cons= new ConsultaMedica();
-		int consultaid= Integer.parseInt(consulta_id);
-		cons.setIdConsultaMedica(consultaid);
+		Date date = new Date(); //Crear instancia de la clase Date
+		ConsultaMedica cons= new ConsultaMedica(); //Crear instancia de la clase ConsultaMedica
+		int consultaid= Integer.parseInt(consulta_id); //Convertir de String a int la variable consulta_id
+		cons.setIdConsultaMedica(consultaid); //setear en el atributo IdConsultaMedica un dato
+		RecetaMedica rem= new RecetaMedica(); //Crear instancia de la clase RecetaMedica
+		rem.setRp(rp);  //setear en el atributo rp un dato
+		rem.setPrescripcion(prescripcion);  //setear en el atributo prescripcion un dato
+		rem.setFecha(date); //setear en el atributo fecha un dato
+		rem.setConsulta_id(cons);  //setear en el atributo consulta_id un dato
 		
-		RecetaMedica rem= new RecetaMedica();
-		rem.setRp(rp);
-		rem.setPrescripcion(prescripcion);
-		rem.setFecha(date);
-		rem.setConsulta_id(cons);
-		
-		
-		ejbRecetaMedica.create(rem);
-		
-		return Response.ok("ok").build();
-		
+		//de la instancia de la clase RecetaMedicaFacade llamar al metodo create y pasar la receta medica
+		ejbRecetaMedica.create(rem); 
+		return Response.ok("ok").build(); //cuerpo de la respuesta Response devuelve el String "ok"
 	}
 	
-	
+	/*
 	@GET
 	@Path("/listarConsultaok/{idConsulta}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -1262,7 +1269,7 @@ public class ApiRest {
 		}
 		return Response.ok("No creado").build();
 	}
-	
+	*/
 	
 	@GET
 	@Path("/listasRecetaMedica/{idConsulta}")
