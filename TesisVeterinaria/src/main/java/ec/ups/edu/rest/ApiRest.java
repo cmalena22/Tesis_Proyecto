@@ -873,6 +873,7 @@ public class ApiRest {
 		}
 	}
 
+	/*
 	@GET
 	@Path("/medicoperfil/{correo}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -908,6 +909,7 @@ public class ApiRest {
 		return Response.ok("No esta").build();
 
 	}
+	*/
 
 	@GET
 	@Path("/medicoperfilcorreo/{correopda}")
@@ -1199,20 +1201,29 @@ public class ApiRest {
 
 	//
 
-	@POST
-	@Path("/registrarRecetaM")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response RegistroReceta(@FormParam("rp") String rp, 
-			@FormParam("prescripcion") String prescripcion,
+	
+	
+	@POST //el tipo de solicitud HTTP especifica para el método.
+	@Path("/registrarRecetaM") //se utiliza para especificar la ruta relativa del método.
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) //se utiliza para especificar el tipo de solicitud.
+	@Produces(MediaType.APPLICATION_JSON) ////se utiliza para especificar el tipo de respuesta.
+	
+	/*
+	 * (Responde) para enviar respuestas 
+	   (FormParam) mapear para cada uno de los parámetros esperados del formulario
+	 */
+	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,
 			@FormParam("consulta_id") String consulta_id) {
-		Jsonb jsonb = JsonbBuilder.create();
+		Jsonb jsonb = JsonbBuilder.create(); //crear un jsonb
+		
+		//Imprimir mensajes y los datos del @FormParam
 		System.out.println("el rp es:---");
 		System.out.println(rp);
 		System.out.println("prescripcion---");
 		System.out.println(prescripcion);
 		System.out.println("consulta_id---");
 		System.out.println(consulta_id);
+		
 		Date date = new Date();
 		ConsultaMedica cons = new ConsultaMedica();
 		int consultaid = Integer.parseInt(consulta_id);
@@ -1224,8 +1235,12 @@ public class ApiRest {
 		rem.setConsulta_id(cons);
 		ejbRecetaMedica.create(rem);
 		return Response.ok("ok").build();
+		
 	}
 
+
+	
+	/*
 	@GET
 	@Path("/listarConsultaok/{idConsulta}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -1251,6 +1266,8 @@ public class ApiRest {
 		return Response.ok("No creado").build();
 	}
 
+	*/
+	
 	@GET
 	@Path("/listasRecetaMedica/{idConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
