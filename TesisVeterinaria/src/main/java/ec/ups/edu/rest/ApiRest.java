@@ -61,7 +61,6 @@ import ec.ups.edu.modelo.RecetaMedica;
 import ec.ups.edu.modelo.Rol;
 import ec.ups.edu.modelo.Usuario;
 
-
 @Path("/prueba")
 public class ApiRest {
 
@@ -92,7 +91,7 @@ public class ApiRest {
 
 	@EJB
 	private ConsultaMedicaFacade ejbConsultaMedica;
-	
+
 	@EJB
 	private RecetaMedicaFacade ejbRecetaMedica;
 
@@ -172,8 +171,8 @@ public class ApiRest {
 	@Path("/holamundo")
 	@Produces("text/html")
 	public String getHtml() {
-		String text="Hola  perez";
-		String text2=text.replace(" ", "+");
+		String text = "Hola  perez";
+		String text2 = text.replace(" ", "+");
 		System.out.println(text2);
 		return "Hola Mundo!!";
 	}
@@ -182,9 +181,10 @@ public class ApiRest {
 	@Path("/registrarPropietario")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
-	public Response registrarPropietario(@FormParam("cedula") String cedula, @FormParam("nombrepropietario") String nombrepropietario,
-			@FormParam("ciudad") String ciudad, @FormParam("direccion") String direccion,
-			@FormParam("telefono") String telefono, @FormParam("correo") String correo) {
+	public Response registrarPropietario(@FormParam("cedula") String cedula,
+			@FormParam("nombrepropietario") String nombrepropietario, @FormParam("ciudad") String ciudad,
+			@FormParam("direccion") String direccion, @FormParam("telefono") String telefono,
+			@FormParam("correo") String correo) {
 
 		System.out.println("Ingreso");
 		Propietario propietario = new Propietario();
@@ -330,39 +330,39 @@ public class ApiRest {
 	@Path("/eliminarEspecie")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarEspecie(@FormParam("idEspecie") int idEspecie) {
-		System.out.println("nombre especie--------"+ idEspecie);
-		Especie especie= new Especie();
-		
-			System.out.println("editar");
-			especie=ejbEspecieFacade.find(idEspecie);
-			especie.setEstado("inactivo");
-			System.out.println(especie.toString());
-			ejbEspecieFacade.edit(especie);
-		
-			try {
-				// ejbPropietarioFacade.create(propietario);
-				return Response.ok("Ok")
-						.header("Access-Control-Allow-Origin", "*")
-						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-			} catch (Exception e) {
-				// TODO: handle exception
-				return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
-						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-			}
+		System.out.println("nombre especie--------" + idEspecie);
+		Especie especie = new Especie();
+
+		System.out.println("editar");
+		especie = ejbEspecieFacade.find(idEspecie);
+		especie.setEstado("inactivo");
+		System.out.println(especie.toString());
+		ejbEspecieFacade.edit(especie);
+
+		try {
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok("Ok").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
+	}
 
 	@POST
 	@Path("/registrarRaza")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response registrarRaza(@FormParam("nombreEspecie") String nombreEspecie, @FormParam("nombreRaza") String nombreRaza) {
-		System.out.println("nombre raza--------" + nombreEspecie+ nombreRaza);
+	public Response registrarRaza(@FormParam("nombreEspecie") String nombreEspecie,
+			@FormParam("nombreRaza") String nombreRaza) {
+		System.out.println("nombre raza--------" + nombreEspecie + nombreRaza);
 		Especie especie = new Especie();
 
-		especie= ejbEspecieFacade.especieByNombre(nombreEspecie);
+		especie = ejbEspecieFacade.especieByNombre(nombreEspecie);
 		System.out.println(especie.toString());
-		Raza raza= new Raza();
+		Raza raza = new Raza();
 		raza.setNombre(nombreRaza);
 		raza.setEspecie_id(especie);
 		raza.setEstado("activo");
@@ -375,15 +375,15 @@ public class ApiRest {
 	@POST
 	@Path("/editarRaza")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response editarRaza(@FormParam("raza_id") int raza_id,@FormParam("nombreEspecie") String nombreEspecie,
+	public Response editarRaza(@FormParam("raza_id") int raza_id, @FormParam("nombreEspecie") String nombreEspecie,
 			@FormParam("nombreRaza") String nombreRaza) {
-		System.out.println("nombre especie--------" + raza_id+ nombreRaza+ nombreEspecie);
-		Raza raza= new Raza();
-		Especie especie= new Especie();
+		System.out.println("nombre especie--------" + raza_id + nombreRaza + nombreEspecie);
+		Raza raza = new Raza();
+		Especie especie = new Especie();
 		System.out.println("editar raza");
-		raza =ejbRazaFacade.find(raza_id);
+		raza = ejbRazaFacade.find(raza_id);
 		System.out.println(raza.toString());
-		especie=ejbEspecieFacade.especieByNombre(nombreRaza);		
+		especie = ejbEspecieFacade.especieByNombre(nombreRaza);
 		raza.setNombre(nombreEspecie);
 		raza.setEspecie_id(especie);
 		ejbRazaFacade.edit(raza);
@@ -392,34 +392,32 @@ public class ApiRest {
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 	}
+
 	@POST
 	@Path("/eliminarRaza")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarRaza(@FormParam("idRaza") int idRaza) {
-		System.out.println("nombre especie--------"+ idRaza);
-		Raza raza= new Raza();
-		
-			System.out.println("editar");
-			raza=ejbRazaFacade.find(idRaza);
-			raza.setEstado("inactivo");
-			System.out.println(raza.toString());
-			ejbRazaFacade.edit(raza);
-		
-			try {
-				// ejbPropietarioFacade.create(propietario);
-				return Response.ok("Ok")
-						.header("Access-Control-Allow-Origin", "*")
-						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-			} catch (Exception e) {
-				// TODO: handle exception
-				return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
-						.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-						.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
-			}
+		System.out.println("nombre especie--------" + idRaza);
+		Raza raza = new Raza();
+
+		System.out.println("editar");
+		raza = ejbRazaFacade.find(idRaza);
+		raza.setEstado("inactivo");
+		System.out.println(raza.toString());
+		ejbRazaFacade.edit(raza);
+
+		try {
+			// ejbPropietarioFacade.create(propietario);
+			return Response.ok("Ok").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
-
-
+	}
 
 	@GET
 	@Path("/obtenerConstantesCabecera")
@@ -922,50 +920,48 @@ public class ApiRest {
 		ejbUsuarioFacade.idusuario(correopda);
 		System.out.println(ejbUsuarioFacade.idusuario(correopda));
 
-		
-		 System.out.println("--------------------------------------");
-		 
-		 
-		 try {
-			
-				medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
-			
-				System.out.println(medi.getCedulaId());
-				System.out.println(medi.getNombres());
-				System.out.println(medi.getApellidos());
-				System.out.println(medi.getDireccion());
-				System.out.println(medi.getFechaNac());
-				System.out.println(medi.getCelular());
-				System.out.println(medi.getTitulo());
-				System.out.println(medi.getFotoMedico());
-				System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
-				System.out.println(medi.getUsuario_id().getUsuario_id());
-				
-				Usuario usua= new Usuario();
-				usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
-				usua.setCorreo(medi.getUsuario_id().getCorreo());
-				usua.setContrasena(medi.getUsuario_id().getContrasena());
-			
-				Especialidad espec= new Especialidad();
-				espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
-				espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
-				
-				if (medi != null) {
-					
-					final  MedicoVeterinario medico;
-					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),medi.getFotoMedico(),espec,usua);
-					return Response.ok(jsonb.toJson(medico)).build();
-			
-				}
-			} catch (Exception ex) {
-				return Response.ok("No esta").build();
+		System.out.println("--------------------------------------");
 
+		try {
+
+			medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
+
+			System.out.println(medi.getCedulaId());
+			System.out.println(medi.getNombres());
+			System.out.println(medi.getApellidos());
+			System.out.println(medi.getDireccion());
+			System.out.println(medi.getFechaNac());
+			System.out.println(medi.getCelular());
+			System.out.println(medi.getTitulo());
+			System.out.println(medi.getFotoMedico());
+			System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
+			System.out.println(medi.getUsuario_id().getUsuario_id());
+
+			Usuario usua = new Usuario();
+			usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
+			usua.setCorreo(medi.getUsuario_id().getCorreo());
+			usua.setContrasena(medi.getUsuario_id().getContrasena());
+
+			Especialidad espec = new Especialidad();
+			espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
+			espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
+
+			if (medi != null) {
+
+				final MedicoVeterinario medico;
+				medico = new MedicoVeterinario(medi.getCedulaId(), medi.getNombres(), medi.getApellidos(),
+						medi.getDireccion(), medi.getFechaNac(), medi.getCelular(), medi.getTitulo(),
+						medi.getFotoMedico(), espec, usua);
+				return Response.ok(jsonb.toJson(medico)).build();
+
+			}
+		} catch (Exception ex) {
+			return Response.ok("No esta").build();
 
 		}
 		return Response.ok("No esta").build();
 
 	}
-	
 
 	@GET
 	@Path("/users/{userId}")
@@ -994,7 +990,7 @@ public class ApiRest {
 		}
 	}
 
-	//0105933733
+	// 0105933733
 	@POST
 	@Path("/registrarPUsuario")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1003,7 +999,8 @@ public class ApiRest {
 			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
 			@FormParam("fechaNac") String fechaNac, @FormParam("correo") String correo,
 			@FormParam("contrasena") String contrasena, @FormParam("celular") String celular,
-			@FormParam("titulo") String titulo, @FormParam("fotomedico") String fotomedico,@FormParam("especialidad_id") String especialidad_id) {
+			@FormParam("titulo") String titulo, @FormParam("fotomedico") String fotomedico,
+			@FormParam("especialidad_id") String especialidad_id) {
 
 		System.out.println("Ingreso");
 		Jsonb jsonb = JsonbBuilder.create();
@@ -1027,7 +1024,7 @@ public class ApiRest {
 		System.out.println(titulo);
 		System.out.println("fotomedico");
 		System.out.println(fotomedico);
-		String fotomedireplace=fotomedico.replace(" ", "+");
+		String fotomedireplace = fotomedico.replace(" ", "+");
 		System.out.println(fotomedireplace);
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
@@ -1202,53 +1199,44 @@ public class ApiRest {
 
 	//
 
-	
-	//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
 	@POST
 	@Path("/registrarRecetaM")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,@FormParam("consulta_id") String consulta_id) {
-
+	public Response RegistroReceta(@FormParam("rp") String rp, 
+			@FormParam("prescripcion") String prescripcion,
+			@FormParam("consulta_id") String consulta_id) {
 		Jsonb jsonb = JsonbBuilder.create();
-		
 		System.out.println("el rp es:---");
 		System.out.println(rp);
 		System.out.println("prescripcion---");
 		System.out.println(prescripcion);
 		System.out.println("consulta_id---");
 		System.out.println(consulta_id);
-		
 		Date date = new Date();
-		ConsultaMedica cons= new ConsultaMedica();
-		int consultaid= Integer.parseInt(consulta_id);
+		ConsultaMedica cons = new ConsultaMedica();
+		int consultaid = Integer.parseInt(consulta_id);
 		cons.setIdConsultaMedica(consultaid);
-		
-		RecetaMedica rem= new RecetaMedica();
+		RecetaMedica rem = new RecetaMedica();
 		rem.setRp(rp);
 		rem.setPrescripcion(prescripcion);
 		rem.setFecha(date);
 		rem.setConsulta_id(cons);
-		
-		
 		ejbRecetaMedica.create(rem);
-		
 		return Response.ok("ok").build();
-		
 	}
-	
-	
+
 	@GET
 	@Path("/listarConsultaok/{idConsulta}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response listamedicook(@PathParam("idConsulta") String idConsulta) {
-		
+
 		Jsonb jsonb = JsonbBuilder.create();
 		System.out.println("consulta id " + idConsulta);
-		
+
 		RecetaMedica rece = new RecetaMedica();
-	
-		int consulid= Integer.parseInt(idConsulta);
+
+		int consulid = Integer.parseInt(idConsulta);
 		try {
 			rece = ejbRecetaMedica.CorreoOk(consulid);
 			if (rece != null) {
@@ -1262,22 +1250,22 @@ public class ApiRest {
 		}
 		return Response.ok("No creado").build();
 	}
-	
-	
+
 	@GET
 	@Path("/listasRecetaMedica/{idConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listarRecetaMedica(@PathParam("idConsulta") String idConsulta) {
-		
+
 		Jsonb jsonb = JsonbBuilder.create();
 		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
-		int idconsulta= Integer.parseInt(idConsulta);
-	
+		int idconsulta = Integer.parseInt(idConsulta);
+
 		try {
-			//	consultaMedicasList = ConsultaMedica.serializeConsulta(ejbConsultaMedica.buscarId(idConsulta));
-			//serializeReceta
+			// consultaMedicasList =
+			// ConsultaMedica.serializeConsulta(ejbConsultaMedica.buscarId(idConsulta));
+			// serializeReceta
 			recetalist = RecetaMedica.serializeReceta(ejbRecetaMedica.IdListConsult(idconsulta));
-			//System.out.println("----" + recetalist);
+			// System.out.println("----" + recetalist);
 			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
@@ -1288,20 +1276,18 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
-	
-	
+
 	@GET
 	@Path("/listaDetalleRecetaM/{idReceta}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RecetaDetalle(@PathParam("idReceta") String idReceta) {
-		
+
 		Jsonb jsonb = JsonbBuilder.create();
 		List<RecetaMedica> recetalist = new ArrayList<RecetaMedica>();
-		int idRecetaa= Integer.parseInt(idReceta);
-		
-	
+		int idRecetaa = Integer.parseInt(idReceta);
+
 		try {
-			recetalist=RecetaMedica.serializeReceta(ejbRecetaMedica.buscarIdReceta(idRecetaa));
+			recetalist = RecetaMedica.serializeReceta(ejbRecetaMedica.buscarIdReceta(idRecetaa));
 			return Response.ok(jsonb.toJson(recetalist)).header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
@@ -1312,8 +1298,8 @@ public class ApiRest {
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
-	
-	//actualizaRecetaM
+
+	// actualizaRecetaM
 	@POST
 	@Path("/actualizaRecetaM")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1323,43 +1309,42 @@ public class ApiRest {
 
 		System.out.println("Ingreso");
 		Jsonb jsonb = JsonbBuilder.create();
-		
-		
-		int idRecetaa= Integer.parseInt(idReceta);
-		int consulta_idd= Integer.parseInt(consulta_id);
-		
-		ejbRecetaMedica.actualizarReceta(idRecetaa,rp,prescripcion);
-		
+
+		int idRecetaa = Integer.parseInt(idReceta);
+		int consulta_idd = Integer.parseInt(consulta_id);
+
+		ejbRecetaMedica.actualizarReceta(idRecetaa, rp, prescripcion);
+
 		return Response.ok("Bien").build();
-		
+
 	}
-	
+
 	//
 	@GET
 	@Path("/EliminarRecetaM/{idReceta}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response EliminarReceta(@PathParam("idReceta") String idReceta) {
-		
+
 		Jsonb jsonb = JsonbBuilder.create();
-		
-		int idRecetaa= Integer.parseInt(idReceta);
-		RecetaMedica rece =new RecetaMedica();
+
+		int idRecetaa = Integer.parseInt(idReceta);
+		RecetaMedica rece = new RecetaMedica();
 		rece.setIdReceta(idRecetaa);
-		
+
 		try {
 			ejbRecetaMedica.remove(rece);
 			return Response.ok("ok").header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		} catch (Exception e) {
-			
+
 			return Response.ok("Error").header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 		}
 	}
-	
-	//CorreoOk
+
+	// CorreoOk
 	@POST
 	@Path("/CorreoOk")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1367,15 +1352,15 @@ public class ApiRest {
 	public Response CorreoOk(@FormParam("correo") String correo) {
 
 		Jsonb jsonb = JsonbBuilder.create();
-		
+
 		System.out.println("el correo es: ");
 		System.out.println(correo);
-		
+
 		Usuario us = new Usuario();
-		
+
 		try {
-		
-		us = ejbUsuarioFacade.CorreoOk(correo);
+
+			us = ejbUsuarioFacade.CorreoOk(correo);
 			if (us != null) {
 				return Response.ok("ok").build();
 			}
@@ -1384,11 +1369,9 @@ public class ApiRest {
 
 		}
 		return Response.ok("No creado").build();
-		
+
 	}
-	
-	//0105933733
-	//0105933733
+
+	// 0105933733
+	// 0105933733
 }
-
-
