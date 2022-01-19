@@ -1394,8 +1394,107 @@ public class ApiRest {
 		
 	}
 	
+	@GET
+	@Path("/obtenerMedicoByCorreo/{idusuario}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response obtenerMedicoByCorreo(@PathParam("idusuario") String idusuario) {
+		
+		Jsonb jsonb = JsonbBuilder.create();
+		MedicoVeterinario medi = new MedicoVeterinario();
+		System.out.println(idusuario);
+		int id_usuario = Integer.parseInt(idusuario);
+
+		try {
+			medi = ejbMedicoVeterinarioFacade.buscarcorreoV(id_usuario);
+			System.out.println(medi.getCedulaId());
+			System.out.println(medi.getNombres());
+			System.out.println(medi.getApellidos());
+			System.out.println(medi.getDireccion());
+			System.out.println(medi.getFechaNac());
+			System.out.println(medi.getCelular());
+			System.out.println(medi.getTitulo());
+			System.out.println(medi.getFotoMedico());
+			System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
+			System.out.println(medi.getUsuario_id().getUsuario_id());
+			
+			Usuario usua= new Usuario();
+			usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
+			usua.setCorreo(medi.getUsuario_id().getCorreo());
+			usua.setContrasena(medi.getUsuario_id().getContrasena());
+		
+			Especialidad espec= new Especialidad();
+			espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
+			espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
+			
+			if (medi != null) {
+				
+				final  MedicoVeterinario medico;
+				medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),medi.getFotoMedico(),espec,usua);
+				return Response.ok(jsonb.toJson(medico)).build();
+		
+			}
+		} catch (Exception ex) {
+			return Response.ok("No esta").build();	
+	}
+	
+	return Response.ok("No esta").build();
+	
 	//0105933733
 	//0105933733
 }
+}
+/*
+ * 
+ * Usuario usu = new Usuario();
+		MedicoVeterinario medi = new MedicoVeterinario();
+		ejbUsuarioFacade.idusuario(correopda);
+		System.out.println(ejbUsuarioFacade.idusuario(correopda));
+
+		
+		 System.out.println("--------------------------------------");
+		 
+		 
+		 try {
+			
+				medi = ejbMedicoVeterinarioFacade.buscarcorreoV(ejbUsuarioFacade.idusuario(correopda));
+			
+				System.out.println(medi.getCedulaId());
+				System.out.println(medi.getNombres());
+				System.out.println(medi.getApellidos());
+				System.out.println(medi.getDireccion());
+				System.out.println(medi.getFechaNac());
+				System.out.println(medi.getCelular());
+				System.out.println(medi.getTitulo());
+				System.out.println(medi.getFotoMedico());
+				System.out.println(medi.getEspecialidad_id().getEspecialidad_id());
+				System.out.println(medi.getUsuario_id().getUsuario_id());
+				
+				Usuario usua= new Usuario();
+				usua.setUsuario_id(medi.getUsuario_id().getUsuario_id());
+				usua.setCorreo(medi.getUsuario_id().getCorreo());
+				usua.setContrasena(medi.getUsuario_id().getContrasena());
+			
+				Especialidad espec= new Especialidad();
+				espec.setTipoEspecialidad(medi.getEspecialidad_id().getTipoEspecialidad());
+				espec.setEspecialidad_id(medi.getEspecialidad_id().getEspecialidad_id());
+				
+				if (medi != null) {
+					
+					final  MedicoVeterinario medico;
+					medico = new MedicoVeterinario(medi.getCedulaId(),medi.getNombres(),medi.getApellidos(),medi.getDireccion(),medi.getFechaNac(),medi.getCelular(),medi.getTitulo(),medi.getFotoMedico(),espec,usua);
+					return Response.ok(jsonb.toJson(medico)).build();
+			
+				}
+			} catch (Exception ex) {
+				return Response.ok("No esta").build();
+
+
+		}
+		return Response.ok("No esta").build();
+
+	}
+	
+ * 
+ */
 
 
