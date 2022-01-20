@@ -1150,13 +1150,13 @@ public class ApiRest {
 	}
 
 	@POST
-	@Path("/actualizarPMedico")
+	@Path("/actualizarPMedico")//fotomedico
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ActualizarPMedico(@FormParam("cedula") String cedula, @FormParam("nombres") String nombres,
 			@FormParam("apellidos") String apellidos, @FormParam("direccion") String direccion,
 			@FormParam("fechaNac") String fechaNac, @FormParam("correo") String correo,
-			@FormParam("celular") String celular, @FormParam("titulo") String titulo,
+			@FormParam("celular") String celular, @FormParam("titulo") String titulo,@FormParam("fotomedico") String fotomedico,
 			@FormParam("especialidad_id") String especialidad_id, @FormParam("usuario_id") String usuario_id) {
 
 		System.out.println("Ingreso");
@@ -1177,6 +1177,10 @@ public class ApiRest {
 		System.out.println(celular);
 		System.out.println("titulo");
 		System.out.println(titulo);
+		System.out.println("fotomedico");
+		System.out.println(fotomedico);
+		String fotomedireplace = fotomedico.replace(" ", "+");
+		System.out.println(fotomedireplace);
 		System.out.println("especialidad id");
 		System.out.println(especialidad_id);
 		System.out.println("usuario id");
@@ -1191,7 +1195,7 @@ public class ApiRest {
 		// especialidad)
 
 		ejbMedicoVeterinarioFacade.actualizarusuario(usua_id, cedula, nombres, apellidos, celular, direccion, fechaNac,
-				titulo, espe);
+				titulo,fotomedireplace, espe);
 
 		return Response.ok("Bien").build();
 		// .header("Access-Control-Allow-Headers", "origin, content-type, accept,
