@@ -371,7 +371,7 @@ public class ApiRest {
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 	}
-
+    //
 	@POST
 	@Path("/editarRaza")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -1207,20 +1207,16 @@ public class ApiRest {
 
 	
 	
-	@POST //el tipo de solicitud HTTP especifica para el método.
-	@Path("/registrarRecetaM") //se utiliza para especificar la ruta relativa del método.
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) //se utiliza para especificar el tipo de solicitud.
-	@Produces(MediaType.APPLICATION_JSON) ////se utiliza para especificar el tipo de respuesta.
+	@POST 
+	@Path("/registrarRecetaM") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.APPLICATION_JSON) 
 	
-	/*
-	 * (Responde) para enviar respuestas 
-	   (FormParam) mapear para cada uno de los parámetros esperados del formulario
-	 */
+	
 	public Response RegistroReceta(@FormParam("rp") String rp,@FormParam("prescripcion") String prescripcion,
 			@FormParam("consulta_id") String consulta_id) {
-		Jsonb jsonb = JsonbBuilder.create(); //crear un jsonb
+		Jsonb jsonb = JsonbBuilder.create(); 
 		
-		//Imprimir mensajes y los datos del @FormParam
 		System.out.println("el rp es:---");
 		System.out.println(rp);
 		System.out.println("prescripcion---");
